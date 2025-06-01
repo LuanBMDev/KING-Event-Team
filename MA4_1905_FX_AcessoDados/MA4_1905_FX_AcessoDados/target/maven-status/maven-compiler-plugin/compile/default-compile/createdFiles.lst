@@ -1,0 +1,8 @@
+br\com\fatec\App.class
+br\com\fatec\model\Veiculo.class
+br\com\fatec\DAO\VeiculoDAO.class
+br\com\fatec\persistencia\Banco.class
+br\com\fatec\DAO\DAO.class
+br\com\fatec\controller\CadVeiculoController.class
+br\com\fatec\DAO\ProprietarioDAO.class
+br\com\fatec\model\Proprietario.class
