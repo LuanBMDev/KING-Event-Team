@@ -1,0 +1,27 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    
+}
+
+.fundo
+{
+    -fx-background-color: #005B93;
+}
+
+.botaoNormal 
+{
+    -fx-background-color: #FF6A10;
+}
+
+.botaoRedondo
+{
+    -fx-background-radius: 360;
+}
+
+.botaoFechar
+{
+    -fx-background-color: #FF2C10;
+}

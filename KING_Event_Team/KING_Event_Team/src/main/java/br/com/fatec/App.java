@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import javafx.scene.paint.Color;
 
 /**
  * JavaFX App
@@ -21,7 +22,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("view/CadVeiculo"));
+        scene = new Scene(loadFXML("view/MenuPrincipal"));
         stage.setScene(scene);
         stage.show();
     }
