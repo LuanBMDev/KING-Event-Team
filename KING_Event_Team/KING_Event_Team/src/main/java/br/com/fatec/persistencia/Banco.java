@@ -22,7 +22,7 @@ public class Banco {
     //define valores padrão
     static {
         //mysql e mariaDB
-        bancoDados = "Loja";
+        bancoDados = "KING_Event_Team";
         usuario = "root";
         senha = "";
         servidor = "localhost";
