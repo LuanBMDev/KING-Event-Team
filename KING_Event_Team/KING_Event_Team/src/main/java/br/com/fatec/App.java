@@ -1,7 +1,5 @@
 package br.com.fatec;
 
-import br.com.fatec.DAO.ProprietarioDAO;
-import br.com.fatec.model.Proprietario;
 import br.com.fatec.persistencia.Banco;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +9,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import javafx.scene.paint.Color;
 
 /**
  * JavaFX App
