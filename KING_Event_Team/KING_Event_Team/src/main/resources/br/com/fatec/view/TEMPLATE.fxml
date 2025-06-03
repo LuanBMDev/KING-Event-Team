@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="fundo" stylesheets="@../css/estilogeral.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controller.NovaCategoriaController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="fundo" stylesheets="@../css/estilogeral.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controller.TEMPLATEController">
    <children>
       <Button fx:id="btnFechar" layoutX="562.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnFechar_Click" stylesheets="@../css/estilogeral.css" text="X" textFill="WHITE">
          <styleClass>
@@ -16,7 +16,7 @@
             <String fx:value="botaoRedondo" />
          </styleClass>
       </Button>
-      <Button fx:id="btnMin" layoutX="530.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnMiin_Click" prefHeight="25.0" prefWidth="24.0" stylesheets="@../css/estilogeral.css" text="-" textFill="WHITE">
+      <Button fx:id="btnMin" layoutX="530.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnMin_Click" prefHeight="25.0" prefWidth="24.0" stylesheets="@../css/estilogeral.css" text="-" textFill="WHITE">
          <styleClass>
             <String fx:value="botaoRedondo" />
             <String fx:value="botaoNormal" />
