@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="fundo" stylesheets="@../css/estilogeral.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controller.GerenLocaisController">
+   <children>
+      <Button fx:id="btnFechar" layoutX="562.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnFechar_Click" stylesheets="@../css/estilogeral.css" text="X" textFill="WHITE">
+         <styleClass>
+            <String fx:value="botaoFechar" />
+            <String fx:value="botaoRedondo" />
+         </styleClass>
+      </Button>
+      <Button fx:id="btnMin" layoutX="530.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnMin_Click" prefHeight="25.0" prefWidth="24.0" stylesheets="@../css/estilogeral.css" text="-" textFill="WHITE">
+         <styleClass>
+            <String fx:value="botaoRedondo" />
+            <String fx:value="botaoNormal" />
+         </styleClass>
+      </Button>
+      <Button fx:id="btnVoltar" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVoltar_Click" stylesheets="@../css/estilogeral.css" text="&lt;" textFill="WHITE">
+         <styleClass>
+            <String fx:value="botaoNormal" />
+            <String fx:value="botaoRedondo" />
+         </styleClass>
+      </Button>
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="250.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/LogotipoPNG.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblTitulo" alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" prefHeight="75.0" prefWidth="344.0" styleClass="titulo" stylesheets="@../css/estilogeral.css" text="LOCALIZAÇÕES" textAlignment="CENTER" textFill="WHITE" underline="true">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tbvLocais" layoutX="9.0" layoutY="167.0" prefHeight="149.0" prefWidth="581.0">
+        <columns>
+          <TableColumn fx:id="colNomeLocal" prefWidth="113.0" text="Nome Local" />
+          <TableColumn fx:id="colEndereco" prefWidth="162.0" text="Endereço" />
+            <TableColumn fx:id="colNumero" minWidth="0.0" prefWidth="65.0" text="Número" />
+            <TableColumn fx:id="colCidade" prefWidth="104.0" text="Cidade" />
+            <TableColumn fx:id="coldCEP" prefWidth="88.0" text="CEP" />
+            <TableColumn fx:id="colTipo" prefWidth="48.0" text="Tipo" />
+        </columns>
+      </TableView>
+      <Pane fx:id="panBusca" layoutX="25.0" layoutY="101.0" prefHeight="62.0" prefWidth="546.0" style="-fx-border-color: white;" />
+      <Label layoutX="25.0" layoutY="84.0" text="Busca:" textFill="WHITE" />
+      <Button fx:id="btnEditar" layoutX="350.0" layoutY="332.0" mnemonicParsing="false" onAction="#btnEditar_Click" prefHeight="36.0" prefWidth="100.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="EDITAR" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnDeletar" layoutX="472.0" layoutY="332.0" mnemonicParsing="false" onAction="#btnDeletar_Click" prefHeight="36.0" prefWidth="100.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="DELETAR" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnNovoLocal" layoutX="52.0" layoutY="332.0" mnemonicParsing="false" onAction="#btnNovoLocal_Click" prefHeight="36.0" prefWidth="152.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="NOVA LOCALIZAÇÃO" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

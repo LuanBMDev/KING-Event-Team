@@ -88,7 +88,7 @@ public class MenuPrincipalController implements Initializable
     @FXML
     private void btnGerenLocal_Click(ActionEvent event) 
     {
-        
+        App.changeScene("GerenLocais");
     }
 
     @FXML
