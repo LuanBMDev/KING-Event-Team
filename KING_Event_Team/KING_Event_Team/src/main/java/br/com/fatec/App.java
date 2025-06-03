@@ -26,10 +26,12 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
-        scene = new Scene(loadFXML("view/MenuPrincipal"));
         
+        scene = new Scene(loadFXML("view/MenuPrincipal"));
         novaCategoria = new Scene(loadFXML("view/NovaCategoria"));
         
+        stage.setResizable(false);
+        stage.setMaximized(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
