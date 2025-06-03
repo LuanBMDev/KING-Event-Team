@@ -21,6 +21,7 @@ public class App extends Application {
     private static Stage stage;
     
     private static Scene scene;
+    private static Scene novoEvento;
     private static Scene novaCategoria;
     private static Scene novoLocal;
 
@@ -29,6 +30,7 @@ public class App extends Application {
         stage = primaryStage;
         
         scene = new Scene(loadFXML("view/MenuPrincipal"));
+        novoEvento = new Scene(loadFXML("view/NovoEvento"));
         novaCategoria = new Scene(loadFXML("view/NovaCategoria"));
         novoLocal = new Scene(loadFXML("view/NovaLocalizacao"));
         
@@ -44,6 +46,10 @@ public class App extends Application {
         {
             case "MenuPrincipal":
                 stage.setScene(scene);
+                break;
+            
+            case "NovoEvento":
+                stage.setScene(novoEvento);
                 break;
             
             case "NovaCategoria":

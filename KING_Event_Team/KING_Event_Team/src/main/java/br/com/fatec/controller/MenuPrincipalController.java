@@ -58,7 +58,7 @@ public class MenuPrincipalController implements Initializable
     @FXML
     private void btnNovoEvento_Click(ActionEvent event) 
     {
-        
+        App.changeScene("NovoEvento");
     }
 
     @FXML
