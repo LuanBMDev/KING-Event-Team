@@ -10,7 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -18,32 +19,25 @@ import javafx.stage.Stage;
  *
  * @author luann
  */
-public class MenuPrincipalController implements Initializable 
+public class NovaCategoriaController implements Initializable 
 {
 
     // Propriedades do FXML
     @FXML
-    private VBox vbxCadastrar;
-    @FXML
-    private Button btnNovoEvento;
-    @FXML
-    private Button btnNovaCat;
-    @FXML
-    private Button btnNovoLocal;
-    @FXML
-    private VBox vbxGerenciar;
-    @FXML
-    private Button btnGerenEventos;
-    @FXML
-    private Button btnGerenCat;
-    @FXML
-    private Button btnGerenLocal;
-    @FXML
     private Button btnFechar;
     @FXML
     private Button btnMin;
+    @FXML
+    private Button btnVoltar;
+    @FXML
+    private Label lblTitulo;
+    @FXML
+    private TextField txtNomeCat;
+    @FXML
+    private Button btnCadCat;
+    @FXML
+    private Button btnLimpar;
 
-    
     // Métodos de Controller
     /**
      * Initializes the controller class.
@@ -52,55 +46,37 @@ public class MenuPrincipalController implements Initializable
     public void initialize(URL url, ResourceBundle rb) 
     {
         // TODO
-    }
+    }    
 
     @FXML
-    private void btnNovoEvento_Click(ActionEvent event) 
+    private void btnCadCat_Click(ActionEvent event) 
     {
         
     }
 
     @FXML
-    private void btnNovaCat_Click(ActionEvent event) 
+    private void btnLimpar_Click(ActionEvent event) 
     {
-        
+        txtNomeCat.setText("");
     }
-
-    @FXML
-    private void btnNovoLocal_Click(ActionEvent event) 
-    {
-        
-    }
-
-    @FXML
-    private void btnGerenEventos_Click(ActionEvent event) 
-    {
-        
-    }
-
-    @FXML
-    private void btnGerenCat_Click(ActionEvent event) 
-    {
-        
-    }
-
-    @FXML
-    private void btnGerenLocal_Click(ActionEvent event) 
-    {
-        
-    }
-
+    
     @FXML
     private void btnFechar_Click(ActionEvent event) 
     {
         Stage stage = (Stage) btnFechar.getScene().getWindow();
         stage.close();
     }
-    
+
     @FXML
     private void btnMin_Click(ActionEvent event) 
     {
         Stage stage = (Stage) btnMin.getScene().getWindow();
         stage.setIconified(true);
+    }
+    
+    @FXML
+    private void btnVoltar_Click(ActionEvent event) 
+    {
+        
     }
 }
