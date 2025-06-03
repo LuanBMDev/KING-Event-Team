@@ -82,7 +82,7 @@ public class MenuPrincipalController implements Initializable
     @FXML
     private void btnGerenCat_Click(ActionEvent event) 
     {
-        
+        App.changeScene("GerenCategorias");
     }
 
     @FXML
