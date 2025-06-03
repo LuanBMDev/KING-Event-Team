@@ -18,13 +18,34 @@ import javafx.scene.paint.Color;
  */
 public class App extends Application {
 
+    private static Stage stage;
+    
     private static Scene scene;
+    private static Scene novaCategoria;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage primaryStage) throws IOException {
+        stage = primaryStage;
         scene = new Scene(loadFXML("view/MenuPrincipal"));
-        stage.setScene(scene);
-        stage.show();
+        
+        novaCategoria = new Scene(loadFXML("view/NovaCategoria"));
+        
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    
+    public static void changeScene(String nomeCena)
+    {
+        switch(nomeCena)
+        {
+            case "MenuPrincipal":
+                stage.setScene(scene);
+                break;
+            
+            case "NovaCategoria":
+                stage.setScene(novaCategoria);
+                break;
+        }
     }
 
     static void setRoot(String fxml) throws IOException {

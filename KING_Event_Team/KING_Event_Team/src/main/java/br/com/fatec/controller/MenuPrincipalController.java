@@ -4,6 +4,7 @@
  */
 package br.com.fatec.controller;
 
+import br.com.fatec.App;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -63,7 +64,7 @@ public class MenuPrincipalController implements Initializable
     @FXML
     private void btnNovaCat_Click(ActionEvent event) 
     {
-        
+        App.changeScene("NovaCategoria");
     }
 
     @FXML
