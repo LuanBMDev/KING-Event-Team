@@ -22,6 +22,7 @@ public class App extends Application {
     
     private static Scene scene;
     private static Scene novaCategoria;
+    private static Scene novoLocal;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -29,6 +30,7 @@ public class App extends Application {
         
         scene = new Scene(loadFXML("view/MenuPrincipal"));
         novaCategoria = new Scene(loadFXML("view/NovaCategoria"));
+        novoLocal = new Scene(loadFXML("view/NovaLocalizacao"));
         
         stage.setResizable(false);
         stage.setMaximized(false);
@@ -46,6 +48,10 @@ public class App extends Application {
             
             case "NovaCategoria":
                 stage.setScene(novaCategoria);
+                break;
+                
+            case "NovaLocalizacao":
+                stage.setScene(novoLocal);
                 break;
         }
     }

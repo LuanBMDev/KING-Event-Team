@@ -70,7 +70,7 @@ public class MenuPrincipalController implements Initializable
     @FXML
     private void btnNovoLocal_Click(ActionEvent event) 
     {
-        
+        App.changeScene("NovaLocalizacao");
     }
 
     @FXML

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="fundo" stylesheets="@../css/estilogeral.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controller.NovaLocalizacaoController">
+   <children>
+      <Button fx:id="btnFechar" layoutX="562.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnFechar_Click" stylesheets="@../css/estilogeral.css" text="X" textFill="WHITE">
+         <styleClass>
+            <String fx:value="botaoFechar" />
+            <String fx:value="botaoRedondo" />
+         </styleClass>
+      </Button>
+      <Button fx:id="btnMin" layoutX="530.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnMin_Click" prefHeight="25.0" prefWidth="24.0" stylesheets="@../css/estilogeral.css" text="-" textFill="WHITE">
+         <styleClass>
+            <String fx:value="botaoRedondo" />
+            <String fx:value="botaoNormal" />
+         </styleClass>
+      </Button>
+      <Button fx:id="btnVoltar" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVoltar_Click" stylesheets="@../css/estilogeral.css" text="&lt;" textFill="WHITE">
+         <styleClass>
+            <String fx:value="botaoNormal" />
+            <String fx:value="botaoRedondo" />
+         </styleClass>
+      </Button>
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="250.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/LogotipoPNG.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblTitulo" alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" prefHeight="75.0" prefWidth="344.0" styleClass="titulo" stylesheets="@../css/estilogeral.css" text="NOVA LOCALIZAÇÃO" textAlignment="CENTER" textFill="WHITE" underline="true">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtNomeLocal" layoutX="27.0" layoutY="116.0" prefHeight="25.0" prefWidth="547.0" />
+      <Label layoutX="27.0" layoutY="99.0" text="Nome do Local:" textFill="WHITE" />
+      <TextField fx:id="txtCEP" layoutX="27.0" layoutY="165.0" prefHeight="25.0" prefWidth="146.0" />
+      <Label layoutX="27.0" layoutY="148.0" text="CEP:" textFill="WHITE" />
+      <TextField fx:id="txtEndereco" layoutX="186.0" layoutY="165.0" prefHeight="25.0" prefWidth="268.0" />
+      <Label layoutX="186.0" layoutY="148.0" text="Endereço:" textFill="WHITE" />
+      <TextField fx:id="txtNumero" layoutX="466.0" layoutY="165.0" prefHeight="25.0" prefWidth="108.0" />
+      <Label layoutX="466.0" layoutY="148.0" text="Número:" textFill="WHITE" />
+      <TextField fx:id="txtCidade" layoutX="27.0" layoutY="217.0" prefHeight="25.0" prefWidth="344.0" />
+      <Label layoutX="27.0" layoutY="200.0" text="Cidade:" textFill="WHITE" />
+      <Label layoutX="384.0" layoutY="200.0" text="Tipo Local:" textFill="WHITE" />
+      <ComboBox fx:id="cmbTipo" layoutX="384.0" layoutY="217.0" prefHeight="25.0" prefWidth="189.0" />
+      <Button fx:id="btnCadLocal" layoutX="350.0" layoutY="275.0" mnemonicParsing="false" onAction="#btnCadLocal_Click" prefHeight="31.0" prefWidth="154.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="CADASTRAR LOCAL" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnLimpar" layoutX="96.0" layoutY="275.0" mnemonicParsing="false" onAction="#btnLimpar_Click" prefHeight="31.0" prefWidth="154.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="LIMPAR" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
