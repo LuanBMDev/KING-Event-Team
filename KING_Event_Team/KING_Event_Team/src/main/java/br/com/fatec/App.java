@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import javafx.stage.StageStyle;
 
 /**
  * JavaFX App
@@ -16,6 +17,8 @@ import java.sql.SQLException;
 public class App extends Application {
 
     private static Stage stage;
+    
+    private static double x,y = 0;
     
     private static Scene scene;
     private static Scene novoEvento;
@@ -34,16 +37,39 @@ public class App extends Application {
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
         
+        stage.initStyle(StageStyle.UNDECORATED);
+        
+        
         scene = new Scene(loadFXML("view/MenuPrincipal"));
+        tornarTelaMovimentavel(scene);
+        
         novoEvento = new Scene(loadFXML("view/NovoEvento"));
+        tornarTelaMovimentavel(novoEvento);
+        
         novaCategoria = new Scene(loadFXML("view/NovaCategoria"));
+        tornarTelaMovimentavel(novaCategoria);
+        
         novoLocal = new Scene(loadFXML("view/NovaLocalizacao"));
+        tornarTelaMovimentavel(novoLocal);
+        
         gerenCategorias = new Scene(loadFXML("view/GerenCategorias"));
+        tornarTelaMovimentavel(gerenCategorias);
+        
         gerenLocais = new Scene(loadFXML("view/GerenLocais"));
+        tornarTelaMovimentavel(gerenLocais);
+        
         gerenEventos = new Scene(loadFXML("view/GerenEventos"));
+        tornarTelaMovimentavel(gerenEventos);
+        
         novoVisitante = new Scene(loadFXML("view/NovoVisitante"));
+        tornarTelaMovimentavel(novoVisitante);
+        
         novoExpositor = new Scene(loadFXML("view/NovoExpositor"));
+        tornarTelaMovimentavel(novoExpositor);
+        
         gerenExpositores = new Scene(loadFXML("view/GerenExpositores"));
+        tornarTelaMovimentavel(gerenExpositores);
+        
         
         stage.setResizable(false);
         stage.setMaximized(false);
@@ -99,6 +125,19 @@ public class App extends Application {
         {
             changeScene(cenaAvo); 
         }
+    }
+    
+    public static void tornarTelaMovimentavel(Scene cena)
+    {
+        cena.setOnMousePressed(event -> {
+           x = event.getSceneX();
+           y = event.getSceneY();
+        });
+        
+        cena.setOnMouseDragged(event -> {
+            stage.setX(event.getScreenX() - x);
+            stage.setY(event.getScreenY() - y);
+        });
     }
 
     public static Scene getScene() {
