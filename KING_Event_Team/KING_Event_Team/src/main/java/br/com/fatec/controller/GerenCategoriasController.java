@@ -59,7 +59,7 @@ public class GerenCategoriasController {
     private void btnVoltar_Click(ActionEvent event) 
     {
         // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
-        App.changeScene("MenuPrincipal"); 
+        App.changeScene(App.getScene()); 
     }
 
     @FXML

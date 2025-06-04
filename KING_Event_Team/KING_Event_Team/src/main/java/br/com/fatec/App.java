@@ -23,6 +23,8 @@ public class App extends Application {
     private static Scene novoLocal;
     private static Scene gerenCategorias;
     private static Scene gerenLocais;
+    
+    private static Scene cenaAnterior;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -40,35 +42,52 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    
-    public static void changeScene(String nomeCena)
+   
+    public static void changeScene(Scene cena)
     {
-        switch(nomeCena)
+        cenaAnterior = stage.getScene();
+        
+        stage.setScene(cena);
+    }
+    
+    public static void voltarHierarquia(Scene cenaPai)
+    {
+        if (getCenaAnterior().equals(cenaPai))
         {
-            case "MenuPrincipal":
-                stage.setScene(scene);
-                break;
-            
-            case "NovoEvento":
-                stage.setScene(novoEvento);
-                break;
-            
-            case "NovaCategoria":
-                stage.setScene(novaCategoria);
-                break;
-                
-            case "NovaLocalizacao":
-                stage.setScene(novoLocal);
-                break;
-                
-            case "GerenCategorias":
-                stage.setScene(gerenCategorias);
-                break;
-                
-            case "GerenLocais":
-                stage.setScene(gerenLocais);
-                break;
+            changeScene(getGerenLocais());
         }
+        else
+        {
+            changeScene(getScene()); 
+        }
+    }
+
+    public static Scene getScene() {
+        return scene;
+    }
+
+    public static Scene getNovoEvento() {
+        return novoEvento;
+    }
+
+    public static Scene getNovaCategoria() {
+        return novaCategoria;
+    }
+
+    public static Scene getNovoLocal() {
+        return novoLocal;
+    }
+
+    public static Scene getGerenCategorias() {
+        return gerenCategorias;
+    }
+
+    public static Scene getGerenLocais() {
+        return gerenLocais;
+    }
+
+    public static Scene getCenaAnterior() {
+        return cenaAnterior;
     }
 
     static void setRoot(String fxml) throws IOException {

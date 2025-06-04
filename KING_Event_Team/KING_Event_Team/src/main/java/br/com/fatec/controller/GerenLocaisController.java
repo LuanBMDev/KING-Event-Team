@@ -69,7 +69,7 @@ public class GerenLocaisController {
     private void btnVoltar_Click(ActionEvent event) 
     {
         // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
-        App.changeScene("MenuPrincipal"); 
+        App.changeScene(App.getScene()); 
     }
 
     @FXML
@@ -81,6 +81,8 @@ public class GerenLocaisController {
     }
 
     @FXML
-    private void btnNovoLocal_Click(ActionEvent event) {
+    private void btnNovoLocal_Click(ActionEvent event) 
+    {
+        App.changeScene(App.getNovoLocal());
     }
 }

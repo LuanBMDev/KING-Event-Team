@@ -78,6 +78,6 @@ public class NovaCategoriaController implements Initializable
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        App.changeScene("MenuPrincipal");
+        App.changeScene(App.getScene());
     }
 }

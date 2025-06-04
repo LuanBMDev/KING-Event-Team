@@ -58,19 +58,19 @@ public class MenuPrincipalController implements Initializable
     @FXML
     private void btnNovoEvento_Click(ActionEvent event) 
     {
-        App.changeScene("NovoEvento");
+        App.changeScene(App.getNovoEvento());
     }
 
     @FXML
     private void btnNovaCat_Click(ActionEvent event) 
     {
-        App.changeScene("NovaCategoria");
+        App.changeScene(App.getNovaCategoria());
     }
 
     @FXML
     private void btnNovoLocal_Click(ActionEvent event) 
     {
-        App.changeScene("NovaLocalizacao");
+        App.changeScene(App.getNovoLocal());
     }
 
     @FXML
@@ -82,13 +82,13 @@ public class MenuPrincipalController implements Initializable
     @FXML
     private void btnGerenCat_Click(ActionEvent event) 
     {
-        App.changeScene("GerenCategorias");
+        App.changeScene(App.getGerenCategorias());
     }
 
     @FXML
     private void btnGerenLocal_Click(ActionEvent event) 
     {
-        App.changeScene("GerenLocais");
+        App.changeScene(App.getGerenLocais());
     }
 
     @FXML

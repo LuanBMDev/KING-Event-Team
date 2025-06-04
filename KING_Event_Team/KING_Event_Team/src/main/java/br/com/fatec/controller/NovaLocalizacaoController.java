@@ -70,6 +70,6 @@ public class NovaLocalizacaoController {
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        App.changeScene("MenuPrincipal"); 
+        App.voltarHierarquia(App.getGerenLocais());
     }
 }
