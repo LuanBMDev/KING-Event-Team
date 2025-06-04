@@ -103,7 +103,9 @@ public class GerenEventosController {
     }
 
     @FXML
-    private void btnCadVisitante_Click(ActionEvent event) {
+    private void btnCadVisitante_Click(ActionEvent event) 
+    {
+        App.changeScene(App.getNovoVisitante());
     }
 
     @FXML
