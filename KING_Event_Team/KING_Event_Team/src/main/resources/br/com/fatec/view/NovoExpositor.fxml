@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="fundo" stylesheets="@../css/estilogeral.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controller.NovoExpositorController">
+   <children>
+      <Button fx:id="btnFechar" layoutX="562.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnFechar_Click" stylesheets="@../css/estilogeral.css" text="X" textFill="WHITE">
+         <styleClass>
+            <String fx:value="botaoFechar" />
+            <String fx:value="botaoRedondo" />
+         </styleClass>
+      </Button>
+      <Button fx:id="btnMin" layoutX="530.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnMin_Click" prefHeight="25.0" prefWidth="24.0" stylesheets="@../css/estilogeral.css" text="-" textFill="WHITE">
+         <styleClass>
+            <String fx:value="botaoRedondo" />
+            <String fx:value="botaoNormal" />
+         </styleClass>
+      </Button>
+      <Button fx:id="btnVoltar" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVoltar_Click" stylesheets="@../css/estilogeral.css" text="&lt;" textFill="WHITE">
+         <styleClass>
+            <String fx:value="botaoNormal" />
+            <String fx:value="botaoRedondo" />
+         </styleClass>
+      </Button>
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="250.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/LogotipoPNG.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblTitulo" alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" prefHeight="75.0" prefWidth="344.0" styleClass="titulo" stylesheets="@../css/estilogeral.css" text="NOVO EXPOSITOR" textAlignment="CENTER" textFill="WHITE" underline="true">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgLogo" fitHeight="100.0" fitWidth="100.0" layoutX="38.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/TemplateLogo.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnLogo" layoutX="28.0" layoutY="188.0" mnemonicParsing="false" onAction="#btnLogo_Click" prefHeight="35.0" prefWidth="119.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="Escolher Logotipo" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <TextField fx:id="txtNome" layoutX="159.0" layoutY="107.0" prefHeight="25.0" prefWidth="422.0" />
+      <Label layoutX="159.0" layoutY="90.0" text="Nome / Nome Fantasia:" textFill="WHITE" />
+      <TextField fx:id="txtCPFCNPJ" layoutX="159.0" layoutY="149.0" prefHeight="25.0" prefWidth="185.0" />
+      <Label layoutX="159.0" layoutY="132.0" text="CPF / CNPJ:" textFill="WHITE" />
+      <TextField fx:id="txtTelefone" layoutX="396.0" layoutY="149.0" prefHeight="25.0" prefWidth="185.0" />
+      <Label layoutX="396.0" layoutY="132.0" text="Telefone de Contato:" textFill="WHITE" />
+      <TextField fx:id="txtEmail" layoutX="159.0" layoutY="191.0" prefHeight="25.0" prefWidth="422.0" />
+      <Label layoutX="159.0" layoutY="174.0" text="Email de Contato:" textFill="WHITE" />
+      <TextArea fx:id="txtDescricao" layoutX="27.0" layoutY="247.0" prefHeight="68.0" prefWidth="552.0" />
+      <Label layoutX="28.0" layoutY="230.0" text="Descrição da Exposição:" textFill="WHITE" />
+      <Button fx:id="btnCadExpo" layoutX="371.0" layoutY="333.0" mnemonicParsing="false" onAction="#btnCadExpo_Click" prefHeight="35.0" prefWidth="161.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="CADASTRAR EXPOSITOR" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnLimpar" layoutX="74.0" layoutY="333.0" mnemonicParsing="false" onAction="#btnLimpar_Click" prefHeight="35.0" prefWidth="161.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="LIMPAR" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

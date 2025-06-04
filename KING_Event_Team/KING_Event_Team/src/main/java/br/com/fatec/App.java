@@ -25,6 +25,7 @@ public class App extends Application {
     private static Scene gerenCategorias;
     private static Scene gerenLocais;
     private static Scene novoVisitante;
+    private static Scene novoExpositor;
     
     private static Scene cenaAnterior;
 
@@ -40,6 +41,7 @@ public class App extends Application {
         gerenLocais = new Scene(loadFXML("view/GerenLocais"));
         gerenEvento = new Scene(loadFXML("view/GerenEventos"));
         novoVisitante = new Scene(loadFXML("view/NovoVisitante"));
+        novoExpositor = new Scene(loadFXML("view/NovoExpositor"));
         
         stage.setResizable(false);
         stage.setMaximized(false);
@@ -105,6 +107,10 @@ public class App extends Application {
 
     public static Scene getNovoVisitante() {
         return novoVisitante;
+    }
+
+    public static Scene getNovoExpositor() {
+        return novoExpositor;
     }
     
     public static Scene getCenaAnterior() {

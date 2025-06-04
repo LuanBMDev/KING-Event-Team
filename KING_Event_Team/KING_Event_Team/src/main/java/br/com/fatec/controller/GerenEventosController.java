@@ -113,7 +113,9 @@ public class GerenEventosController {
     }
 
     @FXML
-    private void btnCadExpositor_Click(ActionEvent event) {
+    private void btnCadExpositor_Click(ActionEvent event) 
+    {
+        App.changeScene(App.getNovoExpositor());
     }
 
     @FXML
