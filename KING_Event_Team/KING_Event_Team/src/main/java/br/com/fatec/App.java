@@ -63,7 +63,7 @@ public class App extends Application {
     {
         if (getCenaAnterior().equals(cenaPai))
         {
-            changeScene(getGerenLocais());
+            changeScene(getCenaAnterior());
         }
         else
         {

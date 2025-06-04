@@ -33,13 +33,13 @@ public class GerenCategoriasController {
     @FXML
     private TableColumn<?, ?> colNomeCat;
     @FXML
-    private TableColumn<?, ?> colDeletar;
-    @FXML
-    private TableColumn<?, ?> colEditar;
-    @FXML
     private Pane panBusca;
     @FXML
-    private Button btnSalvar;
+    private Button btnEditar;
+    @FXML
+    private Button btnDeletar;
+    @FXML
+    private Button btnNovaCat;
 
     @FXML
     private void btnFechar_Click(ActionEvent event) 
@@ -63,6 +63,16 @@ public class GerenCategoriasController {
     }
 
     @FXML
-    private void btnSalvar_Click(ActionEvent event) {
+    private void btnEditar_Click(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnDeletar_Click(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnNovaCat_Click(ActionEvent event) 
+    {
+        App.changeScene(App.getNovaCategoria());
     }
 }

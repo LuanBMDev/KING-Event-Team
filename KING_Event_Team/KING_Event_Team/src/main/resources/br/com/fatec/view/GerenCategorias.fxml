@@ -41,16 +41,24 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="tbvCategorias" layoutX="28.0" layoutY="89.0" prefHeight="219.0" prefWidth="257.0">
+      <TableView fx:id="tbvCategorias" layoutX="28.0" layoutY="89.0" prefHeight="219.0" prefWidth="187.0">
         <columns>
-          <TableColumn fx:id="colNomeCat" prefWidth="146.0" text="Nome Categoria" />
-          <TableColumn fx:id="colDeletar" prefWidth="60.0" text="DELETAR" />
-            <TableColumn fx:id="colEditar" prefWidth="49.0" text="EDITAR" />
+          <TableColumn fx:id="colNomeCat" prefWidth="185.0" text="Nome Categoria" />
         </columns>
       </TableView>
-      <Pane fx:id="panBusca" layoutX="300.0" layoutY="108.0" prefHeight="152.0" prefWidth="257.0" style="-fx-border-color: white;" />
-      <Label layoutX="300.0" layoutY="89.0" text="Busca:" textFill="WHITE" />
-      <Button fx:id="btnSalvar" layoutX="375.0" layoutY="269.0" mnemonicParsing="false" onAction="#btnSalvar_Click" prefHeight="39.0" prefWidth="107.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="SALVAR" textFill="WHITE">
+      <Pane fx:id="panBusca" layoutX="235.0" layoutY="108.0" prefHeight="100.0" prefWidth="322.0" style="-fx-border-color: white;" />
+      <Label layoutX="233.0" layoutY="89.0" text="Busca:" textFill="WHITE" />
+      <Button fx:id="btnEditar" layoutX="267.0" layoutY="215.0" mnemonicParsing="false" onAction="#btnEditar_Click" prefHeight="39.0" prefWidth="107.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="EDITAR" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnDeletar" layoutX="423.0" layoutY="215.0" mnemonicParsing="false" onAction="#btnDeletar_Click" prefHeight="39.0" prefWidth="107.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="DELETAR" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnNovaCat" layoutX="314.0" layoutY="269.0" mnemonicParsing="false" onAction="#btnNovaCat_Click" prefHeight="39.0" prefWidth="164.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="NOVA CATEGORIA" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
