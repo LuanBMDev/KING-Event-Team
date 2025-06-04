@@ -50,6 +50,15 @@ public class App extends Application {
         stage.setScene(cena);
     }
     
+    /**
+     * Volta para a cena pai de uma tela caso ela seja a última cena em que o usuário
+     * esteve. Caso contrário, volta para o MenuPrincipal.
+     * <br><br>
+     * AVISO: Só utilize essa função em botões de voltar, nos quais sua tela pode ser 
+     * acessada por outra tela, que não o MenuPrincipal.
+     * 
+     * @param cenaPai  Uma outra tela em que é possível acessar a tela atual, e que não seja o MenuPrincipal.
+     */
     public static void voltarHierarquia(Scene cenaPai)
     {
         if (getCenaAnterior().equals(cenaPai))
