@@ -76,7 +76,7 @@ public class MenuPrincipalController implements Initializable
     @FXML
     private void btnGerenEventos_Click(ActionEvent event) 
     {
-        App.changeScene(App.getGerenEvento());
+        App.changeScene(App.getGerenEventos());
     }
 
     @FXML

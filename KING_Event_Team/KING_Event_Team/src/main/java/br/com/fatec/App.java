@@ -21,11 +21,12 @@ public class App extends Application {
     private static Scene novoEvento;
     private static Scene novaCategoria;
     private static Scene novoLocal;
-    private static Scene gerenEvento;
+    private static Scene gerenEventos;
     private static Scene gerenCategorias;
     private static Scene gerenLocais;
     private static Scene novoVisitante;
     private static Scene novoExpositor;
+    private static Scene gerenExpositores;
     
     private static Scene cenaAnterior;
 
@@ -39,9 +40,10 @@ public class App extends Application {
         novoLocal = new Scene(loadFXML("view/NovaLocalizacao"));
         gerenCategorias = new Scene(loadFXML("view/GerenCategorias"));
         gerenLocais = new Scene(loadFXML("view/GerenLocais"));
-        gerenEvento = new Scene(loadFXML("view/GerenEventos"));
+        gerenEventos = new Scene(loadFXML("view/GerenEventos"));
         novoVisitante = new Scene(loadFXML("view/NovoVisitante"));
         novoExpositor = new Scene(loadFXML("view/NovoExpositor"));
+        gerenExpositores = new Scene(loadFXML("view/GerenExpositores"));
         
         stage.setResizable(false);
         stage.setMaximized(false);
@@ -76,6 +78,28 @@ public class App extends Application {
             changeScene(getScene()); 
         }
     }
+    
+    /**
+     * Volta para a cena pai de uma tela caso ela seja a última cena em que o usuário
+     * esteve. Caso contrário, volta para a cena avô.
+     * <br><br>
+     * AVISO: Só utilize essa função em botões de voltar, nos quais sua tela pode ser 
+     * acessada por outra tela, que não a cena avô.
+     * 
+     * @param cenaPai  Uma outra tela em que é possível acessar a tela atual, e que não seja a cena pai.
+     * @param cenaAvo  Uma outra tela, na qual acessa-se a cena pai.
+     */
+    public static void voltarHierarquia(Scene cenaPai, Scene cenaAvo)
+    {
+        if (getCenaAnterior().equals(cenaPai))
+        {
+            changeScene(getCenaAnterior());
+        }
+        else
+        {
+            changeScene(cenaAvo); 
+        }
+    }
 
     public static Scene getScene() {
         return scene;
@@ -93,8 +117,8 @@ public class App extends Application {
         return novoLocal;
     }
 
-    public static Scene getGerenEvento() {
-        return gerenEvento;
+    public static Scene getGerenEventos() {
+        return gerenEventos;
     }
 
     public static Scene getGerenCategorias() {
@@ -111,6 +135,10 @@ public class App extends Application {
 
     public static Scene getNovoExpositor() {
         return novoExpositor;
+    }
+
+    public static Scene getGerenExpositores() {
+        return gerenExpositores;
     }
     
     public static Scene getCenaAnterior() {

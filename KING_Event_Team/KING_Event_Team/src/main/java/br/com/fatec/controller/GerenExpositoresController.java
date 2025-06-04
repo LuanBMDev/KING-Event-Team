@@ -8,17 +8,17 @@ import br.com.fatec.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
  *
  * @author luann
  */
-public class NovoEventoController {
+public class GerenExpositoresController {
 
     @FXML
     private Button btnFechar;
@@ -29,45 +29,30 @@ public class NovoEventoController {
     @FXML
     private Label lblTitulo;
     @FXML
-    private TextField txtNomeEvento;
+    private TableView<?> tbvExpositores;
     @FXML
-    private ComboBox<?> cmbLocal;
+    private TableColumn<?, ?> colCodigo;
     @FXML
-    private Button btnAddLocal;
+    private TableColumn<?, ?> colLogo;
     @FXML
-    private ComboBox<?> cmbCategoria;
+    private TableColumn<?, ?> colNome;
     @FXML
-    private Button btnAddCat;
+    private TableColumn<?, ?> colCPFCNPJ;
     @FXML
-    private TextField txtDataInicio;
+    private TableColumn<?, ?> colTelefone;
     @FXML
-    private TextField txtDataFinal;
+    private TableColumn<?, ?> colEmail;
     @FXML
-    private TextField txtPrecoPadrao;
+    private TableColumn<?, ?> colDesc;
     @FXML
-    private TextArea txtDescricao;
+    private Pane panBusca;
     @FXML
-    private Button btnCriarEvento;
+    private Button btnNovoExpositor;
     @FXML
-    private Button btnLimpar;
-    
+    private Button btnEditar;
+    @FXML
+    private Button btnDeletar;
 
-    @FXML
-    private void btnAddLocal_Click(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnAddCat_Click(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnCriarEvento_Click(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnLimpar_Click(ActionEvent event) {
-    }
-    
     @FXML
     private void btnFechar_Click(ActionEvent event) 
     {
@@ -85,6 +70,20 @@ public class NovoEventoController {
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        App.voltarHierarquia(App.getGerenEventos());
+        App.changeScene(App.getGerenEventos()); 
+    }
+
+    @FXML
+    private void btnNovoExpositor_Click(ActionEvent event) 
+    {
+        App.changeScene(App.getNovoExpositor());
+    }
+
+    @FXML
+    private void btnEditar_Click(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnDeletar_Click(ActionEvent event) {
     }
 }

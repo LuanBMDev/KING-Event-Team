@@ -119,6 +119,8 @@ public class GerenEventosController {
     }
 
     @FXML
-    private void btnGerenExpositores_Click(ActionEvent event) {
+    private void btnGerenExpositores_Click(ActionEvent event) 
+    {
+        App.changeScene(App.getGerenExpositores());
     }
 }

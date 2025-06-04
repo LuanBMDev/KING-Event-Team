@@ -44,6 +44,6 @@ public class NovoVisitanteController {
     private void btnVoltar_Click(ActionEvent event) 
     {
         // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
-        App.changeScene(App.getGerenEvento()); 
+        App.changeScene(App.getGerenEventos()); 
     }
 }

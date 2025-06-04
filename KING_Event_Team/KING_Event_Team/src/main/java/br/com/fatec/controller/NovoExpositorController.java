@@ -64,7 +64,7 @@ public class NovoExpositorController {
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        App.changeScene(App.getGerenEvento()); 
+        App.voltarHierarquia(App.getGerenExpositores(), App.getGerenEventos());
     }
 
     @FXML
