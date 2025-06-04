@@ -85,7 +85,6 @@ public class NovoEventoController {
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
-        App.changeScene(App.getScene()); 
+        App.voltarHierarquia(App.getGerenEvento());
     }
 }
