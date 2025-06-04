@@ -5,8 +5,11 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -17,7 +20,8 @@ import javafx.stage.Stage;
  *
  * @author luann
  */
-public class NovaLocalizacaoController {
+public class NovaLocalizacaoController implements Initializable
+{
 
     @FXML
     private Button btnFechar;
@@ -44,6 +48,10 @@ public class NovaLocalizacaoController {
     @FXML
     private Button btnLimpar;
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        
+    }
     
     @FXML
     private void btnCadLocal_Click(ActionEvent event) {

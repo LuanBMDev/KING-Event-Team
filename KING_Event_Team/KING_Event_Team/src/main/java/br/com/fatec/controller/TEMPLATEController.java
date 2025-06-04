@@ -5,8 +5,11 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -15,7 +18,8 @@ import javafx.stage.Stage;
  *
  * @author luann
  */
-public class TEMPLATEController {
+public class TEMPLATEController implements Initializable
+{
 
     @FXML
     private Button btnFechar;
@@ -26,6 +30,11 @@ public class TEMPLATEController {
     @FXML
     private Label lblTitulo;
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+    
+    }
+    
     @FXML
     private void btnFechar_Click(ActionEvent event) 
     {
