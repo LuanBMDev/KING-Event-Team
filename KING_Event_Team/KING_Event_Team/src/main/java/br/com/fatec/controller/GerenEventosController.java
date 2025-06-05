@@ -123,7 +123,7 @@ public class GerenEventosController implements Initializable{
     @FXML
     private void btnCadExpositor_Click(ActionEvent event) 
     {
-        App.changeScene(App.getNovoExpositor());
+        App.addScene(App.getNovaExposicao());
     }
 
     @FXML

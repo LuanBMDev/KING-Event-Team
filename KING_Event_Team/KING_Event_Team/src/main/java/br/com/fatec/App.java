@@ -30,6 +30,7 @@ public class App extends Application {
     private static Scene novoVisitante;
     private static Scene novoExpositor;
     private static Scene gerenExpositores;
+    private static Scene novaExposicao;
     
     private static Scene cenaAnterior;
 
@@ -70,6 +71,8 @@ public class App extends Application {
         gerenExpositores = new Scene(loadFXML("view/GerenExpositores"));
         tornarTelaMovimentavel(gerenExpositores);
         
+        novaExposicao = new Scene(loadFXML("view/NovaExposicao"));
+        tornarTelaMovimentavel(novaExposicao);
         
         stage.setResizable(false);
         stage.setMaximized(false);
@@ -82,6 +85,13 @@ public class App extends Application {
         cenaAnterior = stage.getScene();
         
         stage.setScene(cena);
+    }
+    
+    public static void addScene(Scene cena)
+    {
+        Stage stage2 = new Stage();
+        stage2.setScene(cena);
+        stage2.show();
     }
     
     /**
@@ -179,6 +189,11 @@ public class App extends Application {
     public static Scene getGerenExpositores() {
         return gerenExpositores;
     }
+
+    public static Scene getNovaExposicao() {
+        return novaExposicao;
+    }
+    
     
     public static Scene getCenaAnterior() {
         return cenaAnterior;
