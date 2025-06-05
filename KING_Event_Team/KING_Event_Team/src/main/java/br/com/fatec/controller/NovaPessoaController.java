@@ -18,7 +18,7 @@ import javafx.stage.Stage;
  *
  * @author luann
  */
-public class NovoVisitanteController implements Initializable
+public class NovaPessoaController implements Initializable
 {
 
     @FXML
@@ -53,6 +53,6 @@ public class NovoVisitanteController implements Initializable
     private void btnVoltar_Click(ActionEvent event) 
     {
         // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
-        App.changeScene(App.getGerenEventos()); 
+        App.voltarHierarquia(App.getGerenPessoas()); 
     }
 }

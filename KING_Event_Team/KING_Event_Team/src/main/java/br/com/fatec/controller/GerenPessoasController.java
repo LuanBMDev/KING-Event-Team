@@ -21,7 +21,8 @@ import javafx.stage.Stage;
  *
  * @author luann
  */
-public class GerenEventosController implements Initializable{
+public class GerenPessoasController implements Initializable
+{
 
     @FXML
     private Button btnFechar;
@@ -32,47 +33,27 @@ public class GerenEventosController implements Initializable{
     @FXML
     private Label lblTitulo;
     @FXML
-    private TableView<?> tbvEventos;
+    private TableView<?> tbvPessoas;
     @FXML
-    private TableColumn<?, ?> colCodEvento;
+    private TableColumn<?, ?> colCPF;
     @FXML
-    private TableColumn<?, ?> colNomeEvento;
+    private TableColumn<?, ?> colNome;
     @FXML
-    private TableColumn<?, ?> colDescEvento;
+    private TableColumn<?, ?> colEmail;
     @FXML
-    private TableColumn<?, ?> colDataInicio;
-    @FXML
-    private TableColumn<?, ?> colDataFim;
-    @FXML
-    private TableColumn<?, ?> colStatus;
-    @FXML
-    private TableColumn<?, ?> colLocal;
-    @FXML
-    private TableColumn<?, ?> colCategoria;
-    @FXML
-    private TableColumn<?, ?> colIngressoPadrao;
-    @FXML
-    private TableColumn<?, ?> colTotalVendido;
+    private TableColumn<?, ?> colTelefone;
     @FXML
     private Pane panBusca;
     @FXML
-    private Button btnDeletar;
-    @FXML
     private Button btnEditar;
     @FXML
-    private Button btnNovoEvento;
+    private Button btnDeletar;
     @FXML
-    private Button btnCadVisitante;
-    @FXML
-    private Button btnGerenVisitantes;
-    @FXML
-    private Button btnCadExpositor;
-    @FXML
-    private Button btnGerenExpositores;
+    private Button btnNovaPessoa;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+    
     }
     
     @FXML
@@ -97,38 +78,16 @@ public class GerenEventosController implements Initializable{
     }
 
     @FXML
-    private void btnDeletar_Click(ActionEvent event) {
-    }
-
-    @FXML
     private void btnEditar_Click(ActionEvent event) {
     }
 
     @FXML
-    private void btnNovoEvento_Click(ActionEvent event) 
-    {
-        App.changeScene(App.getNovoEvento());
+    private void btnDeletar_Click(ActionEvent event) {
     }
 
     @FXML
-    private void btnCadVisitante_Click(ActionEvent event) 
+    private void btnNovaPessoa_Click(ActionEvent event) 
     {
-        
-    }
-
-    @FXML
-    private void btnGerenVisitantes_Click(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnCadExpositor_Click(ActionEvent event) 
-    {
-        App.changeScene(App.getNovoExpositor());
-    }
-
-    @FXML
-    private void btnGerenExpositores_Click(ActionEvent event) 
-    {
-        App.changeScene(App.getGerenExpositores());
+        App.changeScene(App.getNovaPessoa());
     }
 }

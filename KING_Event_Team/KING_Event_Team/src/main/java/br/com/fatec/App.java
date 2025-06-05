@@ -27,7 +27,8 @@ public class App extends Application {
     private static Scene gerenEventos;
     private static Scene gerenCategorias;
     private static Scene gerenLocais;
-    private static Scene novoVisitante;
+    private static Scene novaPessoa;
+    private static Scene gerenPessoas;
     private static Scene novoExpositor;
     private static Scene gerenExpositores;
     
@@ -61,8 +62,11 @@ public class App extends Application {
         gerenEventos = new Scene(loadFXML("view/GerenEventos"));
         tornarTelaMovimentavel(gerenEventos);
         
-        novoVisitante = new Scene(loadFXML("view/NovoVisitante"));
-        tornarTelaMovimentavel(novoVisitante);
+        novaPessoa = new Scene(loadFXML("view/NovaPessoa"));
+        tornarTelaMovimentavel(novaPessoa);
+        
+        gerenPessoas = new Scene(loadFXML("view/GerenPessoas"));
+        tornarTelaMovimentavel(gerenPessoas);
         
         novoExpositor = new Scene(loadFXML("view/NovoExpositor"));
         tornarTelaMovimentavel(novoExpositor);
@@ -168,8 +172,12 @@ public class App extends Application {
         return gerenLocais;
     }
 
-    public static Scene getNovoVisitante() {
-        return novoVisitante;
+    public static Scene getNovaPessoa() {
+        return novaPessoa;
+    }
+
+    public static Scene getGerenPessoas() {
+        return gerenPessoas;
     }
 
     public static Scene getNovoExpositor() {

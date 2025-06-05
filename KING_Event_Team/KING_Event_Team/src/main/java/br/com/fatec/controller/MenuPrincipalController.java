@@ -43,6 +43,10 @@ public class MenuPrincipalController implements Initializable
     private Button btnFechar;
     @FXML
     private Button btnMin;
+    @FXML
+    private Button btnNovaPessoa;
+    @FXML
+    private Button btnGerenPessoas;
 
     
     // Métodos de Controller
@@ -103,5 +107,17 @@ public class MenuPrincipalController implements Initializable
     {
         Stage stage = (Stage) btnMin.getScene().getWindow();
         stage.setIconified(true);
+    }
+
+    @FXML
+    private void btnNovaPessoa_Click(ActionEvent event) 
+    {
+        App.changeScene(App.getNovaPessoa());
+    }
+
+    @FXML
+    private void btnGerenPessoas_Click(ActionEvent event) 
+    {
+        App.changeScene(App.getGerenPessoas());
     }
 }

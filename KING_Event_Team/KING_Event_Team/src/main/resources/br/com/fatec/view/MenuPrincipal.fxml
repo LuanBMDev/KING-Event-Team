@@ -12,11 +12,25 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="fundo" stylesheets="@../css/estilogeral.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controller.MenuPrincipalController">
    <children>
-      <VBox fx:id="vbxCadastrar" alignment="TOP_CENTER" layoutX="162.0" layoutY="186.0" prefHeight="138.0" prefWidth="127.0" spacing="20.0" style="-fx-border-color: white;">
+      <VBox fx:id="vbxCadastrar" alignment="TOP_CENTER" layoutX="139.0" layoutY="173.0" prefHeight="182.0" prefWidth="150.0" spacing="20.0" style="-fx-border-color: white;">
          <children>
-            <Button fx:id="btnNovoEvento" mnemonicParsing="false" onAction="#btnNovoEvento_Click" prefWidth="108.0" styleClass="botaoNormal" stylesheets="@../css/menuprincipal.css" text="Novo Evento" textAlignment="CENTER" textFill="WHITE" />
-            <Button fx:id="btnNovaCat" mnemonicParsing="false" onAction="#btnNovaCat_Click" prefWidth="108.0" styleClass="botaoNormal" stylesheets="@../css/menuprincipal.css" text="Nova Categoria" textAlignment="CENTER" textFill="WHITE" />
-            <Button fx:id="btnNovoLocal" mnemonicParsing="false" onAction="#btnNovoLocal_Click" styleClass="botaoNormal" stylesheets="@../css/menuprincipal.css" text="Nova Localização" textAlignment="CENTER" textFill="WHITE" />
+            <Button fx:id="btnNovoEvento" mnemonicParsing="false" onAction="#btnNovoEvento_Click" prefWidth="137.0" styleClass="botaoNormal" stylesheets="@../css/menuprincipal.css" text="NOVO EVENTO" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnNovaPessoa" mnemonicParsing="false" onAction="#btnNovaPessoa_Click" prefWidth="137.0" styleClass="botaoNormal" stylesheets="@../css/menuprincipal.css" text="NOVA PESSOA" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnNovaCat" mnemonicParsing="false" onAction="#btnNovaCat_Click" prefWidth="137.0" styleClass="botaoNormal" stylesheets="@../css/menuprincipal.css" text="NOVA CATEGORIA" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnNovoLocal" mnemonicParsing="false" onAction="#btnNovoLocal_Click" styleClass="botaoNormal" stylesheets="@../css/menuprincipal.css" text="NOVA LOCALIZAÇÃO" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
          </children>
          <opaqueInsets>
             <Insets />
@@ -25,11 +39,25 @@
             <Insets bottom="10.0" top="10.0" />
          </padding>
       </VBox>
-      <VBox fx:id="vbxGerenciar" alignment="TOP_CENTER" layoutX="312.0" layoutY="186.0" prefHeight="138.0" prefWidth="127.0" spacing="20.0" style="-fx-border-color: white;">
+      <VBox fx:id="vbxGerenciar" alignment="TOP_CENTER" layoutX="312.0" layoutY="173.0" prefHeight="138.0" prefWidth="150.0" spacing="20.0" style="-fx-border-color: white;">
          <children>
-            <Button fx:id="btnGerenEventos" mnemonicParsing="false" onAction="#btnGerenEventos_Click" prefWidth="108.0" styleClass="botaoNormal" stylesheets="@../css/menuprincipal.css" text="Eventos" textFill="WHITE" />
-            <Button fx:id="btnGerenCat" mnemonicParsing="false" onAction="#btnGerenCat_Click" prefWidth="108.0" styleClass="botaoNormal" stylesheets="@../css/menuprincipal.css" text="Categorias" textFill="WHITE" />
-            <Button fx:id="btnGerenLocal" mnemonicParsing="false" onAction="#btnGerenLocal_Click" prefWidth="108.0" styleClass="botaoNormal" stylesheets="@../css/menuprincipal.css" text="Localizações" textFill="WHITE" />
+            <Button fx:id="btnGerenEventos" mnemonicParsing="false" onAction="#btnGerenEventos_Click" prefWidth="137.0" styleClass="botaoNormal" stylesheets="@../css/menuprincipal.css" text="EVENTOS" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnGerenPessoas" mnemonicParsing="false" onAction="#btnGerenPessoas_Click" prefWidth="137.0" styleClass="botaoNormal" stylesheets="@../css/menuprincipal.css" text="PESSOAS" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnGerenCat" mnemonicParsing="false" onAction="#btnGerenCat_Click" prefWidth="137.0" styleClass="botaoNormal" stylesheets="@../css/menuprincipal.css" text="CATEGORIAS" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnGerenLocal" mnemonicParsing="false" onAction="#btnGerenLocal_Click" prefWidth="137.0" styleClass="botaoNormal" stylesheets="@../css/menuprincipal.css" text="LOCALIZAÇÕES" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
          </children>
          <padding>
             <Insets bottom="10.0" top="10.0" />
@@ -53,7 +81,7 @@
             <Image url="@../images/LogotipoPNG.png" />
          </image>
       </ImageView>
-      <Label layoutX="162.0" layoutY="171.0" text="Cadastrar" textFill="WHITE" />
-      <Label layoutX="312.0" layoutY="171.0" text="Gerenciar" textFill="WHITE" />
+      <Label layoutX="162.0" layoutY="158.0" text="Cadastrar" textFill="WHITE" />
+      <Label layoutX="312.0" layoutY="158.0" text="Gerenciar" textFill="WHITE" />
    </children>
 </AnchorPane>
