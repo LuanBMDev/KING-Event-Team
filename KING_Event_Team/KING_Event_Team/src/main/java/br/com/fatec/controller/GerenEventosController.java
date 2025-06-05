@@ -62,13 +62,13 @@ public class GerenEventosController implements Initializable{
     @FXML
     private Button btnNovoEvento;
     @FXML
-    private Button btnCadExpositor;
-    @FXML
-    private Button btnGerenExpositores;
-    @FXML
     private Button btnCadIngresso;
     @FXML
     private Button btnGerenIngressos;
+    @FXML
+    private Button btnCadExposicao;
+    @FXML
+    private Button btnGerenExposicoes;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -111,13 +111,11 @@ public class GerenEventosController implements Initializable{
     }
 
 
-    @FXML
     private void btnCadExpositor_Click(ActionEvent event) 
     {
         App.addScene(App.getNovaExposicao());
     }
 
-    @FXML
     private void btnGerenExpositores_Click(ActionEvent event) 
     {
         App.changeScene(App.getGerenExpositores());
@@ -126,12 +124,24 @@ public class GerenEventosController implements Initializable{
     @FXML
     private void btnCadIngresso_Click(ActionEvent event) 
     {
-        App.changeScene(App.getNovoIngresso());
+        App.addScene(App.getNovoIngresso());
     }
 
     @FXML
     private void btnGerenIngressos_Click(ActionEvent event) 
     {
         App.changeScene(App.getGerenIngressos());
+    }
+
+    @FXML
+    private void btnCadExposicao_Click(ActionEvent event) 
+    {
+        App.addScene(App.getNovaExposicao());
+    }
+
+    @FXML
+    private void btnGerenExposicoes_Click(ActionEvent event) 
+    {
+        App.changeScene(App.getGerenExposicoes());
     }
 }

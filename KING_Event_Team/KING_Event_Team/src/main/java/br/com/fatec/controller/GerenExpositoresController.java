@@ -79,7 +79,7 @@ public class GerenExpositoresController implements Initializable {
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        App.changeScene(App.getGerenEventos()); 
+        App.changeScene(App.getScene()); 
     }
 
     @FXML

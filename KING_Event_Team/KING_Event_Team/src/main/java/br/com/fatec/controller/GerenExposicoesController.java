@@ -12,16 +12,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
  *
  * @author luann
  */
-public class NovoExpositorController implements Initializable
+public class GerenExposicoesController implements Initializable
 {
 
     @FXML
@@ -33,23 +33,19 @@ public class NovoExpositorController implements Initializable
     @FXML
     private Label lblTitulo;
     @FXML
-    private ImageView imgLogo;
+    private TableView<?> tbvExposicoes;
     @FXML
-    private Button btnLogo;
+    private TableColumn<?, ?> colNomeExpo;
     @FXML
-    private TextField txtNome;
+    private TableColumn<?, ?> colDescExpo;
     @FXML
-    private TextField txtCPFCNPJ;
+    private Pane panBusca;
     @FXML
-    private TextField txtTelefone;
+    private Button btnNovaExpo;
     @FXML
-    private TextField txtEmail;
+    private Button btnEditar;
     @FXML
-    private TextArea txtDescricao;
-    @FXML
-    private Button btnCadExpo;
-    @FXML
-    private Button btnLimpar;
+    private Button btnDeletar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -73,18 +69,21 @@ public class NovoExpositorController implements Initializable
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        App.changeScene(App.getScene());
+        // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
+        App.changeScene(App.getGerenEventos()); 
     }
 
     @FXML
-    private void btnLogo_Click(ActionEvent event) {
+    private void btnNovaExpo_Click(ActionEvent event) 
+    {
+        App.addScene(App.getNovaExposicao());
     }
 
     @FXML
-    private void btnCadExpo_Click(ActionEvent event) {
+    private void btnEditar_Click(ActionEvent event) {
     }
 
     @FXML
-    private void btnLimpar_Click(ActionEvent event) {
+    private void btnDeletar_Click(ActionEvent event) {
     }
 }

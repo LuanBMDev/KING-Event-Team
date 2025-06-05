@@ -35,6 +35,7 @@ public class App extends Application {
     private static Scene novoIngresso;
     private static Scene gerenIngressos;
     private static Scene novaExposicao;
+    private static Scene gerenExposicoes;
     
     private static Scene cenaAnterior;
 
@@ -86,6 +87,9 @@ public class App extends Application {
         
         novaExposicao = new Scene(loadFXML("view/NovaExposicao"));
         tornarTelaMovimentavel(novaExposicao);
+        
+        gerenExposicoes = new Scene(loadFXML("view/GerenExposicoes"));
+        tornarTelaMovimentavel(gerenExposicoes);
         
         stage.setResizable(false);
         stage.setMaximized(false);
@@ -243,7 +247,10 @@ public class App extends Application {
     public static Scene getNovaExposicao() {
         return novaExposicao;
     }
-    
+
+    public static Scene getGerenExposicoes() {
+        return gerenExposicoes;
+    }
     
     public static Scene getCenaAnterior() {
         return cenaAnterior;

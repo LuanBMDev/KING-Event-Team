@@ -47,6 +47,10 @@ public class MenuPrincipalController implements Initializable
     private Button btnNovaPessoa;
     @FXML
     private Button btnGerenPessoas;
+    @FXML
+    private Button btnNovoExpo;
+    @FXML
+    private Button btnGerenExpo;
 
     
     // Métodos de Controller
@@ -119,5 +123,17 @@ public class MenuPrincipalController implements Initializable
     private void btnGerenPessoas_Click(ActionEvent event) 
     {
         App.changeScene(App.getGerenPessoas());
+    }
+
+    @FXML
+    private void btnNovoExpo_Click(ActionEvent event) 
+    {
+        App.changeScene(App.getNovoExpositor());
+    }
+
+    @FXML
+    private void btnGerenExpo_Click(ActionEvent event) 
+    {
+        App.changeScene(App.getGerenExpositores());
     }
 }
