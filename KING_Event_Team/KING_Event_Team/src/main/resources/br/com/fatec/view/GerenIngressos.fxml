@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="fundo" stylesheets="@../css/estilogeral.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controller.GerenIngressosController">
+   <children>
+      <Button fx:id="btnFechar" layoutX="562.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnFechar_Click" stylesheets="@../css/estilogeral.css" text="X" textFill="WHITE">
+         <styleClass>
+            <String fx:value="botaoFechar" />
+            <String fx:value="botaoRedondo" />
+         </styleClass>
+      </Button>
+      <Button fx:id="btnMin" layoutX="530.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnMin_Click" prefHeight="25.0" prefWidth="24.0" stylesheets="@../css/estilogeral.css" text="-" textFill="WHITE">
+         <styleClass>
+            <String fx:value="botaoRedondo" />
+            <String fx:value="botaoNormal" />
+         </styleClass>
+      </Button>
+      <Button fx:id="btnVoltar" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVoltar_Click" stylesheets="@../css/estilogeral.css" text="&lt;" textFill="WHITE">
+         <styleClass>
+            <String fx:value="botaoNormal" />
+            <String fx:value="botaoRedondo" />
+         </styleClass>
+      </Button>
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="250.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/LogotipoPNG.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblTitulo" alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" prefHeight="75.0" prefWidth="344.0" styleClass="titulo" stylesheets="@../css/estilogeral.css" text="INGRESSOS" textAlignment="CENTER" textFill="WHITE" underline="true">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tbvIngressos" layoutX="27.0" layoutY="114.0" prefHeight="200.0" prefWidth="334.0">
+        <columns>
+          <TableColumn fx:id="colNome" prefWidth="187.0" text="Nome Visitante" />
+          <TableColumn fx:id="colTotal" prefWidth="67.0" text="Total Pago" />
+            <TableColumn fx:id="colMeiaEntrada" prefWidth="79.0" text="Meia Entrada" />
+        </columns>
+      </TableView>
+      <Label alignment="CENTER" layoutX="27.0" layoutY="87.0" text="Ingressos do Evento" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtNomeEvento" layoutX="195.0" layoutY="87.0" prefHeight="27.0" prefWidth="393.0" text="&lt;Nome do Evento&gt;" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Pane fx:id="panBusca" layoutX="370.0" layoutY="137.0" prefHeight="92.0" prefWidth="216.0" style="-fx-border-color: white;" />
+      <Label layoutX="370.0" layoutY="120.0" text="Busca:" textFill="WHITE" />
+      <Button fx:id="btnEditar" layoutX="402.0" layoutY="280.0" mnemonicParsing="false" onAction="#btnEditar_Click" prefHeight="34.0" prefWidth="72.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="EDITAR" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnDeletar" layoutX="482.0" layoutY="280.0" mnemonicParsing="false" onAction="#btnDeletar_Click" prefHeight="34.0" prefWidth="72.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="DELETAR" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnNovoIngresso" layoutX="401.0" layoutY="237.0" mnemonicParsing="false" onAction="#btnNovoIngresso_Click" prefHeight="34.0" prefWidth="154.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="NOVO INGRESSO" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

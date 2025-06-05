@@ -21,7 +21,8 @@ import javafx.stage.Stage;
  *
  * @author luann
  */
-public class GerenEventosController implements Initializable{
+public class GerenIngressosController implements Initializable
+{
 
     @FXML
     private Button btnFechar;
@@ -32,47 +33,27 @@ public class GerenEventosController implements Initializable{
     @FXML
     private Label lblTitulo;
     @FXML
-    private TableView<?> tbvEventos;
+    private TableView<?> tbvIngressos;
     @FXML
-    private TableColumn<?, ?> colCodEvento;
+    private TableColumn<?, ?> colNome;
     @FXML
-    private TableColumn<?, ?> colNomeEvento;
+    private TableColumn<?, ?> colTotal;
     @FXML
-    private TableColumn<?, ?> colDescEvento;
+    private TableColumn<?, ?> colMeiaEntrada;
     @FXML
-    private TableColumn<?, ?> colDataInicio;
-    @FXML
-    private TableColumn<?, ?> colDataFim;
-    @FXML
-    private TableColumn<?, ?> colStatus;
-    @FXML
-    private TableColumn<?, ?> colLocal;
-    @FXML
-    private TableColumn<?, ?> colCategoria;
-    @FXML
-    private TableColumn<?, ?> colIngressoPadrao;
-    @FXML
-    private TableColumn<?, ?> colTotalVendido;
+    private Label txtNomeEvento;
     @FXML
     private Pane panBusca;
     @FXML
-    private Button btnDeletar;
-    @FXML
     private Button btnEditar;
     @FXML
-    private Button btnNovoEvento;
+    private Button btnDeletar;
     @FXML
-    private Button btnCadExpositor;
-    @FXML
-    private Button btnGerenExpositores;
-    @FXML
-    private Button btnCadIngresso;
-    @FXML
-    private Button btnGerenIngressos;
+    private Button btnNovoIngresso;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+    
     }
     
     @FXML
@@ -93,11 +74,7 @@ public class GerenEventosController implements Initializable{
     private void btnVoltar_Click(ActionEvent event) 
     {
         // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
-        App.changeScene(App.getScene()); 
-    }
-
-    @FXML
-    private void btnDeletar_Click(ActionEvent event) {
+        App.changeScene(App.getGerenEventos()); 
     }
 
     @FXML
@@ -105,33 +82,10 @@ public class GerenEventosController implements Initializable{
     }
 
     @FXML
-    private void btnNovoEvento_Click(ActionEvent event) 
-    {
-        App.changeScene(App.getNovoEvento());
-    }
-
-
-    @FXML
-    private void btnCadExpositor_Click(ActionEvent event) 
-    {
-        App.changeScene(App.getNovoExpositor());
+    private void btnDeletar_Click(ActionEvent event) {
     }
 
     @FXML
-    private void btnGerenExpositores_Click(ActionEvent event) 
-    {
-        App.changeScene(App.getGerenExpositores());
-    }
-
-    @FXML
-    private void btnCadIngresso_Click(ActionEvent event) 
-    {
-        App.changeScene(App.getNovoIngresso());
-    }
-
-    @FXML
-    private void btnGerenIngressos_Click(ActionEvent event) 
-    {
-        App.changeScene(App.getGerenIngressos());
+    private void btnNovoIngresso_Click(ActionEvent event) {
     }
 }

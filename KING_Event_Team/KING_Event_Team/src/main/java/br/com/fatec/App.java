@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import javafx.scene.control.Alert;
 import javafx.stage.StageStyle;
 
 /**
@@ -31,6 +32,8 @@ public class App extends Application {
     private static Scene gerenPessoas;
     private static Scene novoExpositor;
     private static Scene gerenExpositores;
+    private static Scene novoIngresso;
+    private static Scene gerenIngressos;
     
     private static Scene cenaAnterior;
 
@@ -74,11 +77,26 @@ public class App extends Application {
         gerenExpositores = new Scene(loadFXML("view/GerenExpositores"));
         tornarTelaMovimentavel(gerenExpositores);
         
+        novoIngresso = new Scene(loadFXML("view/NovoIngresso"));
+        tornarTelaMovimentavel(novoIngresso);
+        
+        gerenIngressos = new Scene(loadFXML("view/GerenIngressos"));
+        tornarTelaMovimentavel(gerenIngressos);
+        
         
         stage.setResizable(false);
         stage.setMaximized(false);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+    
+        private void mensagem(String msg) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle("Mensagem");
+        alerta.setHeaderText(msg);
+        alerta.setContentText("");
+
+        alerta.showAndWait(); //exibe a mensage
     }
    
     public static void changeScene(Scene cena)
@@ -186,6 +204,14 @@ public class App extends Application {
 
     public static Scene getGerenExpositores() {
         return gerenExpositores;
+    }
+
+    public static Scene getNovoIngresso() {
+        return novoIngresso;
+    }
+
+    public static Scene getGerenIngressos() {
+        return gerenIngressos;
     }
     
     public static Scene getCenaAnterior() {
