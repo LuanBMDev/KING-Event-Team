@@ -8,7 +8,7 @@ package br.com.fatec.model;
  *
  * @author luann
  */
-public class Localizacoes 
+public class Localizacao 
 {
     private int codLocal;
     private String nomeLocal;
@@ -18,10 +18,10 @@ public class Localizacoes
     private String cidade;
     private String tipoLocal;
 
-    public Localizacoes() {
+    public Localizacao() {
     }
 
-    public Localizacoes(int codLocal, String nomeLocal, String CEP, String enderecoLocal, int numeroLocal, String cidade, String tipoLocal) {
+    public Localizacao(int codLocal, String nomeLocal, String CEP, String enderecoLocal, int numeroLocal, String cidade, String tipoLocal) {
         this.codLocal = codLocal;
         this.nomeLocal = nomeLocal;
         this.CEP = CEP;
