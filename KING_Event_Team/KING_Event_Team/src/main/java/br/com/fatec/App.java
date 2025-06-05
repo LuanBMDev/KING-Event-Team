@@ -34,6 +34,7 @@ public class App extends Application {
     private static Scene gerenExpositores;
     private static Scene novoIngresso;
     private static Scene gerenIngressos;
+    private static Scene novaExposicao;
     
     private static Scene cenaAnterior;
 
@@ -83,6 +84,8 @@ public class App extends Application {
         gerenIngressos = new Scene(loadFXML("view/GerenIngressos"));
         tornarTelaMovimentavel(gerenIngressos);
         
+        novaExposicao = new Scene(loadFXML("view/NovaExposicao"));
+        tornarTelaMovimentavel(novaExposicao);
         
         stage.setResizable(false);
         stage.setMaximized(false);
@@ -104,6 +107,17 @@ public class App extends Application {
         cenaAnterior = stage.getScene();
         
         stage.setScene(cena);
+    }
+    
+    public static void addScene(Scene cena)
+    {
+        Stage stage2 = new Stage();
+        stage2.initStyle(StageStyle.UNDECORATED);
+        tornarTelaMovimentavel(cena, stage2);
+        stage2.setResizable(false);
+        stage2.setMaximized(false);
+        stage2.setScene(cena);
+        stage2.show();
     }
     
     /**
@@ -161,6 +175,19 @@ public class App extends Application {
             stage.setY(event.getScreenY() - y);
         });
     }
+    
+    public static void tornarTelaMovimentavel(Scene cena, Stage outroStage)
+    {
+        cena.setOnMousePressed(event -> {
+           x = event.getSceneX();
+           y = event.getSceneY();
+        });
+        
+        cena.setOnMouseDragged(event -> {
+            outroStage.setX(event.getScreenX() - x);
+            outroStage.setY(event.getScreenY() - y);
+        });
+    }
 
     public static Scene getScene() {
         return scene;
@@ -213,6 +240,10 @@ public class App extends Application {
     public static Scene getGerenIngressos() {
         return gerenIngressos;
     }
+    public static Scene getNovaExposicao() {
+        return novaExposicao;
+    }
+    
     
     public static Scene getCenaAnterior() {
         return cenaAnterior;
