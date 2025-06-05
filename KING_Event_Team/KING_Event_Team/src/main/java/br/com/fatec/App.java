@@ -90,6 +90,10 @@ public class App extends Application {
     public static void addScene(Scene cena)
     {
         Stage stage2 = new Stage();
+        stage2.initStyle(StageStyle.UNDECORATED);
+        tornarTelaMovimentavel(cena, stage2);
+        stage2.setResizable(false);
+        stage2.setMaximized(false);
         stage2.setScene(cena);
         stage2.show();
     }
@@ -147,6 +151,19 @@ public class App extends Application {
         cena.setOnMouseDragged(event -> {
             stage.setX(event.getScreenX() - x);
             stage.setY(event.getScreenY() - y);
+        });
+    }
+    
+    public static void tornarTelaMovimentavel(Scene cena, Stage outroStage)
+    {
+        cena.setOnMousePressed(event -> {
+           x = event.getSceneX();
+           y = event.getSceneY();
+        });
+        
+        cena.setOnMouseDragged(event -> {
+            outroStage.setX(event.getScreenX() - x);
+            outroStage.setY(event.getScreenY() - y);
         });
     }
 
