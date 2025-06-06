@@ -2,61 +2,60 @@ CREATE DATABASE KING_Event_Team;
 
 USE KING_Event_Team;
 
-CREATE TABLE Localizacoes 
+CREATE TABLE Localizacao
 (
     codLocal INT PRIMARY KEY AUTO_INCREMENT,
-    nomeLocal VARCHAR(100),
-    CEPLocal VARCHAR(10),
-    enderecoLocal VARCHAR(100),
+    nomeLocal VARCHAR(100) NOT NULL,
+    CEP VARCHAR(9),
+    endereco VARCHAR(255) NOT NULL,
     numeroLocal INT,
-    cidadeLocal VARCHAR(100),
-    tipoLocal VARCHAR(100)
+    cidade VARCHAR(100),
+    tipoLocal VARCHAR(10) NOT NULL
 );
 
-CREATE TABLE Categorias 
+CREATE TABLE Categoria 
 (
     codCat INT PRIMARY KEY AUTO_INCREMENT,
-    nomeCat VARCHAR(100)
+    nomeCat VARCHAR(32) NOT NULL
 );
 
-CREATE TABLE Eventos 
+CREATE TABLE Evento
 (
     codEvento INT PRIMARY KEY AUTO_INCREMENT,
-    nomeEvento VARCHAR(100),
-    descEvento VARCHAR(255),
-    dataInicioEvento VARCHAR(10),
-    dataFimEvento VARCHAR(10),
-    statusEvento VARCHAR(100),
-    codLocal INT,
-    codCat INT,
-    precoPadraoIngresso NUMERIC,
+    nomeEvento VARCHAR(100) NOT NULL,
+    dataInicio VARCHAR(10) NOT NULL,
+    dataFim VARCHAR(10) NOT NULL,
+    statusEvento VARCHAR(12) NOT NULL,
+    codLocal INT NOT NULL,
+    codCat INT NOT NULL,
+    precoIngresso NUMERIC NOT NULL,
     FOREIGN KEY (codLocal) REFERENCES Localizacoes(codLocal),
     FOREIGN KEY (codCat) REFERENCES Categorias(codCat)
 );
 
-CREATE TABLE Pessoas 
+CREATE TABLE Pessoa
 (
-    cpf VARCHAR(20) PRIMARY KEY,
-    nome VARCHAR(100),
-    email VARCHAR(100),
+    CPF VARCHAR(20) PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
     telefone VARCHAR(20)
 );
 
-CREATE TABLE Expositores 
+CREATE TABLE Expositor 
 (
     codExpo INT PRIMARY KEY AUTO_INCREMENT,
-    nomeFant VARCHAR(100),
-    CPFCNPJ VARCHAR(20),
+    nomeFant VARCHAR(100) NOT NULL,
+    CPFCNPJ VARCHAR(20) NOT NULL,
     logoExpo VARCHAR(255),
-    emailExpo VARCHAR(100),
-    telefoneExpo VARCHAR(20)
+    emailExpo VARCHAR(100) NOT NULL,
+    telefoneExpo VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE Exposicao 
 (
     codEvento INT,
     codExpo INT,
-    descricao VARCHAR(255),
+    descricao VARCHAR(255) NOT NULL,
     PRIMARY KEY (codEvento, codExpo),
     FOREIGN KEY (codEvento) REFERENCES Eventos(codEvento),
     FOREIGN KEY (codExpo) REFERENCES Expositores(codExpo)
@@ -66,8 +65,8 @@ CREATE TABLE Ingressos
 (
     codEvento INT,
     codVisitante INT,
-    totalPago NUMERIC,
-    meiaEntrada INT,
+    totalPago NUMERIC NOT NULL,
+    meiaEntrada INT NOT NULL,
     PRIMARY KEY (codEvento, codVisitante),
     FOREIGN KEY (codEvento) REFERENCES Eventos(codEvento),
     FOREIGN KEY (codVisitante) REFERENCES Pessoas(cpf)
