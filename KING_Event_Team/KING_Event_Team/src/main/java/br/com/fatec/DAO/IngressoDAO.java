@@ -27,7 +27,7 @@ public class IngressoDAO implements DAO<Ingresso>
     
     @Override
     public boolean inserir(Ingresso model) throws SQLException {
-        String sql = "INSERT INTO ingressos (codEvento, codVisitante, totalPago, meiaEntrada)"
+        String sql = "INSERT INTO Ingresso (codEvento, codVisitante, totalPago, meiaEntrada)"
                 + "VALUES (?, ?, ?, ?);";
         
         Banco.conectar();
@@ -53,7 +53,7 @@ public class IngressoDAO implements DAO<Ingresso>
 
     @Override
     public boolean remover(Ingresso model) throws SQLException {
-        String sql = "DELETE FROM ingressos WHERE codEvento = ? AND codVisitante = ?;";
+        String sql = "DELETE FROM Ingresso WHERE codEvento = ? AND codVisitante = ?;";
         
         Banco.conectar();
         
@@ -76,7 +76,7 @@ public class IngressoDAO implements DAO<Ingresso>
 
     @Override
     public boolean alterar(Ingresso model) throws SQLException {
-        String sql = "UPDATE ingressos SET totalPago = ?, meiaEntrada = ? "
+        String sql = "UPDATE Ingresso SET totalPago = ?, meiaEntrada = ? "
                 + "WHERE codEvento = ? AND codVisitante = ?;";
         
         Banco.conectar();
@@ -104,7 +104,7 @@ public class IngressoDAO implements DAO<Ingresso>
     public Ingresso buscarID(Ingresso model) throws SQLException {
         ingresso = null;
         
-        String sql = "SELECT * FROM ingressos WHERE codEvento = ? AND codVisitante = ?;";
+        String sql = "SELECT * FROM Ingresso WHERE codEvento = ? AND codVisitante = ?;";
         
         Banco.conectar();
         
@@ -144,7 +144,7 @@ public class IngressoDAO implements DAO<Ingresso>
         
         ingresso = null;
         
-        String sql = "SELECT * FROM ingressos";
+        String sql = "SELECT * FROM Ingresso";
         
         if(criterio.length() != 0)
         {
