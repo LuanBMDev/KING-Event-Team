@@ -24,7 +24,7 @@ public class CategoriaDAO implements DAO <Categoria>
     
     @Override
     public boolean inserir(Categoria model) throws SQLException {
-        String sql = "INSERT INTO Categotias (nomeCat) " 
+        String sql = "INSERT INTO Categoria (nomeCat) " 
         + "VALUES (?);";
         Banco.conectar();
         pst = Banco.obterConexao().prepareStatement(sql);
@@ -42,7 +42,7 @@ public class CategoriaDAO implements DAO <Categoria>
     
     @Override
     public boolean remover(Categoria model) throws SQLException{
-        String sql = "DELETE FROM Categorias Where codCat = ?;";
+        String sql = "DELETE FROM Categoria Where codCat = ?;";
         Banco.conectar();
         pst = Banco.obterConexao().prepareStatement(sql);
         pst.setInt(1, model.getCodCat());
@@ -59,7 +59,7 @@ public class CategoriaDAO implements DAO <Categoria>
 
     @Override
     public boolean alterar(Categoria model) throws SQLException {
-        String sql = "UPDATE Categorias SET nomeCat = ?" +
+        String sql = "UPDATE Categoria SET nomeCat = ?" +
                 "WHERE codCat = ?;";
         Banco.conectar();
         pst = Banco.obterConexao().prepareStatement(sql);
@@ -79,7 +79,7 @@ public class CategoriaDAO implements DAO <Categoria>
     @Override
     public Categoria buscarID(Categoria model) throws SQLException {
         categoria = null;
-        String sql ="SELECT * FROM Categorias WHERE codCat= ?;";
+        String sql ="SELECT * FROM Categoria WHERE codCat= ?;";
         Banco.conectar();
         
         pst = Banco.obterConexao().prepareStatement(sql);
@@ -91,7 +91,7 @@ public class CategoriaDAO implements DAO <Categoria>
         if(rs.next()) { 
             categoria = new Categoria();
             categoria.setCodCat(rs.getInt("codCat"));
-            categoria.setNomeCat(rs.getString("nome"));
+            categoria.setNomeCat(rs.getString("nomeCat"));
         }
         Banco.desconectar();
         rs.close();
@@ -102,7 +102,7 @@ public class CategoriaDAO implements DAO <Categoria>
     public Collection<Categoria> listar(String criterio) throws SQLException {
         Collection<Categoria> listagem = new ArrayList<>();
         categoria = null;
-        String sql = "SELECT * FROM Categorias";
+        String sql = "SELECT * FROM Categoria";
         if(criterio.length() !=0){
             sql+= "WHERE" + criterio;
         }
@@ -111,7 +111,7 @@ public class CategoriaDAO implements DAO <Categoria>
         rs = pst.executeQuery();
         while(rs.next()){
             categoria = new Categoria();
-            categoria.setCodCat(rs.getInt("codCAt"));
+            categoria.setCodCat(rs.getInt("codCat"));
             categoria.setNomeCat(rs.getString("nomeCat"));
             listagem.add(categoria);
         }
