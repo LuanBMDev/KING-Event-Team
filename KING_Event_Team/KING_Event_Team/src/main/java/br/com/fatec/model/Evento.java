@@ -16,7 +16,7 @@ public class Evento
     private String dataInicio;
     private String dataFim;
     private String statusEvento;
-    private double precoPadrão;
+    private double precoPadrao;
     
     private Categoria categoria;
     private Localizacao localizacao;
@@ -35,7 +35,7 @@ public class Evento
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.statusEvento = statusEvento;
-        this.precoPadrão = precoPadrão;
+        this.precoPadrao = precoPadrao;
         this.categoria = categoria;
         this.localizacao = localizacao;
     }
@@ -127,14 +127,14 @@ public class Evento
         this.statusEvento = statusEvento;
     }
 
-    public double getPrecoPadrão() 
+    public double getPrecoPadrao() 
     {
-        return precoPadrão;
+        return precoPadrao;
     }
 
-    public void setPrecoPadrão(double precoPadrão) 
+    public void setPrecoPadrao(double precoPadrao) 
     {
-        this.precoPadrão = precoPadrão;
+        this.precoPadrao = precoPadrao;
     }
 
     public Categoria getCategoria() 
