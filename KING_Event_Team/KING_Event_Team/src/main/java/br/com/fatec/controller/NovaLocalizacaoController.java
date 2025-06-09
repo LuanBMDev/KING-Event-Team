@@ -58,7 +58,7 @@ public class NovaLocalizacaoController implements Initializable
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cmbTipo.getItems().addAll("Presencial", "On-line");
+        cmbTipo.getItems().addAll("Presencial", "Online");
     }
       
     @FXML
