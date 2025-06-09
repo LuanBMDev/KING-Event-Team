@@ -99,9 +99,30 @@ public class App extends Application {
         primaryStage.show();
     }
     
-        private void mensagem(String msg) {
+    public static void mensagem(String titulo, String msg)
+    {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
         alerta.setTitle("Mensagem");
+        alerta.setHeaderText(msg);
+        alerta.setContentText("");
+
+        alerta.showAndWait(); //exibe a mensage
+    }
+    
+    public static void mensagem(String msg, Alert.AlertType tipo)
+    {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle("Mensagem");
+        alerta.setHeaderText(msg);
+        alerta.setContentText("");
+
+        alerta.showAndWait(); //exibe a mensage
+    }
+    
+    public static void mensagem(String titulo, String msg, Alert.AlertType tipo)
+    {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
         alerta.setHeaderText(msg);
         alerta.setContentText("");
 
