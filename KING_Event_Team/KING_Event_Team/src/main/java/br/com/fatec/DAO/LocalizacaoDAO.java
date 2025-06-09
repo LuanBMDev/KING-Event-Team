@@ -35,7 +35,7 @@ public class LocalizacaoDAO implements DAO<Localizacao>
         
         pst.setString(1, model.getNomeLocal());
         pst.setString(2, model.getCEP());
-        pst.setString(3, model.getEndereco());
+        pst.setString(3, model.getEnderecoLocal());
         pst.setInt(4, model.getNumeroLocal());
         pst.setString(5, model.getCidade());
         pst.setString(6, model.getTipoLocal());
@@ -87,7 +87,7 @@ public class LocalizacaoDAO implements DAO<Localizacao>
         
         pst.setString(1, model.getNomeLocal());
         pst.setString(2, model.getCEP());
-        pst.setString(3, model.getEndereco());
+        pst.setString(3, model.getEnderecoLocal());
         pst.setInt(4, model.getNumeroLocal());
         pst.setString(5, model.getCidade());
         pst.setString(6, model.getTipoLocal());
@@ -126,7 +126,7 @@ public class LocalizacaoDAO implements DAO<Localizacao>
             localizacao.setCodLocal(rs.getInt("codLocal"));
             localizacao.setNomeLocal(rs.getString("nomeLocal"));
             localizacao.setCEP(rs.getString("CEP"));
-            localizacao.setEndereco(rs.getString("endereco"));
+            localizacao.setEnderecoLocal(rs.getString("endereco"));
             localizacao.setNumeroLocal(rs.getInt("numeroLocal"));
             localizacao.setCidade(rs.getString("cidade"));
             localizacao.setCidade(rs.getString("tipoLocal"));
@@ -164,7 +164,7 @@ public class LocalizacaoDAO implements DAO<Localizacao>
             localizacao.setCodLocal(rs.getInt("codLocal"));
             localizacao.setNomeLocal(rs.getString("nomeLocal"));
             localizacao.setCEP(rs.getString("CEP"));
-            localizacao.setEndereco(rs.getString("endereco"));
+            localizacao.setEnderecoLocal(rs.getString("endereco"));
             localizacao.setNumeroLocal(rs.getInt("numeroLocal"));
             localizacao.setCidade(rs.getString("cidade"));
             localizacao.setCidade(rs.getString("tipoLocal"));
