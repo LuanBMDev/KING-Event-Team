@@ -69,6 +69,7 @@ public class NovaLocalizacaoController implements Initializable
             localizacao = carregarModel();
             localizacaoDAO.inserir(localizacao);
             limparDados();
+            mensagem("local registrado com sucesso!");
         }
     }
 
