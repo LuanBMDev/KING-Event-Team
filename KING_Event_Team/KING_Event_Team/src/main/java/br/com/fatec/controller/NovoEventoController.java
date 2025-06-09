@@ -61,10 +61,12 @@ public class NovoEventoController implements Initializable{
     
     @FXML
     private void btnAddLocal_Click(ActionEvent event) {
+        App.changeScene(App.getNovoLocal());
     }
 
     @FXML
     private void btnAddCat_Click(ActionEvent event) {
+        App.changeScene(App.getNovaCategoria());
     }
 
     @FXML
