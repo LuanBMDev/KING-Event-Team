@@ -74,12 +74,7 @@ public class NovaLocalizacaoController implements Initializable
 
     @FXML
     private void btnLimpar_Click(ActionEvent event) {
-        txtNomeLocal.clear();
-        txtCEP.clear();
-        txtEndereco.clear();
-        txtNumero.clear();
-        txtCidade.clear();
-        cmbTipo.setValue("");
+        limparDados();
     }
     
     @FXML
