@@ -5,11 +5,15 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import br.com.fatec.DAO.CategoriaDAO;
+import br.com.fatec.model.Categoria;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -38,7 +42,12 @@ public class NovaCategoriaController implements Initializable
     private Button btnCadCat;
     @FXML
     private Button btnLimpar;
+    
+    private CategoriaDAO categoriaDAO = new CategoriaDAO();
+    
+    private Categoria categoria;
 
+    
     // Métodos de Controller
     /**
      * Initializes the controller class.
@@ -50,9 +59,22 @@ public class NovaCategoriaController implements Initializable
     }    
 
     @FXML
-    private void btnCadCat_Click(ActionEvent event) 
+    private void btnCadCat_Click(ActionEvent event) throws SQLException 
     {
-        
+       categoria = new Categoria();
+       if(txtNomeCat.getText().isEmpty()){
+            mensagem("Por favor preencha todo o campo!");
+            System.out.println("dado invalido");
+       }    
+       else{
+           categoria = carregarModel();
+           categoriaDAO.inserir(categoria);
+           mensagem("categoria criada com sucesso");
+           System.out.println("dado valido");
+           txtNomeCat.clear();
+       }
+       
+       
     }
 
     @FXML
@@ -80,4 +102,18 @@ public class NovaCategoriaController implements Initializable
     {
         App.voltarHierarquia(App.getGerenCategorias());
     }
+    private void mensagem(String msg) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle("Mensagem");
+        alerta.setHeaderText(msg);
+        alerta.setContentText("");
+
+        alerta.showAndWait();
+    }
+    private Categoria carregarModel(){
+            Categoria model = new Categoria();
+            model.setNomeCat(txtNomeCat.getText().trim());
+            return model;
+    }
+    
 }
