@@ -29,8 +29,8 @@ CREATE TABLE Evento
     codLocal INT NOT NULL,
     codCat INT NOT NULL,
     precoIngresso NUMERIC NOT NULL,
-    FOREIGN KEY (codLocal) REFERENCES Localizacoes(codLocal),
-    FOREIGN KEY (codCat) REFERENCES Categorias(codCat)
+    FOREIGN KEY (codLocal) REFERENCES Localizacao(codLocal),
+    FOREIGN KEY (codCat) REFERENCES Categoria(codCat)
 );
 
 CREATE TABLE Pessoa
@@ -57,17 +57,17 @@ CREATE TABLE Exposicao
     codExpo INT,
     descricao VARCHAR(255) NOT NULL,
     PRIMARY KEY (codEvento, codExpo),
-    FOREIGN KEY (codEvento) REFERENCES Eventos(codEvento),
-    FOREIGN KEY (codExpo) REFERENCES Expositores(codExpo)
+    FOREIGN KEY (codEvento) REFERENCES Evento(codEvento),
+    FOREIGN KEY (codExpo) REFERENCES Expositor(codExpo)
 );
 
-CREATE TABLE Ingressos 
+CREATE TABLE Ingresso 
 (
     codEvento INT,
     codVisitante INT,
     totalPago NUMERIC NOT NULL,
     meiaEntrada INT NOT NULL,
     PRIMARY KEY (codEvento, codVisitante),
-    FOREIGN KEY (codEvento) REFERENCES Eventos(codEvento),
-    FOREIGN KEY (codVisitante) REFERENCES Pessoas(cpf)
+    FOREIGN KEY (codEvento) REFERENCES Evento(codEvento),
+    FOREIGN KEY (codVisitante) REFERENCES Pessoa(CPF)
 );
