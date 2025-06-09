@@ -1,5 +1,7 @@
 package br.com.fatec;
 
+import br.com.fatec.DAO.PessoaDAO;
+import br.com.fatec.model.Pessoa;
 import br.com.fatec.persistencia.Banco;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -268,20 +270,26 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
         /*
+        // TESTE DE BANCO
         try {
-            /*
             System.out.println("Conectando ...");
             Banco.conectar();
             System.out.println("Conectado...");
+            
+            //tentando inserir um prop.
+            Pessoa p = new Pessoa();
+            p.setCPF("02103210");
+            p.setEmail("cuzao@hotmail.com");
+            p.setNome("cuzudo");
+            p.setTelefone("707070");
+            
+            PessoaDAO dao = new PessoaDAO();
+            //System.out.println("INSERINDO DADOS NO BANCO");
+            dao.inserir(p);
+            
             System.out.println("Fechando...");
             Banco.desconectar();
             System.out.println("Fechado...");
-            
-            
-            //tentando inserir um prop.
-            Proprietario p = new Proprietario(10, "Cristiane Souzas");
-            ProprietarioDAO dao = new ProprietarioDAO();
-            dao.inserir(p);
         }
         catch(SQLException ex) {
             System.out.println("Erro de Banco: " + ex.getMessage());

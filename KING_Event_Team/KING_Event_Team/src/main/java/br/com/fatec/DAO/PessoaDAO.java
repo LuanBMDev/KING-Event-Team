@@ -25,16 +25,17 @@ public class PessoaDAO implements DAO<Pessoa>
 
     @Override
     public boolean inserir(Pessoa model) throws SQLException {
-        String sql = "INSERT INTO Pessoa (nome, email, telefone) "
-                + "VALUES (?, ?, ?);";
+        String sql = "INSERT INTO Pessoa (CPF, nome, email, telefone) "
+                + "VALUES (?, ?, ?, ?);";
         
         Banco.conectar();
         
         pst = Banco.obterConexao().prepareStatement(sql);
         
-        pst.setString(1, model.getNome());
-        pst.setString(2, model.getEmail());
-        pst.setString(3, model.getTelefone());
+        pst.setString(1, model.getCPF());
+        pst.setString(2, model.getNome());
+        pst.setString(3, model.getEmail());
+        pst.setString(4, model.getTelefone());
         
         if (pst.executeUpdate() >= 1)
         {
