@@ -5,13 +5,18 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import br.com.fatec.DAO.PessoaDAO;
+import br.com.fatec.model.Pessoa;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -29,9 +34,22 @@ public class NovaPessoaController implements Initializable
     private Button btnVoltar;
     @FXML
     private Label lblTitulo;
+    @FXML
+    private TextField txtNome;
+    @FXML
+    private TextField txtEmail;
+    @FXML
+    private TextField txtCPF;
+    @FXML
+    private TextField txtTelefone;
+    @FXML
+    private Button btnCadastrar;
+    @FXML
+    private Button btnLimpar;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) 
+    {
         
     }
     
@@ -54,5 +72,84 @@ public class NovaPessoaController implements Initializable
     {
         // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
         App.voltarHierarquia(App.getGerenPessoas()); 
+    }
+
+    @FXML
+    private void btnCadastrar_Click(ActionEvent event) 
+    {
+        if(txtCPF.getText().isBlank() 
+                || txtNome.getText().isBlank() 
+                || txtEmail.getText().isBlank())
+        {
+            mensagem("AVISO!", "PREENCHA TODOS OS CAMPOS OBRIGATÓRIOS!", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        if(txtTelefone.getText().isBlank()) txtTelefone.setText("");
+        
+        try
+        {
+            Pessoa p = new Pessoa();
+            p.setCPF(txtCPF.getText());
+            p.setNome(txtNome.getText());
+            p.setEmail(txtEmail.getText());
+            p.setTelefone(txtTelefone.getText());
+
+            PessoaDAO dao = new PessoaDAO();
+            dao.inserir(p);
+            
+            mensagem("SUCESSO", p.getNome() + " Cadastrado com sucesso!");
+            limpar();
+        }
+        catch(SQLException ex)
+        {
+            mensagem("ERRO", "ERRO DE BANCO DE DADOS: " + ex.getMessage(),
+                    Alert.AlertType.ERROR);
+        }
+        
+    }
+
+    @FXML
+    private void btnLimpar_Click(ActionEvent event) 
+    {
+        limpar();
+    }
+    
+    private void limpar()
+    {
+        txtCPF.setText("");
+        txtNome.setText("");
+        txtEmail.setText("");
+        txtTelefone.setText("");
+    }
+    
+    private void mensagem(String titulo, String msg)
+    {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle("Mensagem");
+        alerta.setHeaderText(msg);
+        alerta.setContentText("");
+
+        alerta.showAndWait(); //exibe a mensage
+    }
+    
+    private void mensagem(String msg, Alert.AlertType tipo)
+    {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle("Mensagem");
+        alerta.setHeaderText(msg);
+        alerta.setContentText("");
+
+        alerta.showAndWait(); //exibe a mensage
+    }
+    
+    private void mensagem(String titulo, String msg, Alert.AlertType tipo)
+    {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(msg);
+        alerta.setContentText("");
+
+        alerta.showAndWait(); //exibe a mensage
     }
 }
