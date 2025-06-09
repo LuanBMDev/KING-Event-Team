@@ -124,8 +124,8 @@ public class IngressoDAO implements DAO<Ingresso>
             
             Pessoa pessoa = new Pessoa();
             pessoa.setCPF(rs.getString("CPF"));
-            PessoaDAO dao = new PessoaDAO();
-            pessoa = dao.buscarID(pessoa);
+            PessoaDAO daoPes = new PessoaDAO();
+            pessoa = daoPes.buscarID(pessoa);
             
             Ingresso ingresso = new Ingresso(evento, pessoa);
             ingresso.setTotalPago(rs.getDouble("totalPago"));
@@ -166,8 +166,8 @@ public class IngressoDAO implements DAO<Ingresso>
             
             Pessoa pessoa = new Pessoa();
             pessoa.setCPF(rs.getString("CPF"));
-            PessoaDAO dao = new PessoaDAO();
-            pessoa = dao.buscarID(pessoa);
+            PessoaDAO daoPes = new PessoaDAO();
+            pessoa = daoPes.buscarID(pessoa);
             
             Ingresso ingresso = new Ingresso(evento, pessoa);
             ingresso.setTotalPago(rs.getDouble("totalPago"));
