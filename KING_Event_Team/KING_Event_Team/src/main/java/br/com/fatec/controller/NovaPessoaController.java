@@ -81,7 +81,7 @@ public class NovaPessoaController implements Initializable
                 || txtNome.getText().isBlank() 
                 || txtEmail.getText().isBlank())
         {
-            mensagem("AVISO!", "PREENCHA TODOS OS CAMPOS OBRIGATÓRIOS!", Alert.AlertType.WARNING);
+            App.mensagem("AVISO!", "PREENCHA TODOS OS CAMPOS OBRIGATÓRIOS!", Alert.AlertType.WARNING);
             return;
         }
         
@@ -98,12 +98,12 @@ public class NovaPessoaController implements Initializable
             PessoaDAO dao = new PessoaDAO();
             dao.inserir(p);
             
-            mensagem("SUCESSO", p.getNome() + " Cadastrado com sucesso!");
+            App.mensagem("SUCESSO", p.getNome() + " Cadastrado com sucesso!");
             limpar();
         }
         catch(SQLException ex)
         {
-            mensagem("ERRO", "ERRO DE BANCO DE DADOS: " + ex.getMessage(),
+            App.mensagem("ERRO", "ERRO DE BANCO DE DADOS: " + ex.getMessage(),
                     Alert.AlertType.ERROR);
         }
         
@@ -121,35 +121,5 @@ public class NovaPessoaController implements Initializable
         txtNome.setText("");
         txtEmail.setText("");
         txtTelefone.setText("");
-    }
-    
-    private void mensagem(String titulo, String msg)
-    {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setTitle("Mensagem");
-        alerta.setHeaderText(msg);
-        alerta.setContentText("");
-
-        alerta.showAndWait(); //exibe a mensage
-    }
-    
-    private void mensagem(String msg, Alert.AlertType tipo)
-    {
-        Alert alerta = new Alert(tipo);
-        alerta.setTitle("Mensagem");
-        alerta.setHeaderText(msg);
-        alerta.setContentText("");
-
-        alerta.showAndWait(); //exibe a mensage
-    }
-    
-    private void mensagem(String titulo, String msg, Alert.AlertType tipo)
-    {
-        Alert alerta = new Alert(tipo);
-        alerta.setTitle(titulo);
-        alerta.setHeaderText(msg);
-        alerta.setContentText("");
-
-        alerta.showAndWait(); //exibe a mensage
     }
 }
