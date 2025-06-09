@@ -94,4 +94,15 @@ public class NovoEventoController implements Initializable{
     {
         App.voltarHierarquia(App.getGerenEventos());
     }
+    
+    private void limparDados(){
+        txtNomeEvento.clear();
+        cmbLocal.setValue(null);
+        cmbCategoria.setValue(null);
+        txtDataInicio.clear();
+        txtDataFinal.clear();
+        txtPrecoPadrao.clear();
+        txtDescricao.clear();
+        
+    }
 }
