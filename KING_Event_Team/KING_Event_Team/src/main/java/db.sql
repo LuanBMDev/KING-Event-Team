@@ -64,7 +64,7 @@ CREATE TABLE Exposicao
 CREATE TABLE Ingresso 
 (
     codEvento INT,
-    codVisitante INT,
+    codVisitante VARCHAR(20),
     totalPago NUMERIC NOT NULL,
     meiaEntrada INT NOT NULL,
     PRIMARY KEY (codEvento, codVisitante),
