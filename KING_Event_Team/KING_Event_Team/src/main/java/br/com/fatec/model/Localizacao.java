@@ -17,7 +17,7 @@ public class Localizacao
     private int numeroLocal;
     private String cidade;
     private String tipoLocal;
-
+    
     public Localizacao() {
     }
 
