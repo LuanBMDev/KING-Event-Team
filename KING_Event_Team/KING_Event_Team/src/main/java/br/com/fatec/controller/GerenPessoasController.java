@@ -100,7 +100,7 @@ public class GerenPessoasController implements Initializable
         
         NovaPessoaController.pesAEditar = pessoa;
         NovaPessoaController.isModoEdicao = true;
-        //App.changeScene(App.getNovaPessoa());
+        App.carregarCena("NovaPessoa");
     }
 
     @FXML
