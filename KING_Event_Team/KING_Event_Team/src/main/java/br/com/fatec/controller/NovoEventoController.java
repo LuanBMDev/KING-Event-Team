@@ -86,6 +86,7 @@ public class NovoEventoController implements Initializable{
     private String dataFimL;
     private String dataInicioL;
     private String dataAtual;
+    private String status;
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -134,7 +135,7 @@ public class NovoEventoController implements Initializable{
 
         if(validarDados()){
             try {
-                carregarDatas();
+                //carregarDatas();
                 evento = carregarModel();
                 eventoDAO.inserir(evento);
                 limparDados();
@@ -174,8 +175,8 @@ public class NovoEventoController implements Initializable{
         txtNomeEvento.clear();
         cmbLocal.setValue(null);
         cmbCategoria.setValue(null);
-        txtDataInicio.clear();
-        txtDataFinal.clear();
+        dateFim.setValue(null);
+        dateInicio.setValue(null);
         txtPrecoPadrao.clear();
         
     }
@@ -227,18 +228,13 @@ public class NovoEventoController implements Initializable{
         Evento model = new Evento(null,null);
         model.setNomeEvento(txtNomeEvento.getText().trim());
         //model.setLocalizacao.getNomeLocal(cmbLocal.getValue());
-        
         model.setLocalizacao(cmbLocal.getValue());
-        
-        
         //model.setCategoria((Categoria) cmbCategoria.getValue());
-        
         model.setCategoria(cmbCategoria.getValue());
-        
-        model.setDataInicio(txtDataInicio.getText());
-        model.setDataFim(txtDataFinal.getText());
+        model.setDataInicio(dataInicioL);
+        model.setDataFim(dataFimL);
         model.setPrecoPadrao(Double.parseDouble(txtPrecoPadrao.getText().trim()));
-       
+        model.setStatusEvento(carregarDatas());
         return model;
     }
     
@@ -246,8 +242,8 @@ public class NovoEventoController implements Initializable{
         if(txtNomeEvento.getText().isEmpty() ||
            cmbLocal.getValue() == null ||
            cmbCategoria.getValue() == null ||
-           txtDataInicio.getText().isEmpty() ||
-           txtDataFinal.getText().isEmpty() ||
+           dateInicio.getValue() == null ||
+           dateFim.getValue() == null ||
            txtPrecoPadrao.getText().isEmpty()){
             App.mensagem("Erro","Por favor preencha todos os campos!");
             return false;
@@ -256,17 +252,25 @@ public class NovoEventoController implements Initializable{
             return true;
         }
     }  
-   private void carregarDatas(){
+   private String carregarDatas(){
+        String status = null;
         LocalDate atual = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate inicio = LocalDate.parse(dataInicioL,formatter);
-        LocalDate  fim = LocalDate.parse(dataFimL,formatter);
-        
-        if(fim.isAfter(atual) && inicio.isBefore(atual)){
-            System.out.println("funciona");
+        LocalDate  fim = LocalDate.parse(dataFimL,formatter); 
+        if(inicio.isAfter(atual)){
+            //set pendente no status
+            status = "PENDNETE";
         }
-        else{
-            System.out.println("ta fora");
-       }
+        else if(fim.isBefore(atual)){
+            //set encerrado status 
+            status = "ENCERRADO";
+        }
+        else //if(fim.isAfter(atual) && inicio.isBefore(atual))
+        {
+            //set emandamento status
+            status = "EM ANDAMENTO";
+        }
+        return status;
    }
 }

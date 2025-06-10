@@ -31,7 +31,7 @@ public class EventoDAO implements DAO <Evento>{
         pst.setString(1, model.getNomeEvento());
         pst.setString(2,model.getDataInicio());
         pst.setString(3, model.getDataFim());
-        pst.setString(4,"novo");
+        pst.setString(4,model.getStatusEvento());
         pst.setInt(5,model.getLocalizacao().getCodLocal());
         pst.setInt(6,model.getCategoria().getCodCat());
         pst.setDouble(7,model.getPrecoPadrao());
