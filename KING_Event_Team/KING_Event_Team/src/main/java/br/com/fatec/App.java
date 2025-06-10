@@ -10,8 +10,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.stage.StageStyle;
 
 /**
@@ -40,6 +42,8 @@ public class App extends Application {
     private static Scene gerenExposicoes;
     
     private static Scene cenaAnterior;
+    
+    public static final String CAMINHOIMAGENS = "/br/com/fatec/images/";
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -129,6 +133,25 @@ public class App extends Application {
         alerta.showAndWait(); //exibe a mensage
     }
    
+    public Image definirImagem(String nomeImagem)
+    {
+        Image imagem = null;
+        try 
+        {
+            URL caminhoImagem = getClass().getResource(CAMINHOIMAGENS + nomeImagem);
+            if (caminhoImagem == null) 
+            {
+                throw new IllegalArgumentException("Imagem não encontrada!");
+            }
+            imagem = new Image(caminhoImagem.toExternalForm());
+        } 
+        catch (Exception ex) 
+        {
+            App.mensagem("Erro ao carregar a imagem: " + ex.getMessage(), Alert.AlertType.ERROR);
+        }
+        return imagem;
+    }
+    
     public static void changeScene(Scene cena)
     {
         cenaAnterior = stage.getScene();
