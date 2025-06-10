@@ -25,7 +25,7 @@ public class ExpositorDAO implements DAO<Expositor>
 
     @Override
     public boolean inserir(Expositor model) throws SQLException {
-        String sql = "INSERT INTO Ingresso (nomeFant, CPFCNPJ,logoExpo,emailExpo,telefoneExpo)"
+        String sql = "INSERT INTO Expositor (nomeFant, CPFCNPJ,logoExpo,emailExpo,telefoneExpo)"
                 + "VALUES (?, ?, ?, ?, ?);";
         
         Banco.conectar();

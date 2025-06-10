@@ -5,11 +5,14 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import br.com.fatec.DAO.ExpositorDAO;
+import br.com.fatec.model.Expositor;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +24,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -54,6 +58,8 @@ public class NovoExpositorController implements Initializable
     private Button btnCadExpo;
     @FXML
     private Button btnLimpar;
+    
+    private String caminhoLogo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -82,11 +88,51 @@ public class NovoExpositorController implements Initializable
     }
 
     @FXML
-    private void btnLogo_Click(ActionEvent event) {
+    private void btnLogo_Click(ActionEvent event) 
+    {
+        FileChooser explorer = new FileChooser();
+        explorer.getExtensionFilters().add(new FileChooser.ExtensionFilter(
+                "Imagens", "*.jpg", "*.png",
+                "*.jpeg"));
+        File arquivo = explorer.showOpenDialog(new Stage());
+        if(arquivo != null)
+        {
+            imgLogo.setImage(new Image("file:///" + arquivo.getAbsolutePath()));
+            caminhoLogo = arquivo.getAbsolutePath();
+        }
     }
 
     @FXML
-    private void btnCadExpo_Click(ActionEvent event) {
+    private void btnCadExpo_Click(ActionEvent event) 
+    {
+        if(txtNome.getText().isBlank() 
+                || txtCPFCNPJ.getText().isBlank() 
+                || txtEmail.getText().isBlank()
+                || txtTelefone.getText().isBlank())
+        {
+            App.mensagem("AVISO!", "PREENCHA TODOS OS CAMPOS!", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        try
+        {
+            Expositor expo = new Expositor();
+            expo.setCPFCNPJ(txtCPFCNPJ.getText());
+            expo.setNomeFant(txtNome.getText());
+            expo.setEmailExpo(txtEmail.getText());
+            expo.setTelefoneExpo(txtTelefone.getText());
+            expo.setLogoExpo(caminhoLogo);
+            
+            ExpositorDAO dao = new ExpositorDAO();
+            dao.inserir(expo);
+            
+            App.mensagem("SUCESSO", "Expositor " + expo.getNomeFant() + " cadastrado com sucesso!");
+            limpar();
+        }
+        catch(SQLException ex)
+        {
+            App.mensagem("ERRO", "Falha ao Cadastrar!", Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
