@@ -107,8 +107,7 @@ public class NovaPessoaController implements Initializable
         }
         catch(SQLException ex)
         {
-            App.mensagem("ERRO", "ERRO DE BANCO DE DADOS: " + ex.getMessage(),
-                    Alert.AlertType.ERROR);
+            
         }
         
     }
