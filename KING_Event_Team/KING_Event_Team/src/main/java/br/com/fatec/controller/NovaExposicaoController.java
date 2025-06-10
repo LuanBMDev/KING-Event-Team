@@ -33,6 +33,8 @@ public class NovaExposicaoController implements Initializable
     private TextArea txtDescricao;
     @FXML
     private Button btnSalvar;
+    @FXML
+    private Button btnVoltar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -51,6 +53,12 @@ public class NovaExposicaoController implements Initializable
     {
         Stage stage = (Stage) btnMin.getScene().getWindow();
         stage.setIconified(true);
+    }
+
+    @FXML
+    private void btnVoltar_Click(ActionEvent event) 
+    {
+        App.voltarHierarquia("GerenEventos", "GerenExposicoes");
     }
     
 

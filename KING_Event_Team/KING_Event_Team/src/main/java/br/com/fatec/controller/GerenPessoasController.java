@@ -5,15 +5,23 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import br.com.fatec.DAO.PessoaDAO;
+import br.com.fatec.model.Pessoa;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -33,15 +41,15 @@ public class GerenPessoasController implements Initializable
     @FXML
     private Label lblTitulo;
     @FXML
-    private TableView<?> tbvPessoas;
+    private TableView<Pessoa> tbvPessoas;
     @FXML
-    private TableColumn<?, ?> colCPF;
+    private TableColumn<Pessoa, String> colCPF;
     @FXML
-    private TableColumn<?, ?> colNome;
+    private TableColumn<Pessoa, String> colNome;
     @FXML
-    private TableColumn<?, ?> colEmail;
+    private TableColumn<Pessoa, String> colEmail;
     @FXML
-    private TableColumn<?, ?> colTelefone;
+    private TableColumn<Pessoa, String> colTelefone;
     @FXML
     private Pane panBusca;
     @FXML
@@ -50,10 +58,13 @@ public class GerenPessoasController implements Initializable
     private Button btnDeletar;
     @FXML
     private Button btnNovaPessoa;
+    @FXML
+    private Button btnAtualizar;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    
+    public void initialize(URL url, ResourceBundle rb) 
+    {
+        preencherTabela();
     }
     
     @FXML
@@ -74,20 +85,79 @@ public class GerenPessoasController implements Initializable
     private void btnVoltar_Click(ActionEvent event) 
     {
         // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
-        App.changeScene(App.getScene()); 
+        App.carregarCena("MenuPrincipal");
     }
 
     @FXML
-    private void btnEditar_Click(ActionEvent event) {
+    private void btnEditar_Click(ActionEvent event)
+    {
+        Pessoa pessoa = tbvPessoas.getSelectionModel().selectedItemProperty().get();
+        if(pessoa == null)
+        {
+            App.mensagem("AVISO", "Selecione uma Pessoa!", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        NovaPessoaController.pesAEditar = pessoa;
+        NovaPessoaController.isModoEdicao = true;
+        //App.changeScene(App.getNovaPessoa());
     }
 
     @FXML
-    private void btnDeletar_Click(ActionEvent event) {
+    private void btnDeletar_Click(ActionEvent event) 
+    {
+        Pessoa pessoa = tbvPessoas.getSelectionModel().selectedItemProperty().get();
+        if(pessoa == null)
+        {
+            App.mensagem("AVISO", "Selecione uma Pessoa!", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        try
+        {
+            PessoaDAO dao = new PessoaDAO();
+            dao.remover(pessoa);
+            App.mensagem("SUCESSO", pessoa.getNome() + " foi removido com sucesso!");   
+        }
+        catch(SQLException ex)
+        {
+            App.mensagem("ERRO", "Erro ao Deletar", Alert.AlertType.ERROR);
+        }
+        
+        preencherTabela();
     }
 
     @FXML
     private void btnNovaPessoa_Click(ActionEvent event) 
     {
-        App.changeScene(App.getNovaPessoa());
+        App.carregarCena("NovaPessoa");
+    }
+    
+    private void preencherTabela()
+    {
+        tbvPessoas.getItems().clear();
+        
+        try
+        {
+            PessoaDAO dao = new PessoaDAO();
+            ObservableList<Pessoa> lista = FXCollections.observableArrayList(dao.listar(""));
+            //lista.setAll(dao.listar(""));
+            tbvPessoas.setItems(lista);
+            
+            colNome.setCellValueFactory(new PropertyValueFactory("nome"));
+            colCPF.setCellValueFactory(new PropertyValueFactory("CPF"));
+            colEmail.setCellValueFactory(new PropertyValueFactory("email"));
+            colTelefone.setCellValueFactory(new PropertyValueFactory("telefone"));
+        }
+        catch(SQLException ex)
+        {
+            App.mensagem("ERRO", "Erro ao preencher tabela.", Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void btnAtualizar_Click(ActionEvent event) 
+    {
+        preencherTabela();
     }
 }

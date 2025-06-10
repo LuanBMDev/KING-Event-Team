@@ -85,8 +85,7 @@ public class GerenLocaisController implements Initializable{
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
-        App.changeScene(App.getScene()); 
+        App.carregarCena("MenuPrincipal");
     }
 
     @FXML
@@ -121,7 +120,7 @@ public class GerenLocaisController implements Initializable{
     @FXML
     private void btnNovoLocal_Click(ActionEvent event) 
     {
-        App.changeScene(App.getNovoLocal());
+        App.carregarCena("NovaLocalizacao");
     }
     
     private void preencherTabela(){

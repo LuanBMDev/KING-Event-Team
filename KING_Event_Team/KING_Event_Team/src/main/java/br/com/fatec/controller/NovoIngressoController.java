@@ -41,6 +41,8 @@ public class NovoIngressoController implements Initializable
     private Button btnCadIngresso;
     @FXML
     private Button btnLimpar;
+    @FXML
+    private Button btnVoltar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -61,10 +63,10 @@ public class NovoIngressoController implements Initializable
         stage.setIconified(true);
     }
     
+    @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
-        App.changeScene(App.getScene()); 
+        App.voltarHierarquia("GerenEventos", "GerenIngressos");
     }
 
     @FXML
@@ -72,6 +74,8 @@ public class NovoIngressoController implements Initializable
     }
 
     @FXML
-    private void btnLimpar_Click(ActionEvent event) {
+    private void btnLimpar_Click(ActionEvent event) 
+    {
+        
     }
 }

@@ -26,24 +26,10 @@ public class App extends Application {
     private static double x,y = 0;
     
     private static Scene scene;
-    private static Scene novoEvento;
-    private static Scene novaCategoria;
-    private static Scene novoLocal;
-    private static Scene gerenEventos;
-    private static Scene gerenCategorias;
-    private static Scene gerenLocais;
-    private static Scene novaPessoa;
-    private static Scene gerenPessoas;
-    private static Scene novoExpositor;
-    private static Scene gerenExpositores;
-    private static Scene novoIngresso;
-    private static Scene gerenIngressos;
-    private static Scene novaExposicao;
-    private static Scene gerenExposicoes;
-    
-    private static Scene cenaAnterior;
     
     public static final String CAMINHOIMAGENS = "/br/com/fatec/images/";
+    private static String cenaAnterior = null;
+    private static String cenaAtual = "MenuPrincipal";
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -51,51 +37,8 @@ public class App extends Application {
         
         stage.initStyle(StageStyle.UNDECORATED);
         
-        
         scene = new Scene(loadFXML("view/MenuPrincipal"));
         tornarTelaMovimentavel(scene);
-        
-        novoEvento = new Scene(loadFXML("view/NovoEvento"));
-        tornarTelaMovimentavel(novoEvento);
-        
-        novaCategoria = new Scene(loadFXML("view/NovaCategoria"));
-        tornarTelaMovimentavel(novaCategoria);
-        
-        novoLocal = new Scene(loadFXML("view/NovaLocalizacao"));
-        tornarTelaMovimentavel(novoLocal);
-        
-        gerenCategorias = new Scene(loadFXML("view/GerenCategorias"));
-        tornarTelaMovimentavel(gerenCategorias);
-        
-        gerenLocais = new Scene(loadFXML("view/GerenLocais"));
-        tornarTelaMovimentavel(gerenLocais);
-        
-        gerenEventos = new Scene(loadFXML("view/GerenEventos"));
-        tornarTelaMovimentavel(gerenEventos);
-        
-        novaPessoa = new Scene(loadFXML("view/NovaPessoa"));
-        tornarTelaMovimentavel(novaPessoa);
-        
-        gerenPessoas = new Scene(loadFXML("view/GerenPessoas"));
-        tornarTelaMovimentavel(gerenPessoas);
-        
-        novoExpositor = new Scene(loadFXML("view/NovoExpositor"));
-        tornarTelaMovimentavel(novoExpositor);
-        
-        gerenExpositores = new Scene(loadFXML("view/GerenExpositores"));
-        tornarTelaMovimentavel(gerenExpositores);
-        
-        novoIngresso = new Scene(loadFXML("view/NovoIngresso"));
-        tornarTelaMovimentavel(novoIngresso);
-        
-        gerenIngressos = new Scene(loadFXML("view/GerenIngressos"));
-        tornarTelaMovimentavel(gerenIngressos);
-        
-        novaExposicao = new Scene(loadFXML("view/NovaExposicao"));
-        tornarTelaMovimentavel(novaExposicao);
-        
-        gerenExposicoes = new Scene(loadFXML("view/GerenExposicoes"));
-        tornarTelaMovimentavel(gerenExposicoes);
         
         stage.setResizable(false);
         stage.setMaximized(false);
@@ -132,7 +75,7 @@ public class App extends Application {
 
         alerta.showAndWait(); //exibe a mensage
     }
-   
+
     public Image definirImagem(String nomeImagem)
     {
         Image imagem = null;
@@ -152,64 +95,50 @@ public class App extends Application {
         return imagem;
     }
     
-    public static void changeScene(Scene cena)
+    public static void carregarCena(String nomeFXML)
     {
-        cenaAnterior = stage.getScene();
+        cenaAnterior = cenaAtual;
+        cenaAtual = nomeFXML;
         
-        stage.setScene(cena);
-    }
-    
-    public static void addScene(Scene cena)
-    {
-        Stage stage2 = new Stage();
-        stage2.initStyle(StageStyle.UNDECORATED);
-        tornarTelaMovimentavel(cena, stage2);
-        stage2.setResizable(false);
-        stage2.setMaximized(false);
-        stage2.setScene(cena);
-        stage2.show();
-    }
-    
-    /**
-     * Volta para a cena pai de uma tela caso ela seja a última cena em que o usuário
-     * esteve. Caso contrário, volta para o MenuPrincipal.
-     * <br><br>
-     * AVISO: Só utilize essa função em botões de voltar, nos quais sua tela pode ser 
-     * acessada por outra tela, que não o MenuPrincipal.
-     * 
-     * @param cenaPai  Uma outra tela em que é possível acessar a tela atual, e que não seja o MenuPrincipal.
-     */
-    public static void voltarHierarquia(Scene cenaPai)
-    {
-        if (getCenaAnterior().equals(cenaPai))
+        try
         {
-            changeScene(getCenaAnterior());
+            Scene cena = new Scene(loadFXML("view/" + nomeFXML));
+            tornarTelaMovimentavel(cena);
+            
+            stage.setScene(cena);
+        }
+        catch(IOException ex)
+        {
+            mensagem("ERRO", "Impossível carregar a cena " + nomeFXML +": " + ex.getMessage(),
+                    Alert.AlertType.ERROR);
+        }
+    }
+    
+    public static void voltarHierarquia(String padraoFXML, String paiFXML)
+    {
+        if (cenaAnterior.equals(paiFXML))
+        {
+            carregarCena(paiFXML);
         }
         else
         {
-            changeScene(getScene()); 
+            carregarCena(padraoFXML);
         }
     }
     
-    /**
-     * Volta para a cena pai de uma tela caso ela seja a última cena em que o usuário
-     * esteve. Caso contrário, volta para a cena avô.
-     * <br><br>
-     * AVISO: Só utilize essa função em botões de voltar, nos quais sua tela pode ser 
-     * acessada por outra tela, que não a cena avô.
-     * 
-     * @param cenaPai  Uma outra tela em que é possível acessar a tela atual, e que não seja a cena pai.
-     * @param cenaAvo  Uma outra tela, na qual acessa-se a cena pai.
-     */
-    public static void voltarHierarquia(Scene cenaPai, Scene cenaAvo)
+    public static void voltarHierarquia(String padraoFXML, String paiFXML, String avoFXML)
     {
-        if (getCenaAnterior().equals(cenaPai))
+        if (cenaAnterior.equals(paiFXML))
         {
-            changeScene(getCenaAnterior());
+            carregarCena(paiFXML);
+        }
+        else if (cenaAnterior.equals(avoFXML))
+        {
+            carregarCena(avoFXML);
         }
         else
         {
-            changeScene(cenaAvo); 
+            carregarCena(padraoFXML);
         }
     }
     
@@ -239,67 +168,22 @@ public class App extends Application {
         });
     }
 
+    
+    public static Stage getStage() 
+    {
+        return stage;
+    }
+    
     public static Scene getScene() {
         return scene;
     }
-
-    public static Scene getNovoEvento() {
-        return novoEvento;
-    }
-
-    public static Scene getNovaCategoria() {
-        return novaCategoria;
-    }
-
-    public static Scene getNovoLocal() {
-        return novoLocal;
-    }
-
-    public static Scene getGerenEventos() {
-        return gerenEventos;
-    }
-
-    public static Scene getGerenCategorias() {
-        return gerenCategorias;
-    }
-
-    public static Scene getGerenLocais() {
-        return gerenLocais;
-    }
-
-    public static Scene getNovaPessoa() {
-        return novaPessoa;
-    }
-
-    public static Scene getGerenPessoas() {
-        return gerenPessoas;
-    }
-
-    public static Scene getNovoExpositor() {
-        return novoExpositor;
-    }
-
-    public static Scene getGerenExpositores() {
-        return gerenExpositores;
-    }
-
-    public static Scene getNovoIngresso() {
-        return novoIngresso;
-    }
-
-    public static Scene getGerenIngressos() {
-        return gerenIngressos;
-    }
-    public static Scene getNovaExposicao() {
-        return novaExposicao;
-    }
-
-    public static Scene getGerenExposicoes() {
-        return gerenExposicoes;
-    }
     
-    public static Scene getCenaAnterior() {
+    public static String getCenaAnterior() {
         return cenaAnterior;
+    }
+
+    public static String getCenaAtual() {
+        return cenaAtual;
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -320,11 +204,11 @@ public class App extends Application {
             Banco.conectar();
             System.out.println("Conectado...");
             
-            //tentando inserir um prop.
+            //tentando inserir uma pessoa
             Pessoa p = new Pessoa();
             p.setCPF("02103210");
-            p.setEmail("cuzao@hotmail.com");
-            p.setNome("cuzudo");
+            p.setEmail("pessoa@hotmail.com");
+            p.setNome("pessoa");
             p.setTelefone("707070");
             
             PessoaDAO dao = new PessoaDAO();

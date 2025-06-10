@@ -36,4 +36,8 @@ public class Categoria
     public void setNomeCat(String nomeCat) {
         this.nomeCat = nomeCat;
     }
+    
+    public String toString(){
+        return codCat + "-" + nomeCat;
+    }
 }

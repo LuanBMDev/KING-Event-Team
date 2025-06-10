@@ -66,8 +66,7 @@ public class GerenCategoriasController implements Initializable{
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
-        App.changeScene(App.getScene()); 
+        App.carregarCena("MenuPrincipal");
     }
 
     @FXML
@@ -81,6 +80,6 @@ public class GerenCategoriasController implements Initializable{
     @FXML
     private void btnNovaCat_Click(ActionEvent event) 
     {
-        App.changeScene(App.getNovaCategoria());
+        App.carregarCena("NovaCategoria");
     }
 }

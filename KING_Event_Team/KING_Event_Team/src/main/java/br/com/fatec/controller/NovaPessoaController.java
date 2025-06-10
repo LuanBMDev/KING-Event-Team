@@ -46,6 +46,9 @@ public class NovaPessoaController implements Initializable
     private Button btnCadastrar;
     @FXML
     private Button btnLimpar;
+    
+    public static boolean isModoEdicao = false;
+    public static Pessoa pesAEditar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -70,8 +73,7 @@ public class NovaPessoaController implements Initializable
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
-        App.voltarHierarquia(App.getGerenPessoas()); 
+        App.voltarHierarquia("MenuPrincipal", "GerenPessoas");
     }
 
     @FXML

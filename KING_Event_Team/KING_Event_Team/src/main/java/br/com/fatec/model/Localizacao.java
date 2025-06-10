@@ -87,5 +87,8 @@ public class Localizacao
         this.tipoLocal = tipoLocal;
     }
     
+    public String toString(){
+        return codLocal + " - "+ nomeLocal;
+    }    
     
 }

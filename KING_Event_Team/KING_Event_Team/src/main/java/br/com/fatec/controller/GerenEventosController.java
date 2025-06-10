@@ -92,8 +92,7 @@ public class GerenEventosController implements Initializable{
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
-        App.changeScene(App.getScene()); 
+        App.carregarCena("MenuPrincipal");
     }
 
     @FXML
@@ -107,41 +106,41 @@ public class GerenEventosController implements Initializable{
     @FXML
     private void btnNovoEvento_Click(ActionEvent event) 
     {
-        App.changeScene(App.getNovoEvento());
+        App.carregarCena("NovoEvento");
     }
 
 
     private void btnCadExpositor_Click(ActionEvent event) 
     {
-        App.addScene(App.getNovaExposicao());
+        App.carregarCena("NovoExpositor");
     }
 
     private void btnGerenExpositores_Click(ActionEvent event) 
     {
-        App.changeScene(App.getGerenExpositores());
+        App.carregarCena("GerenExpositores");
     }
 
     @FXML
     private void btnCadIngresso_Click(ActionEvent event) 
     {
-        App.addScene(App.getNovoIngresso());
+        App.carregarCena("NovoIngresso");
     }
 
     @FXML
     private void btnGerenIngressos_Click(ActionEvent event) 
     {
-        App.changeScene(App.getGerenIngressos());
+        App.carregarCena("GerenIngressos");
     }
 
     @FXML
     private void btnCadExposicao_Click(ActionEvent event) 
     {
-        App.addScene(App.getNovaExposicao());
+        App.carregarCena("NovaExposicao");
     }
 
     @FXML
     private void btnGerenExposicoes_Click(ActionEvent event) 
     {
-        App.changeScene(App.getGerenExposicoes());
+        App.carregarCena("GerenExposicoes");
     }
 }
