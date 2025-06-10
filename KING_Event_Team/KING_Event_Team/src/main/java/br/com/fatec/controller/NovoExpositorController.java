@@ -5,15 +5,21 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -45,15 +51,14 @@ public class NovoExpositorController implements Initializable
     @FXML
     private TextField txtEmail;
     @FXML
-    private TextArea txtDescricao;
-    @FXML
     private Button btnCadExpo;
     @FXML
     private Button btnLimpar;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    
+    public void initialize(URL url, ResourceBundle rb) 
+    {
+        
     }
     
     @FXML
@@ -85,6 +90,18 @@ public class NovoExpositorController implements Initializable
     }
 
     @FXML
-    private void btnLimpar_Click(ActionEvent event) {
+    private void btnLimpar_Click(ActionEvent event) 
+    {
+        limpar();
+    }
+    
+    private void limpar()
+    {
+        txtNome.setText("");
+        txtCPFCNPJ.setText("");
+        txtEmail.setText("");
+        txtTelefone.setText("");
+        App a = new App();
+        imgLogo.setImage(a.definirImagem("TemplateLogo.jpg"));
     }
 }
