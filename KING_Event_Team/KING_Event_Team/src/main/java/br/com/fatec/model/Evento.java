@@ -12,7 +12,6 @@ public class Evento
 {
     private int codEvento;
     private String nomeEvento;
-    private String descEvento;
     private String dataInicio;
     private String dataFim;
     private String statusEvento;
@@ -31,7 +30,6 @@ public class Evento
     {
         this.codEvento = codEvento;
         this.nomeEvento = nomeEvento;
-        this.descEvento = descEvento;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.statusEvento = statusEvento;
@@ -85,16 +83,6 @@ public class Evento
     public void setNomeEvento(String nomeEvento) 
     {
         this.nomeEvento = nomeEvento;
-    }
-
-    public String getDescEvento() 
-    {
-        return descEvento;
-    }
-
-    public void setDescEvento(String descEvento) 
-    {
-        this.descEvento = descEvento;
     }
 
     public String getDataInicio() 

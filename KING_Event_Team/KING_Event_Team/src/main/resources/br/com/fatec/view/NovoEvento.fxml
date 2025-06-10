@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -45,26 +44,24 @@
       <Label layoutX="27.0" layoutY="95.0" text="Nome do Evento:" textFill="WHITE" />
       <ComboBox fx:id="cmbLocal" layoutX="28.0" layoutY="154.0" prefWidth="150.0" />
       <Label layoutX="28.0" layoutY="137.0" text="Local do Evento:" textFill="WHITE" />
-      <Button fx:id="btnAddLocal" layoutX="185.0" layoutY="154.0" mnemonicParsing="false" onAction="#btnAddLocal_Click" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="NOVO LOCAL" textFill="WHITE">
+      <Button fx:id="btnAddLocal" layoutX="185.0" layoutY="154.0" mnemonicParsing="false" onAction="#btnAddLocal_Click" prefHeight="25.0" prefWidth="122.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="NOVO LOCAL" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <ComboBox fx:id="cmbCategoria" layoutX="294.0" layoutY="154.0" prefWidth="150.0" />
-      <Label layoutX="294.0" layoutY="137.0" text="Categoria do Evento:" textFill="WHITE" />
-      <Button fx:id="btnAddCat" layoutX="451.0" layoutY="154.0" mnemonicParsing="false" onAction="#btnAddCat_Click" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="NOVA CATEGORIA" textFill="WHITE">
+      <ComboBox fx:id="cmbCategoria" layoutX="28.0" layoutY="205.0" prefWidth="150.0" />
+      <Label layoutX="28.0" layoutY="188.0" text="Categoria do Evento:" textFill="WHITE" />
+      <Button fx:id="btnAddCat" layoutX="185.0" layoutY="205.0" mnemonicParsing="false" onAction="#btnAddCat_Click" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="NOVA CATEGORIA" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <TextField fx:id="txtDataInicio" layoutX="28.0" layoutY="198.0" prefHeight="25.0" prefWidth="132.0" />
-      <Label layoutX="28.0" layoutY="181.0" text="Data de Início:" textFill="WHITE" />
-      <TextField fx:id="txtDataFinal" layoutX="185.0" layoutY="198.0" prefHeight="25.0" prefWidth="132.0" />
-      <Label layoutX="185.0" layoutY="181.0" text="Data Final:" textFill="WHITE" />
-      <TextField fx:id="txtPrecoPadrao" layoutX="376.0" layoutY="196.0" prefHeight="25.0" prefWidth="132.0" />
-      <Label layoutX="376.0" layoutY="179.0" text="Preço Padrão do Ingresso" textFill="WHITE" />
-      <TextArea fx:id="txtDescricao" layoutX="30.0" layoutY="246.0" prefHeight="67.0" prefWidth="545.0" />
-      <Label layoutX="28.0" layoutY="229.0" text="Descrição do Evento:" textFill="WHITE" />
+      <TextField fx:id="txtDataInicio" layoutX="440.0" layoutY="154.0" prefHeight="25.0" prefWidth="132.0" />
+      <Label layoutX="440.0" layoutY="137.0" text="Data de Início:" textFill="WHITE" />
+      <TextField fx:id="txtDataFinal" layoutX="440.0" layoutY="205.0" prefHeight="25.0" prefWidth="132.0" />
+      <Label layoutX="440.0" layoutY="188.0" text="Data Final:" textFill="WHITE" />
+      <TextField fx:id="txtPrecoPadrao" layoutX="232.0" layoutY="275.0" prefHeight="25.0" prefWidth="132.0" />
+      <Label layoutX="232.0" layoutY="258.0" text="Preço Padrão do Ingresso" textFill="WHITE" />
       <Button fx:id="btnCriarEvento" layoutX="453.0" layoutY="338.0" mnemonicParsing="false" onAction="#btnCriarEvento_Click" prefWidth="122.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="CRIAR EVENTO" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />

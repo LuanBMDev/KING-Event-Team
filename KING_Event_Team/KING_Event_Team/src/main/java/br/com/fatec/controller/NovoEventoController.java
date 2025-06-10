@@ -198,10 +198,7 @@ public class NovoEventoController implements Initializable{
         
         model.setDataInicio(txtDataInicio.getText());
         model.setDataFim(txtDataFinal.getText());
-        model.setPrecoPadrao((double) Long.parseLong(txtPrecoPadrao.getText().trim()));
-        model.setDescEvento(txtDescricao.getText().trim());
-        
-
+        model.setPrecoPadrao(Double.parseDouble(txtPrecoPadrao.getText().trim()));
        
         return model;
     }
