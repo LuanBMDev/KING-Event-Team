@@ -64,7 +64,8 @@ public class GerenLocaisController implements Initializable{
     private Button btnAtualizar;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) 
+    {
         preencherTabela();
     }
     
@@ -89,30 +90,35 @@ public class GerenLocaisController implements Initializable{
     }
 
     @FXML
-    private void btnEditar_Click(ActionEvent event) {
+    private void btnEditar_Click(ActionEvent event) 
+    {
         Localizacao localizacao = tbvLocais.getSelectionModel().selectedItemProperty().get();
-        if(localizacao == null){
+        if(localizacao == null)
+        {
             App.mensagem("AVISO", "Selecione uma Localizacao!", Alert.AlertType.WARNING);
             return;
         }
-        
     }
 
     @FXML
-    private void btnDeletar_Click(ActionEvent event) {
+    private void btnDeletar_Click(ActionEvent event) 
+    {
         Localizacao localizacao = tbvLocais.getSelectionModel().selectedItemProperty().get();
-        if(localizacao == null){
+        if(localizacao == null)
+        {
             App.mensagem("AVISO", "Selecione uma Localizacao!", Alert.AlertType.WARNING);
             return;
         }
         
-        try{
+        try
+        {
             LocalizacaoDAO dao = new LocalizacaoDAO();
             dao.remover(localizacao);
-            App.mensagem("Sucesso", localizacao.getNomeLocal()+"foi removido com sucesso!");
+            App.mensagem("SUCESSO", localizacao.getNomeLocal() + " foi removido com sucesso!");
             preencherTabela();
         }
-        catch(SQLException ex){
+        catch(SQLException ex)
+        {
              App.mensagem("ERRO", "Erro ao Deletar", Alert.AlertType.ERROR);
         }
     }
@@ -123,10 +129,12 @@ public class GerenLocaisController implements Initializable{
         App.carregarCena("NovaLocalizacao");
     }
     
-    private void preencherTabela(){
+    private void preencherTabela()
+    {
         tbvLocais.getItems().clear();
         
-        try{
+        try
+        {
             LocalizacaoDAO dao = new LocalizacaoDAO();
             ObservableList<Localizacao> lista = FXCollections.observableArrayList(dao.listar(""));
             tbvLocais.setItems(lista);
@@ -139,13 +147,15 @@ public class GerenLocaisController implements Initializable{
             colTipo.setCellValueFactory(new PropertyValueFactory("tipoLocal"));
             
         }
-        catch(SQLException ex){
+        catch(SQLException ex)
+        {
             App.mensagem("ERRO", "Erro ao preencher tabela.", Alert.AlertType.ERROR);
         }
     }
     
     @FXML
-    private void btnAtualizar_Click(ActionEvent event){
+    private void btnAtualizar_Click(ActionEvent event)
+    {
         preencherTabela();
     }
 }

@@ -57,23 +57,27 @@ public class NovaLocalizacaoController implements Initializable
     private Localizacao localizacao;
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) 
+    {
         cmbTipo.getItems().addAll("Presencial", "Online");
     }
       
     @FXML
-    private void btnCadLocal_Click(ActionEvent event) throws SQLException {
+    private void btnCadLocal_Click(ActionEvent event) throws SQLException 
+    {
         localizacao = new Localizacao();
-        if(validarDados()){
+        if(validarDados())
+        {
             localizacao = carregarModel();
             localizacaoDAO.inserir(localizacao);
             limparDados();
-            mensagem("local registrado com sucesso!");
+            App.mensagem("SUCESSO!", "Local registrado com sucesso!");
         }
     }
 
     @FXML
-    private void btnLimpar_Click(ActionEvent event) {
+    private void btnLimpar_Click(ActionEvent event) 
+    {
         limparDados();
     }
     
@@ -103,42 +107,39 @@ public class NovaLocalizacaoController implements Initializable
            txtEndereco.getText().isEmpty() ||
            txtNumero.getText().isEmpty() ||
            txtCidade.getText().isEmpty() ||
-           cmbTipo.getValue() == null){
-            mensagem("Por favor preencha todos os campos!");
-            System.out.println("dados invalidos");
-            return false;
+           cmbTipo.getValue() == null)
+        {
+           App.mensagem("AVISO", "Por favor preencha todos os campos!", Alert.AlertType.WARNING);
+           System.out.println("dados invalidos");
+           return false;
         }
-        else{
+        else
+        {
             System.out.println("dados validados com sucesso");
             return true;
         }
     }
-        private void mensagem(String msg) {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setTitle("Mensagem");
-        alerta.setHeaderText(msg);
-        alerta.setContentText("");
+    
+    private Localizacao carregarModel()
+    {
+        Localizacao model = new Localizacao();
+        model.setNomeLocal(txtNomeLocal.getText().trim());
+        model.setCEP(txtCEP.getText().trim());
+        model.setEnderecoLocal(txtEndereco.getText().trim());
+        model.setNumeroLocal((int) Long.parseLong(txtNumero.getText().trim()));
+        model.setCidade(txtCidade.getText().trim());
+        model.setTipoLocal(cmbTipo.getValue());
 
-        alerta.showAndWait();
+        return model;
     }
-        private Localizacao carregarModel(){
-            Localizacao model = new Localizacao();
-            model.setNomeLocal(txtNomeLocal.getText().trim());
-            model.setCEP(txtCEP.getText().trim());
-            model.setEnderecoLocal(txtEndereco.getText().trim());
-            model.setNumeroLocal((int) Long.parseLong(txtNumero.getText().trim()));
-            model.setCidade(txtCidade.getText().trim());
-            model.setTipoLocal(cmbTipo.getValue());
-            
-            return model;
-        }
         
-        private void limparDados(){
-            txtNomeLocal.clear();
-            txtCEP.clear();
-            txtEndereco.clear();
-            txtNumero.clear();
-            txtCidade.clear();
-            cmbTipo.setValue("");
-        }
+    private void limparDados()
+    {
+        txtNomeLocal.clear();
+        txtCEP.clear();
+        txtEndereco.clear();
+        txtNumero.clear();
+        txtCidade.clear();
+        cmbTipo.setValue("");
+    }
 }
