@@ -64,8 +64,7 @@ public class NovaLocalizacaoController implements Initializable
     @FXML
     private void btnCadLocal_Click(ActionEvent event) throws SQLException {
         localizacao = new Localizacao();
-        validarDados();
-        if(true){
+        if(validarDados()){
             localizacao = carregarModel();
             localizacaoDAO.inserir(localizacao);
             limparDados();
