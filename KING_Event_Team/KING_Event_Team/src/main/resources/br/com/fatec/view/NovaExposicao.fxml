@@ -43,5 +43,11 @@
             <Font size="22.0" />
          </font>
       </Button>
+      <Button fx:id="btnVoltar" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVoltar_Click" prefHeight="25.0" prefWidth="25.0" stylesheets="@../css/estilogeral.css" text="&lt;" textFill="WHITE">
+         <styleClass>
+            <String fx:value="botaoRedondo" />
+            <String fx:value="botaoNormal" />
+         </styleClass>
+      </Button>
    </children>
 </AnchorPane>

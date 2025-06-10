@@ -73,7 +73,7 @@ public class NovoExpositorController implements Initializable
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        App.changeScene(App.getScene());
+        App.voltarHierarquia("MenuPrincipal", "GerenExpositores");
     }
 
     @FXML

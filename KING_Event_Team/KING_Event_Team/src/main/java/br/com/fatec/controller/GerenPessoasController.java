@@ -85,7 +85,7 @@ public class GerenPessoasController implements Initializable
     private void btnVoltar_Click(ActionEvent event) 
     {
         // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
-        App.changeScene(App.getScene()); 
+        App.carregarCena("MenuPrincipal");
     }
 
     @FXML
@@ -100,7 +100,7 @@ public class GerenPessoasController implements Initializable
         
         NovaPessoaController.pesAEditar = pessoa;
         NovaPessoaController.isModoEdicao = true;
-        App.changeScene(App.getNovaPessoa());
+        //App.changeScene(App.getNovaPessoa());
     }
 
     @FXML
@@ -130,7 +130,7 @@ public class GerenPessoasController implements Initializable
     @FXML
     private void btnNovaPessoa_Click(ActionEvent event) 
     {
-        App.changeScene(App.getNovaPessoa());
+        App.carregarCena("NovaPessoa");
     }
     
     private void preencherTabela()

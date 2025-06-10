@@ -69,14 +69,13 @@ public class GerenExposicoesController implements Initializable
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
-        App.changeScene(App.getGerenEventos()); 
+        App.carregarCena("GerenEventos");
     }
 
     @FXML
     private void btnNovaExpo_Click(ActionEvent event) 
     {
-        App.addScene(App.getNovaExposicao());
+        App.carregarCena("NovaExposicao");
     }
 
     @FXML

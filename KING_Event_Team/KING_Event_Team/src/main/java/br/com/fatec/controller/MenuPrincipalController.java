@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -66,37 +67,37 @@ public class MenuPrincipalController implements Initializable
     @FXML
     private void btnNovoEvento_Click(ActionEvent event) 
     {
-        App.changeScene(App.getNovoEvento());
+        App.carregarCena("NovoEvento");
     }
 
     @FXML
     private void btnNovaCat_Click(ActionEvent event) 
     {
-        App.changeScene(App.getNovaCategoria());
+        App.carregarCena("NovaCategoria");
     }
 
     @FXML
     private void btnNovoLocal_Click(ActionEvent event) 
     {
-        App.changeScene(App.getNovoLocal());
+        App.carregarCena("NovaLocalizacao");
     }
 
     @FXML
     private void btnGerenEventos_Click(ActionEvent event) 
     {
-        App.changeScene(App.getGerenEventos());
+        App.carregarCena("GerenEventos");
     }
 
     @FXML
     private void btnGerenCat_Click(ActionEvent event) 
     {
-        App.changeScene(App.getGerenCategorias());
+        App.carregarCena("GerenCategorias");
     }
 
     @FXML
     private void btnGerenLocal_Click(ActionEvent event) 
     {
-        App.changeScene(App.getGerenLocais());
+        App.carregarCena("GerenLocais");
     }
 
     @FXML
@@ -116,24 +117,24 @@ public class MenuPrincipalController implements Initializable
     @FXML
     private void btnNovaPessoa_Click(ActionEvent event) 
     {
-        App.changeScene(App.getNovaPessoa());
+        App.carregarCena("NovaPessoa");
     }
 
     @FXML
     private void btnGerenPessoas_Click(ActionEvent event) 
     {
-        App.changeScene(App.getGerenPessoas());
+        App.carregarCena("GerenPessoas");
     }
 
     @FXML
     private void btnNovoExpo_Click(ActionEvent event) 
     {
-        App.changeScene(App.getNovoExpositor());
+        App.carregarCena("NovoExpositor");
     }
 
     @FXML
     private void btnGerenExpo_Click(ActionEvent event) 
     {
-        App.changeScene(App.getGerenExpositores());
+        App.carregarCena("GerenExpositores");
     }
 }

@@ -82,12 +82,12 @@ public class NovoEventoController implements Initializable{
     
     @FXML
     private void btnAddLocal_Click(ActionEvent event) {
-        App.changeScene(App.getNovoLocal());
+        App.carregarCena("NovaLocalizacao");
     }
 
     @FXML
     private void btnAddCat_Click(ActionEvent event) {
-        App.changeScene(App.getNovaCategoria());
+        App.carregarCena("NovaCategoria");
     }
 
     @FXML
@@ -127,7 +127,7 @@ public class NovoEventoController implements Initializable{
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        App.voltarHierarquia(App.getGerenEventos());
+        App.voltarHierarquia("MenuPrincipal", "GerenEventos");
     }
     
     private void limparDados(){

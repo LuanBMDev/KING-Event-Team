@@ -100,7 +100,7 @@ public class NovaCategoriaController implements Initializable
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        App.voltarHierarquia(App.getGerenCategorias());
+        App.voltarHierarquia("MenuPrincipal", "GerenCategorias", "NovoEvento");
     }
     private void mensagem(String msg) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);

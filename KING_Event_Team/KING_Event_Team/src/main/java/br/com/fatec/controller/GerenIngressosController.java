@@ -73,8 +73,7 @@ public class GerenIngressosController implements Initializable
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        // Por padrão ele vai pro Menu principal, mas altere dependendo da situação
-        App.changeScene(App.getGerenEventos()); 
+        App.carregarCena("GerenEventos");
     }
 
     @FXML
@@ -86,6 +85,8 @@ public class GerenIngressosController implements Initializable
     }
 
     @FXML
-    private void btnNovoIngresso_Click(ActionEvent event) {
+    private void btnNovoIngresso_Click(ActionEvent event) 
+    {
+        App.carregarCena("NovoIngresso");
     }
 }

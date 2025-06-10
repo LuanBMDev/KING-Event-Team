@@ -94,7 +94,7 @@ public class NovaLocalizacaoController implements Initializable
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
-        App.voltarHierarquia(App.getGerenLocais());
+        App.voltarHierarquia("MenuPrincipal", "GerenLocais", "NovoEvento");
     }
     
     private boolean validarDados(){
