@@ -7,6 +7,7 @@ package br.com.fatec.controller;
 import br.com.fatec.App;
 import br.com.fatec.DAO.PessoaDAO;
 import br.com.fatec.model.Pessoa;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -88,13 +89,42 @@ public class GerenPessoasController implements Initializable
     }
 
     @FXML
-    private void btnEditar_Click(ActionEvent event) {
+    private void btnEditar_Click(ActionEvent event)
+    {
+        Pessoa pessoa = tbvPessoas.getSelectionModel().selectedItemProperty().get();
+        if(pessoa == null)
+        {
+            App.mensagem("AVISO", "Selecione uma Pessoa!", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        NovaPessoaController.pesAEditar = pessoa;
+        NovaPessoaController.isModoEdicao = true;
+        App.changeScene(App.getNovaPessoa());
     }
 
     @FXML
     private void btnDeletar_Click(ActionEvent event) 
     {
+        Pessoa pessoa = tbvPessoas.getSelectionModel().selectedItemProperty().get();
+        if(pessoa == null)
+        {
+            App.mensagem("AVISO", "Selecione uma Pessoa!", Alert.AlertType.WARNING);
+            return;
+        }
         
+        try
+        {
+            PessoaDAO dao = new PessoaDAO();
+            dao.remover(pessoa);
+            App.mensagem("SUCESSO", pessoa.getNome() + " foi removido com sucesso!");   
+        }
+        catch(SQLException ex)
+        {
+            App.mensagem("ERRO", "Erro ao Deletar", Alert.AlertType.ERROR);
+        }
+        
+        preencherTabela();
     }
 
     @FXML

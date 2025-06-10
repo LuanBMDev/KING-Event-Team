@@ -46,6 +46,9 @@ public class NovaPessoaController implements Initializable
     private Button btnCadastrar;
     @FXML
     private Button btnLimpar;
+    
+    public static boolean isModoEdicao = false;
+    public static Pessoa pesAEditar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
