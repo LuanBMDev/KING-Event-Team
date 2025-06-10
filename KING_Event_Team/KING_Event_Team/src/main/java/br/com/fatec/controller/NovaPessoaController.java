@@ -82,6 +82,7 @@ public class NovaPessoaController implements Initializable
                 || txtEmail.getText().isBlank())
         {
             App.mensagem("AVISO!", "PREENCHA TODOS OS CAMPOS OBRIGATÓRIOS!", Alert.AlertType.WARNING);
+
             return;
         }
         
@@ -99,6 +100,7 @@ public class NovaPessoaController implements Initializable
             dao.inserir(p);
             
             App.mensagem("SUCESSO", p.getNome() + " Cadastrado com sucesso!");
+
             limpar();
         }
         catch(SQLException ex)
