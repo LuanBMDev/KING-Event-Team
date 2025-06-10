@@ -3,6 +3,7 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -72,5 +73,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <DatePicker fx:id="dateInicio" layoutX="399.0" layoutY="245.0" onAction="#selecionaDataInicio" />
+      <DatePicker fx:id="dateFim" layoutX="399.0" layoutY="275.0" onAction="#selecionaDataFim" />
    </children>
 </AnchorPane>
