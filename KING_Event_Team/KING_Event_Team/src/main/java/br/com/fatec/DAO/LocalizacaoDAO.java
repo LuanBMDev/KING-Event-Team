@@ -129,7 +129,7 @@ public class LocalizacaoDAO implements DAO<Localizacao>
             localizacao.setEnderecoLocal(rs.getString("endereco"));
             localizacao.setNumeroLocal(rs.getInt("numeroLocal"));
             localizacao.setCidade(rs.getString("cidade"));
-            localizacao.setCidade(rs.getString("tipoLocal"));
+            localizacao.setTipoLocal(rs.getString("tipoLocal"));
         }
         
         Banco.desconectar();
@@ -167,7 +167,7 @@ public class LocalizacaoDAO implements DAO<Localizacao>
             localizacao.setEnderecoLocal(rs.getString("endereco"));
             localizacao.setNumeroLocal(rs.getInt("numeroLocal"));
             localizacao.setCidade(rs.getString("cidade"));
-            localizacao.setCidade(rs.getString("tipoLocal"));
+            localizacao.setTipoLocal(rs.getString("tipoLocal"));
             
             listagem.add(localizacao);
         }
