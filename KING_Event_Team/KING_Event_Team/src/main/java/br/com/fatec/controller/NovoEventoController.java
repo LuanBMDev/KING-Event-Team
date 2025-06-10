@@ -138,6 +138,7 @@ public class NovoEventoController implements Initializable{
                 //carregarDatas();
                 evento = carregarModel();
                 eventoDAO.inserir(evento);
+                App.mensagem("SUCESSO", "Evento criado com sucesso!");
                 limparDados();
             } catch (SQLException ex) {
                 Logger.getLogger(NovoEventoController.class.getName()).log(Level.SEVERE, null, ex);

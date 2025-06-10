@@ -95,7 +95,7 @@ public class GerenLocaisController implements Initializable{
         Localizacao localizacao = tbvLocais.getSelectionModel().selectedItemProperty().get();
         if(localizacao == null)
         {
-            App.mensagem("AVISO", "Selecione uma Localizacao!", Alert.AlertType.WARNING);
+            App.mensagem("AVISO", "Selecione uma Localização!", Alert.AlertType.WARNING);
             return;
         }
     }
@@ -106,7 +106,7 @@ public class GerenLocaisController implements Initializable{
         Localizacao localizacao = tbvLocais.getSelectionModel().selectedItemProperty().get();
         if(localizacao == null)
         {
-            App.mensagem("AVISO", "Selecione uma Localizacao!", Alert.AlertType.WARNING);
+            App.mensagem("AVISO", "Selecione uma Localização!", Alert.AlertType.WARNING);
             return;
         }
         
@@ -119,7 +119,7 @@ public class GerenLocaisController implements Initializable{
         }
         catch(SQLException ex)
         {
-             App.mensagem("ERRO", "Erro ao Deletar", Alert.AlertType.ERROR);
+             App.mensagem("ERRO", "Erro ao Deletar: É possível que essa localização esteja sendo usada em um evento.", Alert.AlertType.ERROR);
         }
     }
 

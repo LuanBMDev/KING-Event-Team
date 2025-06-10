@@ -117,7 +117,7 @@ public class GerenPessoasController implements Initializable
         {
             PessoaDAO dao = new PessoaDAO();
             dao.remover(pessoa);
-            App.mensagem("SUCESSO", pessoa.getNome() + " foi removido com sucesso!");   
+            App.mensagem("SUCESSO", pessoa.getNome() + " foi removido(a) com sucesso!");   
         }
         catch(SQLException ex)
         {
