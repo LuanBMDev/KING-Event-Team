@@ -109,11 +109,42 @@ public class GerenEventosController implements Initializable{
     }
 
     @FXML
-    private void btnDeletar_Click(ActionEvent event) {
+    private void btnDeletar_Click(ActionEvent event) 
+    {
+        Evento evento = tbvEventos.getSelectionModel().selectedItemProperty().get();
+        if(evento == null)
+        {
+            App.mensagem("AVISO", "Selecione um Evento!", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        try
+        {
+            EventoDAO dao = new EventoDAO();
+            dao.remover(evento);
+            App.mensagem("APAGADO", "Evento apagado com sucesso!");
+        }
+        catch(SQLException ex)
+        {
+            App.mensagem("ERRO", "Erro ao Deletar", Alert.AlertType.ERROR);
+        }
+        
+        preencherTabela();
     }
 
     @FXML
-    private void btnEditar_Click(ActionEvent event) {
+    private void btnEditar_Click(ActionEvent event) 
+    {
+        Evento evento = tbvEventos.getSelectionModel().selectedItemProperty().get();
+        if(evento == null)
+        {
+            App.mensagem("AVISO", "Selecione um Evento!", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        NovoEventoController.isModoEdicao = true;
+        NovoEventoController.eventoAEditar = evento;
+        App.carregarCena("NovoEvento");
     }
 
     @FXML

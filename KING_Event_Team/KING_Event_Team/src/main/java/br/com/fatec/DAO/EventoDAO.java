@@ -67,8 +67,8 @@ public class EventoDAO implements DAO <Evento>{
 
     @Override
     public boolean alterar(Evento model) throws SQLException {
-        String sql = "UPDATE Evento SET codEvento = ?, nomeEvento = ?, descEvento = ?, "
-                + " dataInicio = ?, DataFim = ?, statusEvento = ?, codLocal = ?, codCat = ?, precoIngresso = ?"
+        String sql = "UPDATE Evento SET nomeEvento = ?,"
+                + " dataInicio = ?, dataFim = ?, statusEvento = ?, codLocal = ?, codCat = ?, precoIngresso = ?"
                 +"WHERE codEvento = ?;";
         Banco.conectar();
         pst = Banco.obterConexao().prepareStatement(sql);
@@ -79,6 +79,7 @@ public class EventoDAO implements DAO <Evento>{
         pst.setInt(5,model.getLocalizacao().getCodLocal());
         pst.setInt(6,model.getCategoria().getCodCat());
         pst.setDouble(7,model.getPrecoPadrao());
+        pst.setInt(8, model.getCodEvento());
         
         if(pst.executeUpdate() >= 1){
             Banco.desconectar();

@@ -60,12 +60,7 @@ public class NovoEventoController implements Initializable{
     @FXML
     private Button btnAddCat;
     @FXML
-    private TextField txtDataInicio;
-    @FXML
-    private TextField txtDataFinal;
-    @FXML
     private TextField txtPrecoPadrao;
-    private TextArea txtDescricao;
     @FXML
     private Button btnCriarEvento;
     @FXML
@@ -85,13 +80,20 @@ public class NovoEventoController implements Initializable{
     
     private String dataFimL;
     private String dataInicioL;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    
+    // MORTE IMINENTE
     private String dataAtual;
     private String status;
+    
+    public static boolean isModoEdicao;
+    public static Evento eventoAEditar;
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
             carregarLocal();
             carregarCategoria();
+            carregarModoGravacao();
     }
     
    public void selecionaDataInicio(ActionEvent event) {
@@ -137,8 +139,17 @@ public class NovoEventoController implements Initializable{
             try {
                 //carregarDatas();
                 evento = carregarModel();
-                eventoDAO.inserir(evento);
-                App.mensagem("SUCESSO", "Evento criado com sucesso!");
+                
+                if(isModoEdicao)
+                {
+                    eventoDAO.alterar(evento);
+                    App.mensagem("SUCESSO", "Evento alterado com sucesso!");
+                }
+                else
+                {
+                    eventoDAO.inserir(evento);
+                    App.mensagem("SUCESSO", "Evento criado com sucesso!");
+                }
                 limparDados();
             } catch (SQLException ex) {
                 Logger.getLogger(NovoEventoController.class.getName()).log(Level.SEVERE, null, ex);
@@ -169,17 +180,8 @@ public class NovoEventoController implements Initializable{
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
+        desativarEdicao();
         App.voltarHierarquia("MenuPrincipal", "GerenEventos");
-    }
-    
-    private void limparDados(){
-        txtNomeEvento.clear();
-        cmbLocal.setValue(null);
-        cmbCategoria.setValue(null);
-        dateFim.setValue(null);
-        dateInicio.setValue(null);
-        txtPrecoPadrao.clear();
-        
     }
     
     private void carregarLocal(){
@@ -228,14 +230,26 @@ public class NovoEventoController implements Initializable{
     private Evento carregarModel(){
         Evento model = new Evento(null,null);
         model.setNomeEvento(txtNomeEvento.getText().trim());
-        //model.setLocalizacao.getNomeLocal(cmbLocal.getValue());
+        System.out.println("Nome do evento: " + model.getNomeEvento());
+        
         model.setLocalizacao(cmbLocal.getValue());
-        //model.setCategoria((Categoria) cmbCategoria.getValue());
+        System.out.println("Local selecionado: " + model.getLocalizacao().getNomeLocal());
+        
         model.setCategoria(cmbCategoria.getValue());
-        model.setDataInicio(dataInicioL);
-        model.setDataFim(dataFimL);
+        System.out.println("Categoria selecionada: " + model.getCategoria().getNomeCat());
+        
+        model.setDataInicio(String.valueOf(dateInicio.getValue()));
+        System.out.println("Data início: " + model.getDataInicio());
+        
+        model.setDataFim(String.valueOf(dateFim.getValue()));
+        System.out.println("Data fim: " + model.getDataFim());
+        
         model.setPrecoPadrao(Double.parseDouble(txtPrecoPadrao.getText().trim()));
+        System.out.println("Preço: " + String.valueOf(model.getPrecoPadrao()));
+        
         model.setStatusEvento(carregarDatas());
+        System.out.println("Status: " + model.getStatusEvento());
+        
         return model;
     }
     
@@ -256,9 +270,8 @@ public class NovoEventoController implements Initializable{
    private String carregarDatas(){
         String status = null;
         LocalDate atual = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate inicio = LocalDate.parse(dataInicioL,formatter);
-        LocalDate  fim = LocalDate.parse(dataFimL,formatter); 
+        LocalDate inicio = LocalDate.parse(String.valueOf(dateInicio.getValue()),formatter);
+        LocalDate fim = LocalDate.parse(String.valueOf(dateFim.getValue()),formatter);
         if(inicio.isAfter(atual)){
             //set pendente no status
             status = "PENDENTE";
@@ -274,4 +287,46 @@ public class NovoEventoController implements Initializable{
         }
         return status;
    }
+   
+   private void carregarModoGravacao()
+   {
+       if(isModoEdicao)
+        {
+            // Muda a aparência para se encaixar no modo de Edição 
+            lblTitulo.setText("EDITAR EVENTO");
+            btnCriarEvento.setText("ALTERAR");
+            btnLimpar.setText("SAIR DA EDIÇÃO");
+            txtNomeEvento.setText(eventoAEditar.getNomeEvento());
+            txtPrecoPadrao.setText(String.valueOf(eventoAEditar.getPrecoPadrao()));
+            cmbCategoria.setValue(eventoAEditar.getCategoria());
+            cmbLocal.setValue(eventoAEditar.getLocalizacao());
+            dateInicio.setValue(LocalDate.parse(eventoAEditar.getDataInicio(), formatter));
+            dateFim.setValue(LocalDate.parse(eventoAEditar.getDataFim(), formatter));
+        }
+        else
+        {
+            // Muda a aparência para se encaixar no modo de Cadastro
+            lblTitulo.setText("NOVO EVENTO");
+            btnCriarEvento.setText("NOVO EVENTO");
+            btnLimpar.setText("LIMPAR");
+        }
+   }
+   
+   private void desativarEdicao()
+   {
+       isModoEdicao = false;
+       eventoAEditar = null;
+       carregarModoGravacao();
+   }
+   
+   private void limparDados()
+   {
+        txtNomeEvento.clear();
+        cmbLocal.setValue(null);
+        cmbCategoria.setValue(null);
+        dateFim.setValue(null);
+        dateInicio.setValue(null);
+        txtPrecoPadrao.clear();
+        desativarEdicao();
+    }
 }
