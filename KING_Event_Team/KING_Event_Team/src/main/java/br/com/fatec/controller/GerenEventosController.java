@@ -167,6 +167,14 @@ public class GerenEventosController implements Initializable{
     @FXML
     private void btnCadIngresso_Click(ActionEvent event) 
     {
+        Evento evento = tbvEventos.getSelectionModel().selectedItemProperty().get();
+        if(evento == null)
+        {
+            App.mensagem("AVISO", "Selecione um Evento!", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        NovoIngressoController.evento = evento;
         App.carregarCena("NovoIngresso");
     }
 
