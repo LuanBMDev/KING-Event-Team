@@ -26,8 +26,8 @@ public class LocalizacaoDAO implements DAO<Localizacao>
     @Override
     public boolean inserir(Localizacao model) throws SQLException 
     {
-        String sql = "INSERT INTO Localizacao (nomeLocal, CEP, endereco, numeroLocal, cidade, tipoLocal) "
-                + "VALUES (?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO Localizacao (nomeLocal, CEP, endereco, numeroLocal, cidade, estado, tipoLocal) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?);";
         
         Banco.conectar();
         
@@ -36,9 +36,10 @@ public class LocalizacaoDAO implements DAO<Localizacao>
         pst.setString(1, model.getNomeLocal());
         pst.setString(2, model.getCEP());
         pst.setString(3, model.getEnderecoLocal());
-        pst.setInt(4, model.getNumeroLocal());
+        pst.setString(4, model.getNumeroLocal());
         pst.setString(5, model.getCidade());
-        pst.setString(6, model.getTipoLocal());
+        pst.setString(6, model.getEstado());
+        pst.setString(7, model.getTipoLocal());
         
         if(pst.executeUpdate() >= 1) 
         {
@@ -78,7 +79,7 @@ public class LocalizacaoDAO implements DAO<Localizacao>
     @Override
     public boolean alterar(Localizacao model) throws SQLException {
         String sql = "UPDATE Localizacao SET nomeLocal = ?, CEP = ?, endereco = ?, "
-                + "numeroLocal = ?, cidade = ?, tipoLocal = ? "
+                + "numeroLocal = ?, cidade = ?, estado = ?, tipoLocal = ? "
                 + "WHERE codLocal = ?;";
         
         Banco.conectar();
@@ -88,10 +89,11 @@ public class LocalizacaoDAO implements DAO<Localizacao>
         pst.setString(1, model.getNomeLocal());
         pst.setString(2, model.getCEP());
         pst.setString(3, model.getEnderecoLocal());
-        pst.setInt(4, model.getNumeroLocal());
+        pst.setString(4, model.getNumeroLocal());
         pst.setString(5, model.getCidade());
-        pst.setString(6, model.getTipoLocal());
-        pst.setInt(7, model.getCodLocal());
+        pst.setString(6, model.getEstado());
+        pst.setString(7, model.getTipoLocal());
+        pst.setInt(8, model.getCodLocal());
         
         if(pst.executeUpdate() >= 1)
         {
@@ -127,8 +129,9 @@ public class LocalizacaoDAO implements DAO<Localizacao>
             localizacao.setNomeLocal(rs.getString("nomeLocal"));
             localizacao.setCEP(rs.getString("CEP"));
             localizacao.setEnderecoLocal(rs.getString("endereco"));
-            localizacao.setNumeroLocal(rs.getInt("numeroLocal"));
+            localizacao.setNumeroLocal(rs.getString("numeroLocal"));
             localizacao.setCidade(rs.getString("cidade"));
+            localizacao.setEstado(rs.getString("estado"));
             localizacao.setTipoLocal(rs.getString("tipoLocal"));
         }
         
@@ -165,8 +168,9 @@ public class LocalizacaoDAO implements DAO<Localizacao>
             localizacao.setNomeLocal(rs.getString("nomeLocal"));
             localizacao.setCEP(rs.getString("CEP"));
             localizacao.setEnderecoLocal(rs.getString("endereco"));
-            localizacao.setNumeroLocal(rs.getInt("numeroLocal"));
+            localizacao.setNumeroLocal(rs.getString("numeroLocal"));
             localizacao.setCidade(rs.getString("cidade"));
+            localizacao.setEstado(rs.getString("estado"));
             localizacao.setTipoLocal(rs.getString("tipoLocal"));
             
             listagem.add(localizacao);

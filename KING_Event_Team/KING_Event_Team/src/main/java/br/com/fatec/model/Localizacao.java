@@ -14,14 +14,15 @@ public class Localizacao
     private String nomeLocal;
     private String CEP;
     private String enderecoLocal;
-    private int numeroLocal;
+    private String numeroLocal;
     private String cidade;
+    private String estado;
     private String tipoLocal;
     
     public Localizacao() {
     }
 
-    public Localizacao(int codLocal, String nomeLocal, String CEP, String enderecoLocal, int numeroLocal, String cidade, String tipoLocal) {
+    public Localizacao(int codLocal, String nomeLocal, String CEP, String enderecoLocal, String numeroLocal, String cidade, String tipoLocal) {
         this.codLocal = codLocal;
         this.nomeLocal = nomeLocal;
         this.CEP = CEP;
@@ -63,11 +64,11 @@ public class Localizacao
         this.enderecoLocal = enderecoLocal;
     }
 
-    public int getNumeroLocal() {
+    public String getNumeroLocal() {
         return numeroLocal;
     }
 
-    public void setNumeroLocal(int numeroLocal) {
+    public void setNumeroLocal(String numeroLocal) {
         this.numeroLocal = numeroLocal;
     }
 
@@ -77,6 +78,14 @@ public class Localizacao
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getTipoLocal() {

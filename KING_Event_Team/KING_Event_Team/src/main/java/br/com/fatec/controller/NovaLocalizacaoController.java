@@ -46,6 +46,8 @@ public class NovaLocalizacaoController implements Initializable
     @FXML
     private TextField txtCidade;
     @FXML
+    private TextField txtEstado;
+    @FXML
     private ComboBox<String> cmbTipo;
     @FXML
     private Button btnCadLocal;
@@ -57,10 +59,9 @@ public class NovaLocalizacaoController implements Initializable
     private Localizacao localizacao;
     
     public static boolean isModoEdicao = false;
-    
     public static Localizacao localAEditar;
     
-    public static int codLocal;
+    //public static int codLocal;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -88,7 +89,14 @@ public class NovaLocalizacaoController implements Initializable
                 limparDados();
             }
             catch(SQLException ex){
-                
+                if (isModoEdicao)
+                {
+                    App.mensagem("ERRO", "Erro ao alterar: " + ex.getMessage(), Alert.AlertType.ERROR);
+                }
+                else
+                {
+                    App.mensagem("ERRO", "Erro ao cadastrar: " + ex.getMessage(), Alert.AlertType.ERROR);
+                }
             }
         }
     }
@@ -121,19 +129,19 @@ public class NovaLocalizacaoController implements Initializable
     
     private boolean validarDados(){
         if(txtNomeLocal.getText().isBlank()||
-           txtCEP.getText().isBlank() ||
            txtEndereco.getText().isBlank() ||
-           txtNumero.getText().isBlank() ||
-           txtCidade.getText().isBlank() ||
            cmbTipo.getValue() == null)
         {
-           App.mensagem("AVISO", "Por favor preencha todos os campos!", Alert.AlertType.WARNING);
-           System.out.println("dados invalidos");
+           App.mensagem("AVISO", "Por favor preencha todos os campos obrigatórios (*)!", Alert.AlertType.WARNING);System.out.println("dados invalidos");
            return false;
         }
         else
         {
             System.out.println("dados validados com sucesso");
+            if (txtCidade.getText().isBlank()) txtCidade.clear();
+            if (txtCEP.getText().isBlank()) txtCEP.clear();
+            if (txtEstado.getText().isBlank()) txtEstado.clear();
+            if (txtNumero.getText().isBlank()) txtNumero.clear();
             return true;
         }
     }
@@ -144,10 +152,12 @@ public class NovaLocalizacaoController implements Initializable
         model.setNomeLocal(txtNomeLocal.getText().trim());
         model.setCEP(txtCEP.getText().trim());
         model.setEnderecoLocal(txtEndereco.getText().trim());
-        model.setNumeroLocal((int) Long.parseLong(txtNumero.getText().trim()));
+        model.setNumeroLocal(txtNumero.getText().trim());
         model.setCidade(txtCidade.getText().trim());
+        model.setEstado(txtEstado.getText().trim());
         model.setTipoLocal(cmbTipo.getValue());
-        model.setCodLocal(codLocal);
+        
+        if(isModoEdicao) model.setCodLocal(localAEditar.getCodLocal());
         
         return model;
     }
@@ -159,6 +169,8 @@ public class NovaLocalizacaoController implements Initializable
         txtEndereco.clear();
         txtNumero.clear();
         txtCidade.clear();
+        txtEndereco.clear();
+        txtEstado.clear();
         cmbTipo.setValue("");
         desativarEdicao();
     }
@@ -171,8 +183,9 @@ public class NovaLocalizacaoController implements Initializable
             txtNomeLocal.setText(localAEditar.getNomeLocal());
             txtCEP.setText(localAEditar.getCEP());
             txtEndereco.setText(localAEditar.getEnderecoLocal());
-            txtNumero.setText(Integer.toString(localAEditar.getNumeroLocal()));
+            txtNumero.setText(localAEditar.getNumeroLocal());
             txtCidade.setText(localAEditar.getCidade());
+            txtEstado.setText(localAEditar.getEstado());
             cmbTipo.setValue(localAEditar.getTipoLocal());
             
         }

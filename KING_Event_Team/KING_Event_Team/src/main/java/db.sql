@@ -8,8 +8,9 @@ CREATE TABLE Localizacao
     nomeLocal VARCHAR(100) NOT NULL,
     CEP VARCHAR(9),
     endereco VARCHAR(255) NOT NULL,
-    numeroLocal INT,
+    numeroLocal VARCHAR(5),
     cidade VARCHAR(100),
+    estado VARCHAR(25),
     tipoLocal VARCHAR(10) NOT NULL
 );
 
