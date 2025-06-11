@@ -100,6 +100,12 @@ public class GerenLocaisController implements Initializable{
             App.mensagem("AVISO", "Selecione uma Localização!", Alert.AlertType.WARNING);
             return;
         }
+        Localizacao cod = tbvLocais.getSelectionModel().getSelectedItem();
+        NovaLocalizacaoController.localAEditar = localizacao;
+        NovaLocalizacaoController.isModoEdicao = true;
+        NovaLocalizacaoController.codLocal = cod.getCodLocal();
+        App.carregarCena("NovaLocalizacao");
+        System.out.println(NovaLocalizacaoController.isModoEdicao);
     }
 
     @FXML

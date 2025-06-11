@@ -35,7 +35,7 @@
             <Image url="@../images/LogotipoPNG.png" />
          </image>
       </ImageView>
-      <Label fx:id="lblTitulo" alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" prefHeight="75.0" prefWidth="344.0" styleClass="titulo" stylesheets="@../css/estilogeral.css" text="NOVA LOCALIZAÇÃO" textAlignment="CENTER" textFill="WHITE" underline="true">
+      <Label fx:id="lblTitulo" alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" layoutY="2.0" prefHeight="75.0" prefWidth="344.0" styleClass="titulo" stylesheets="@../css/estilogeral.css" text="NOVA LOCALIZAÇÃO" textAlignment="CENTER" textFill="WHITE" underline="true">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

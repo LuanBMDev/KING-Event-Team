@@ -56,22 +56,40 @@ public class NovaLocalizacaoController implements Initializable
 
     private Localizacao localizacao;
     
+    public static boolean isModoEdicao = false;
+    
+    public static Localizacao localAEditar;
+    
+    public static int codLocal;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
         cmbTipo.getItems().addAll("Presencial", "Online");
+        carregarModoGravacao();
     }
       
     @FXML
-    private void btnCadLocal_Click(ActionEvent event) throws SQLException 
+    private void btnCadLocal_Click(ActionEvent event)
     {
         localizacao = new Localizacao();
         if(validarDados())
         {
             localizacao = carregarModel();
-            localizacaoDAO.inserir(localizacao);
-            limparDados();
-            App.mensagem("SUCESSO!", "Local registrado com sucesso!");
+            try{
+                if(isModoEdicao){
+                    localizacaoDAO.alterar(localizacao);
+                    App.mensagem("SUCESSO!", "Local alterado com sucesso!");
+                }
+                else{
+                    localizacaoDAO.inserir(localizacao);
+                    App.mensagem("SUCESSO!", "Local registrado com sucesso!");
+                }
+                limparDados();
+            }
+            catch(SQLException ex){
+                
+            }
         }
     }
 
@@ -129,7 +147,8 @@ public class NovaLocalizacaoController implements Initializable
         model.setNumeroLocal((int) Long.parseLong(txtNumero.getText().trim()));
         model.setCidade(txtCidade.getText().trim());
         model.setTipoLocal(cmbTipo.getValue());
-
+        model.setCodLocal(codLocal);
+        
         return model;
     }
         
@@ -141,5 +160,36 @@ public class NovaLocalizacaoController implements Initializable
         txtNumero.clear();
         txtCidade.clear();
         cmbTipo.setValue("");
+        desativarEdicao();
     }
+    
+    private void carregarModoGravacao(){
+        if(isModoEdicao){
+            lblTitulo.setText("EDITAR LOCAL");
+            btnCadLocal.setText("GRAVAR ALTERAÇÕES");
+            btnLimpar.setText("SAIR DA EDIÇÃO");
+            txtNomeLocal.setText(localAEditar.getNomeLocal());
+            txtCEP.setText(localAEditar.getCEP());
+            txtEndereco.setText(localAEditar.getEnderecoLocal());
+            txtNumero.setText(Integer.toString(localAEditar.getNumeroLocal()));
+            txtCidade.setText(localAEditar.getCidade());
+            cmbTipo.setValue(localAEditar.getTipoLocal());
+            
+        }
+        else{
+            lblTitulo.setText("NOVA LOCALIZACAO");
+            btnCadLocal.setText("CADASTRAR LOCAL");
+            btnLimpar.setText("LIMPAR");
+            
+        }
+    }
+    
+    private void desativarEdicao()
+    {
+        isModoEdicao = false;
+        localAEditar = null;
+        carregarModoGravacao();
+    }
+    
+    
 }
