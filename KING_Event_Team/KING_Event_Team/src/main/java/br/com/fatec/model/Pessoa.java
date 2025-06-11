@@ -67,4 +67,8 @@ public class Pessoa
     {
         this.telefone = telefone;
     }
+    
+    public String toString(){
+        return CPF + " - " + nome;
+    } 
 }

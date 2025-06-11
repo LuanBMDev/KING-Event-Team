@@ -5,11 +5,24 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import br.com.fatec.DAO.IngressoDAO;
+import br.com.fatec.model.Evento;
+import br.com.fatec.model.Ingresso;
+import br.com.fatec.model.Pessoa;
+import br.com.fatec.persistencia.Banco;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -32,7 +45,7 @@ public class NovoIngressoController implements Initializable
     @FXML
     private Label txtNomeEvento;
     @FXML
-    private ComboBox<?> cmbPessoa;
+    private ComboBox<Pessoa> cmbPessoa;
     @FXML
     private CheckBox chkMeiaEntrada;
     @FXML
@@ -43,10 +56,26 @@ public class NovoIngressoController implements Initializable
     private Button btnLimpar;
     @FXML
     private Button btnVoltar;
+    
+    private Ingresso ingresso;
+    
+    private PreparedStatement pst;
+    
+    private ResultSet rs;
+    
+    public static Evento evento;
+    
+    private int chk = 0;
 
+    public static boolean isModoEdicao = false;
+    
+    private IngressoDAO ingressoDAO = new IngressoDAO();
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    
+        carregarPessoa();
+        txtNomeEvento.setText(evento.getNomeEvento());
+        txtValorFinal.setText(String.format("%.2f", evento.getPrecoPadrao()));
     }
     
     @FXML
@@ -71,11 +100,81 @@ public class NovoIngressoController implements Initializable
 
     @FXML
     private void btnCadIngresso_Click(ActionEvent event) {
+        ingresso = new Ingresso(null, null);
+        if(cmbPessoa != null){
+            ingresso = carregarModel();
+            try{
+                if(isModoEdicao){
+                    ingressoDAO.alterar(ingresso);
+                    App.mensagem("SUCESSO!", "Ingresso alterado com sucesso!");
+                }
+                else{
+                    ingressoDAO.inserir(ingresso);
+                    App.mensagem("SUCESSO!", "Ingresso registrado com sucesso!");
+                }
+                limparDados();
+            }
+            catch(SQLException ex){
+                
+            }
+        }
+        else{
+            App.mensagem("ERRO", "Selecione uma pessoa!");
+        }
     }
 
     @FXML
     private void btnLimpar_Click(ActionEvent event) 
     {
+        limparDados();
+    }
+    
+        private void carregarPessoa(){
+        try {
+            Banco.conectar();
+            String sql = "SELECT CPF, nome FROM pessoa";
+            pst = Banco.obterConexao().prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            ObservableList<Pessoa> listData = FXCollections.observableArrayList();
+            
+            while (rs.next()){
+                var pessoa = new Pessoa();
+                pessoa.setCPF(rs.getString("CPF"));
+                pessoa.setNome(rs.getString("nome"));
+                listData.add(pessoa);
+            }
+            cmbPessoa.setItems(listData);
+        } catch (SQLException ex) {
+            Logger.getLogger(NovoEventoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private Ingresso carregarModel(){
+        Ingresso model = new Ingresso(null, null);
         
+        model.setPessoa(cmbPessoa.getValue());
+        model.setEvento(evento);
+        model.setTotalPago(Double.parseDouble(txtValorFinal.getText().replace(",", ".")));
+        model.setMeiaEntrada(chk);
+        
+        return model;
+    }
+    
+    private void limparDados(){
+        cmbPessoa.setValue(null);
+        chkMeiaEntrada.setSelected(false);
+    }
+
+    @FXML
+    private void chkMeiaEntrada_Click(ActionEvent event) {
+        if(chkMeiaEntrada.isSelected()){
+            txtValorFinal.setText(String.format("%.2f", evento.getPrecoPadrao() / 2));
+            chk = 1;
+       }
+        else{
+            txtValorFinal.setText(String.format("%.2f", evento.getPrecoPadrao()));
+            chk = 0;
+        }
     }
 }
