@@ -51,7 +51,7 @@ public class NovaCategoriaController implements Initializable
     private Categoria categoria;
     
     public static boolean isModoEdicao = false;
-    public static Categoria catAEdirar;
+    public static Categoria catAEditar;
 
     
     // Métodos de Controller
@@ -79,7 +79,7 @@ public class NovaCategoriaController implements Initializable
         try
         {
             Categoria c = new Categoria();
-            c.setNomeCat(txtNomeCat.getText());
+            c = carregarModel();
 
             CategoriaDAO dao = new CategoriaDAO();
             
@@ -96,7 +96,7 @@ public class NovaCategoriaController implements Initializable
                 App.mensagem("SUCESSO", c.getNomeCat()+ " Cadastrado com sucesso!");
             }
             
-            txtNomeCat.clear();
+            limpar();
         }
         catch(SQLException ex)
         {
@@ -116,7 +116,7 @@ public class NovaCategoriaController implements Initializable
     @FXML
     private void btnLimpar_Click(ActionEvent event) 
     {
-        txtNomeCat.setText("");
+        limpar();
     }
     
     @FXML
@@ -136,27 +136,20 @@ public class NovaCategoriaController implements Initializable
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
+        desativarEdicao();
         App.voltarHierarquia("MenuPrincipal", "GerenCategorias", "NovoEvento");
-    }
-
-    private void mensagem(String msg) {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setTitle("Mensagem");
-        alerta.setHeaderText(msg);
-        alerta.setContentText("");
-
-        alerta.showAndWait();
     }
 
     private Categoria carregarModel(){
             Categoria model = new Categoria();
+            if(isModoEdicao) model.setCodCat(catAEditar.getCodCat());
             model.setNomeCat(txtNomeCat.getText().trim());
             return model;
     }
     private void desativarEdicao()
     {
         isModoEdicao = false;
-        catAEdirar = null;
+        catAEditar = null;
         carregarModoGravacao();
     }
     private void carregarModoGravacao()
@@ -164,19 +157,24 @@ public class NovaCategoriaController implements Initializable
         if(isModoEdicao)
         {
             // Muda a aparência para se encaixar no modo de Edição 
-            String nomeCategoria[] = catAEdirar.getNomeCat().split(" ");
-            lblTitulo.setText("EDITAR " + nomeCategoria[0].toUpperCase());
+            lblTitulo.setText("EDITAR " + catAEditar.getNomeCat().toUpperCase());
             btnCadCat.setText("GRAVAR ALTERAÇÕES");
             btnLimpar.setText("SAIR DA EDIÇÃO");
-            txtNomeCat.setText(catAEdirar.getNomeCat());
+            txtNomeCat.setText(catAEditar.getNomeCat());
            
         }
         else
         {
             // Muda a aparência para se encaixar no modo de Cadastro
-            lblTitulo.setText("NOVA PESSOA");
-            btnCadCat.setText("CADASTRAR PESSOA");
+            lblTitulo.setText("NOVA CATEGORIA");
+            btnCadCat.setText("NOVA CATEGORIA");
             btnLimpar.setText("LIMPAR");
         }
+    }
+    
+    private void limpar()
+    {
+        txtNomeCat.clear();
+        desativarEdicao();
     }
 }

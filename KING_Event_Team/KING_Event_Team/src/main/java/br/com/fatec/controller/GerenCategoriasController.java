@@ -87,7 +87,7 @@ public class GerenCategoriasController implements Initializable{
             App.mensagem("AVISO", "Selecione uma Pessoa!", Alert.AlertType.WARNING);
             return;
         }
-        NovaCategoriaController.catAEdirar = categoria;
+        NovaCategoriaController.catAEditar = categoria;
         NovaCategoriaController.isModoEdicao = true;
         App.carregarCena("NovaCategoria");
     }
