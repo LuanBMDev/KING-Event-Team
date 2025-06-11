@@ -62,6 +62,8 @@ public class GerenLocaisController implements Initializable{
     private Button btnNovoLocal;
     @FXML
     private Button btnAtualizar;
+    @FXML
+    private TableColumn<Localizacao, Integer> colCodigo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -139,6 +141,7 @@ public class GerenLocaisController implements Initializable{
             ObservableList<Localizacao> lista = FXCollections.observableArrayList(dao.listar(""));
             tbvLocais.setItems(lista);
             
+            colCodigo.setCellValueFactory(new PropertyValueFactory("codLocal"));
             colNomeLocal.setCellValueFactory(new PropertyValueFactory("nomeLocal"));
             colEndereco.setCellValueFactory(new PropertyValueFactory("enderecoLocal"));
             colNumero.setCellValueFactory(new PropertyValueFactory("numeroLocal"));
