@@ -43,7 +43,8 @@
       </Label>
       <TableView fx:id="tbvCategorias" layoutX="28.0" layoutY="89.0" prefHeight="219.0" prefWidth="187.0">
         <columns>
-          <TableColumn fx:id="colNomeCat" prefWidth="185.0" text="Nome Categoria" />
+            <TableColumn fx:id="colCodCat" prefWidth="75.0" text="Codigo" />
+          <TableColumn fx:id="colNomeCat" prefWidth="106.0000057220459" text="Nome Categoria" />
         </columns>
       </TableView>
       <Pane fx:id="panBusca" layoutX="235.0" layoutY="108.0" prefHeight="100.0" prefWidth="322.0" style="-fx-border-color: white;" />

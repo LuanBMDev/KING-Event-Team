@@ -5,15 +5,22 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import br.com.fatec.DAO.CategoriaDAO;
+import br.com.fatec.model.Categoria;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -32,9 +39,11 @@ public class GerenCategoriasController implements Initializable{
     @FXML
     private Label lblTitulo;
     @FXML
-    private TableView<?> tbvCategorias;
+    private TableView<Categoria> tbvCategorias;
     @FXML
-    private TableColumn<?, ?> colNomeCat;
+    private TableColumn<Categoria, String> colNomeCat;
+    @FXML
+    private TableColumn<Categoria, Integer> colCodCat;
     @FXML
     private Pane panBusca;
     @FXML
@@ -43,10 +52,11 @@ public class GerenCategoriasController implements Initializable{
     private Button btnDeletar;
     @FXML
     private Button btnNovaCat;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        preencherTabela();
     }
     
     @FXML
@@ -71,15 +81,36 @@ public class GerenCategoriasController implements Initializable{
 
     @FXML
     private void btnEditar_Click(ActionEvent event) {
+    
     }
 
     @FXML
     private void btnDeletar_Click(ActionEvent event) {
+   
     }
 
     @FXML
     private void btnNovaCat_Click(ActionEvent event) 
     {
         App.carregarCena("NovaCategoria");
+    }
+    
+    private void preencherTabela()
+    {
+        tbvCategorias.getItems().clear();
+        
+        try
+        {
+           CategoriaDAO dao = new CategoriaDAO();
+           ObservableList<Categoria> lista = FXCollections.observableArrayList(dao.listar(""));
+           tbvCategorias.setItems(lista);
+           
+           colNomeCat.setCellValueFactory(new PropertyValueFactory("nomeCat"));
+           colCodCat.setCellValueFactory(new PropertyValueFactory("codCat"));
+        }
+        catch(SQLException ex)
+        {
+            App.mensagem("ERRO", "Erro ao preencher tabela.", Alert.AlertType.ERROR);      
+        }
     }
 }
