@@ -203,17 +203,12 @@ public class GerenEventosController implements Initializable{
             colDataInicio.setCellValueFactory(new PropertyValueFactory("dataInicio"));
             colDataFim.setCellValueFactory(new PropertyValueFactory("dataFim"));
             colStatus.setCellValueFactory(new PropertyValueFactory("statusEvento"));
-<<<<<<< HEAD
             colLocal.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
                     cellData.getValue().getLocalizacao().getNomeLocal()));
             colCategoria.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
                     cellData.getValue().getCategoria().getNomeCat()));
             colIngressoPadrao.setCellValueFactory(new PropertyValueFactory("precoPadrao"));
-=======
-            colLocal.setCellValueFactory(new PropertyValueFactory("codLocal"));
-            colCategoria.setCellValueFactory(new PropertyValueFactory("codCat"));
-            colIngressoPadrao.setCellValueFactory(new PropertyValueFactory("precoIngresso"));
->>>>>>> 993682f (äa)
+
             colTotalVendido.setCellValueFactory(cellData -> new ReadOnlyStringWrapper("0"));
         }
         catch(SQLException ex)
