@@ -229,6 +229,10 @@ public class NovoEventoController implements Initializable{
     
     private Evento carregarModel(){
         Evento model = new Evento(null,null);
+        
+        model.setCodEvento(eventoAEditar.getCodEvento());
+        System.out.println("Código: " + model.getCodEvento());
+        
         model.setNomeEvento(txtNomeEvento.getText().trim());
         System.out.println("Nome do evento: " + model.getNomeEvento());
         
@@ -292,6 +296,7 @@ public class NovoEventoController implements Initializable{
    {
        if(isModoEdicao)
         {
+            //App.mensagem("POR FAVOR(2)", "Editando Código: " + eventoAEditar.getCodEvento());
             // Muda a aparência para se encaixar no modo de Edição 
             lblTitulo.setText("EDITAR EVENTO");
             btnCriarEvento.setText("ALTERAR");
