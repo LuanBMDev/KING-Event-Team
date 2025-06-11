@@ -39,7 +39,8 @@ import java.util.Calendar;
  *
  * @author luann 
  */
-public class NovoEventoController implements Initializable{
+public class NovoEventoController implements Initializable
+{
 
     @FXML
     private Button btnFechar;
@@ -90,24 +91,27 @@ public class NovoEventoController implements Initializable{
     public static Evento eventoAEditar;
    
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-            carregarLocal();
-            carregarCategoria();
-            carregarModoGravacao();
+    public void initialize(URL url, ResourceBundle rb) 
+    {
+        carregarLocal();
+        carregarCategoria();
+        carregarModoGravacao();
     }
     
-   public void selecionaDataInicio(ActionEvent event) {
-    LocalDate dataInicio = dateInicio.getValue();
+   public void selecionaDataInicio(ActionEvent event) 
+   {
+        LocalDate dataInicio = dateInicio.getValue();
 
-    if (dataInicio != null) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        dataInicioL = dataInicio.format(formatter); // supondo que dataInicioL é um atributo da classe
-        System.out.println(dataInicioL);
-    } else {
-        System.out.println("Nenhuma data de início foi selecionada.");
-    }
-
-
+        if (dataInicio != null) 
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            dataInicioL = dataInicio.format(formatter); // supondo que dataInicioL é um atributo da classe
+            System.out.println(dataInicioL);
+        } 
+        else 
+        {
+            System.out.println("Nenhuma data de início foi selecionada.");
+        }
     }
    public void selecionaDataFim(ActionEvent event){
     LocalDate dataFim = dateFim.getValue();
@@ -153,8 +157,7 @@ public class NovoEventoController implements Initializable{
                 limparDados();
             } catch (SQLException ex) {
                 Logger.getLogger(NovoEventoController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+            }   
         }
     }
 
@@ -230,7 +233,7 @@ public class NovoEventoController implements Initializable{
     private Evento carregarModel(){
         Evento model = new Evento(null,null);
         
-        model.setCodEvento(eventoAEditar.getCodEvento());
+        if(isModoEdicao) model.setCodEvento(eventoAEditar.getCodEvento());
         System.out.println("Código: " + model.getCodEvento());
         
         model.setNomeEvento(txtNomeEvento.getText().trim());

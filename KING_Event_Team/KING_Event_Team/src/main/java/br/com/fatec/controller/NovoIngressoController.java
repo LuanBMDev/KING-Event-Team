@@ -7,9 +7,9 @@ package br.com.fatec.controller;
 import br.com.fatec.App;
 import br.com.fatec.DAO.IngressoDAO;
 import br.com.fatec.model.Evento;
-import br.com.fatec.model.Ingresso;
 import br.com.fatec.model.Pessoa;
 import br.com.fatec.persistencia.Banco;
+import br.com.fatec.model.Ingresso;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -66,8 +66,8 @@ public class NovoIngressoController implements Initializable
     public static Evento evento;
     
     private int chk = 0;
-
-    public static boolean isModoEdicao = false;
+    public static boolean isModoEdicao;
+    public static Ingresso ingressoAEditar;
     
     private IngressoDAO ingressoDAO = new IngressoDAO();
     
