@@ -5,15 +5,29 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import br.com.fatec.DAO.ExpositorDAO;
+import br.com.fatec.DAO.PessoaDAO;
+import br.com.fatec.model.Expositor;
+import br.com.fatec.model.Pessoa;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -32,21 +46,19 @@ public class GerenExpositoresController implements Initializable {
     @FXML
     private Label lblTitulo;
     @FXML
-    private TableView<?> tbvExpositores;
+    private TableView<Expositor> tbvExpositores;
     @FXML
-    private TableColumn<?, ?> colCodigo;
+    private TableColumn<Expositor, Integer> colCodigo;
     @FXML
-    private TableColumn<?, ?> colLogo;
+    private TableColumn<Expositor, String> colLogo;
     @FXML
-    private TableColumn<?, ?> colNome;
+    private TableColumn<Expositor, String> colNome;
     @FXML
-    private TableColumn<?, ?> colCPFCNPJ;
+    private TableColumn<Expositor, String> colCPFCNPJ;
     @FXML
-    private TableColumn<?, ?> colTelefone;
+    private TableColumn<Expositor, String> colTelefone;
     @FXML
-    private TableColumn<?, ?> colEmail;
-    @FXML
-    private TableColumn<?, ?> colDesc;
+    private TableColumn<Expositor, String> colEmail;
     @FXML
     private Pane panBusca;
     @FXML
@@ -55,11 +67,13 @@ public class GerenExpositoresController implements Initializable {
     private Button btnEditar;
     @FXML
     private Button btnDeletar;
+    @FXML
+    private Button btnVerLogo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-        
+        preencherTabela();
     }
     
     @FXML
@@ -89,12 +103,85 @@ public class GerenExpositoresController implements Initializable {
     }
 
     @FXML
-    private void btnEditar_Click(ActionEvent event) {
+    private void btnEditar_Click(ActionEvent event) 
+    {
+        Expositor expositor = tbvExpositores.getSelectionModel().selectedItemProperty().get();
+        if(expositor == null)
+        {
+            App.mensagem("AVISO", "Selecione um Expositor!", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        NovoExpositorController.isModoEdicao = true;
+        NovoExpositorController.expoAEditar = expositor;
+        App.carregarCena("NovoExpositor");
     }
 
     @FXML
-    private void btnDeletar_Click(ActionEvent event) {
+    private void btnDeletar_Click(ActionEvent event) 
+    {
+        Expositor expositor = tbvExpositores.getSelectionModel().selectedItemProperty().get();
+        if(expositor == null)
+        {
+            App.mensagem("AVISO", "Selecione um Expositor!", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        try
+        {
+            ExpositorDAO dao = new ExpositorDAO();
+            dao.remover(expositor);
+            App.mensagem("SUCESSO", "Expositor removido com sucesso!");
+        }
+        catch(SQLException ex)
+        {
+            App.mensagem("ERRO", "Erro ao remover expositor.", Alert.AlertType.ERROR);
+        }
+        
+        preencherTabela();
     }
 
-    
+    private void preencherTabela()
+    {
+        tbvExpositores.getItems().clear();
+        
+        try
+        {
+            ExpositorDAO dao = new ExpositorDAO();
+            ObservableList<Expositor> lista = FXCollections.observableArrayList(dao.listar(""));
+            //lista.setAll(dao.listar(""));
+            tbvExpositores.setItems(lista);
+            
+            colCodigo.setCellValueFactory(new PropertyValueFactory("codExpo"));
+            colLogo.setCellValueFactory(new PropertyValueFactory("logoExpo"));
+            colNome.setCellValueFactory(new PropertyValueFactory("nomeFant"));
+            colCPFCNPJ.setCellValueFactory(new PropertyValueFactory("CPFCNPJ"));
+            colEmail.setCellValueFactory(new PropertyValueFactory("emailExpo"));
+            colTelefone.setCellValueFactory(new PropertyValueFactory("telefoneExpo"));
+        }
+        catch(SQLException ex)
+        {
+            App.mensagem("ERRO", "Erro ao preencher tabela.", Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void btnVerLogo_Click(ActionEvent event) 
+    {
+        Expositor expositor = tbvExpositores.getSelectionModel().selectedItemProperty().get();
+        if(expositor == null)
+        {
+            App.mensagem("AVISO", "Selecione um Expositor!", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        try 
+        {       
+            Desktop.getDesktop().open(new File("//" + expositor.getLogoExpo()));
+        }
+        catch (IOException ex) 
+        {
+            Logger.getLogger(GerenExpositoresController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

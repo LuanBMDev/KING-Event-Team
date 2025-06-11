@@ -60,11 +60,13 @@ public class NovoExpositorController implements Initializable
     private Button btnLimpar;
     
     private String caminhoLogo;
+    public static boolean isModoEdicao;
+    public static Expositor expoAEditar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-        
+        carregarModoGravacao();
     }
     
     @FXML
@@ -84,6 +86,7 @@ public class NovoExpositorController implements Initializable
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
+        desativarEdicao();
         App.voltarHierarquia("MenuPrincipal", "GerenExpositores");
     }
 
@@ -124,14 +127,31 @@ public class NovoExpositorController implements Initializable
             expo.setLogoExpo(caminhoLogo);
             
             ExpositorDAO dao = new ExpositorDAO();
-            dao.inserir(expo);
             
-            App.mensagem("SUCESSO", "Expositor " + expo.getNomeFant() + " cadastrado com sucesso!");
+            if(isModoEdicao)
+            {
+                expo.setCodExpo(expoAEditar.getCodExpo());
+                dao.alterar(expo);
+                App.mensagem("SUCESSO", "Expositor " + expo.getNomeFant() + " alterado com sucesso!");
+            }
+            else
+            {
+                dao.inserir(expo);
+                App.mensagem("SUCESSO", "Expositor " + expo.getNomeFant() + " cadastrado com sucesso!");
+            }
+            
             limpar();
         }
         catch(SQLException ex)
         {
-            App.mensagem("ERRO", "Falha ao Cadastrar!", Alert.AlertType.ERROR);
+            if(isModoEdicao)
+            {
+                App.mensagem("ERRO", "Falha ao Alterar: " + ex.getMessage(), Alert.AlertType.ERROR);
+            }
+            else
+            {
+                App.mensagem("ERRO", "Falha ao Cadastrar: " + ex.getMessage(), Alert.AlertType.ERROR);
+            }
         }
     }
 
@@ -139,6 +159,40 @@ public class NovoExpositorController implements Initializable
     private void btnLimpar_Click(ActionEvent event) 
     {
         limpar();
+    }
+    
+    private void carregarModoGravacao()
+    {
+        if(isModoEdicao)
+        {
+            // Muda a aparência para se encaixar no modo de Edição 
+            String nomeExpositor[] = expoAEditar.getNomeFant().split(" ");
+            lblTitulo.setText("EDITAR " + nomeExpositor[0].toUpperCase());
+            btnCadExpo.setText("GRAVAR ALTERAÇÕES");
+            btnLimpar.setText("SAIR DA EDIÇÃO");
+            txtNome.setText(expoAEditar.getNomeFant());
+            txtEmail.setText(expoAEditar.getEmailExpo());
+            txtCPFCNPJ.setText(expoAEditar.getCPFCNPJ());
+            txtCPFCNPJ.setDisable(true);
+            txtTelefone.setText(expoAEditar.getTelefoneExpo());
+            caminhoLogo = expoAEditar.getLogoExpo();
+            imgLogo.setImage(new Image("file:///" + caminhoLogo));
+        }
+        else
+        {
+            // Muda a aparência para se encaixar no modo de Cadastro
+            lblTitulo.setText("NOVO EXPOSITOR");
+            txtCPFCNPJ.setDisable(false);
+            btnCadExpo.setText("CADASTRAR EXPOSITOR");
+            btnLimpar.setText("LIMPAR");
+        }
+    }
+    
+    private void desativarEdicao()
+    {
+        isModoEdicao = false;
+        expoAEditar = null;
+        carregarModoGravacao();
     }
     
     private void limpar()
@@ -149,5 +203,6 @@ public class NovoExpositorController implements Initializable
         txtTelefone.setText("");
         App a = new App();
         imgLogo.setImage(a.definirImagem("TemplateLogo.jpg"));
+        desativarEdicao();
     }
 }

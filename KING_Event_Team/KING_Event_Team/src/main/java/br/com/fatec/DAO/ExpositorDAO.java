@@ -75,19 +75,19 @@ public class ExpositorDAO implements DAO<Expositor>
 
     @Override
     public boolean alterar(Expositor model) throws SQLException {
-        String sql = "ÜPDATE Expositor SET nomeFant = ?, CPFCNPJ = ?, logoExpo = ?, emailExpo = ?, telefoneExpo = ?"
+        String sql = "UPDATE Expositor SET nomeFant = ?, CPFCNPJ = ?, logoExpo = ?, emailExpo = ?, telefoneExpo = ?"
                 + "WHERE codExpo = ?;";
         
         Banco.conectar();
         
         pst = Banco.obterConexao().prepareStatement(sql);
         
-        pst.setInt(6,model.getCodExpo());
         pst.setString(1,model.getNomeFant());
         pst.setString(2,model.getCPFCNPJ());
         pst.setString(3,model.getLogoExpo());
         pst.setString(4,model.getEmailExpo());
         pst.setString(5,model.getTelefoneExpo());
+        pst.setInt(6,model.getCodExpo());
         
         if(pst.executeUpdate() >= 1) 
         { 
@@ -151,6 +151,7 @@ public class ExpositorDAO implements DAO<Expositor>
         while(rs.next()){
             expositor = new Expositor();
             
+            expositor.setCodExpo(rs.getInt("codExpo"));
             expositor.setNomeFant(rs.getString("nomeFant"));
             expositor.setCPFCNPJ(rs.getString("CPFCNPJ"));
             expositor.setLogoExpo(rs.getString("logoExpo"));
