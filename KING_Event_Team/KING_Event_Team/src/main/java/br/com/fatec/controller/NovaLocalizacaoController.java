@@ -102,11 +102,11 @@ public class NovaLocalizacaoController implements Initializable
     }
     
     private boolean validarDados(){
-        if(txtNomeLocal.getText().isEmpty() ||
-           txtCEP.getText().isEmpty() ||
-           txtEndereco.getText().isEmpty() ||
-           txtNumero.getText().isEmpty() ||
-           txtCidade.getText().isEmpty() ||
+        if(txtNomeLocal.getText().isBlank()||
+           txtCEP.getText().isBlank() ||
+           txtEndereco.getText().isBlank() ||
+           txtNumero.getText().isBlank() ||
+           txtCidade.getText().isBlank() ||
            cmbTipo.getValue() == null)
         {
            App.mensagem("AVISO", "Por favor preencha todos os campos!", Alert.AlertType.WARNING);
