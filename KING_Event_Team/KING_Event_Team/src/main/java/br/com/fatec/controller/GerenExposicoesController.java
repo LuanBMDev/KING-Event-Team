@@ -5,15 +5,23 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import br.com.fatec.DAO.ExposicaoDAO;
+import br.com.fatec.model.Exposicao;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -33,11 +41,13 @@ public class GerenExposicoesController implements Initializable
     @FXML
     private Label lblTitulo;
     @FXML
-    private TableView<?> tbvExposicoes;
+    private TableView<Exposicao> tbvExposicoes;
     @FXML
-    private TableColumn<?, ?> colNomeExpo;
+    private TableColumn<Exposicao, String> colNomeExpo;
     @FXML
-    private TableColumn<?, ?> colDescExpo;
+    private TableColumn<Exposicao, String> colDescExpo;
+    @FXML
+    private TableColumn<Exposicao, String> colcod;
     @FXML
     private Pane panBusca;
     @FXML
@@ -46,10 +56,11 @@ public class GerenExposicoesController implements Initializable
     private Button btnEditar;
     @FXML
     private Button btnDeletar;
+   
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    
+        preencherTabela();
     }
     
     @FXML
@@ -84,5 +95,26 @@ public class GerenExposicoesController implements Initializable
 
     @FXML
     private void btnDeletar_Click(ActionEvent event) {
+    }
+    
+    private void preencherTabela(){
+        tbvExposicoes.getItems().clear();
+        
+        try
+        {
+            ExposicaoDAO dao = new ExposicaoDAO();
+            ObservableList<Exposicao> lista = FXCollections.observableArrayList(dao.listar(""));
+            tbvExposicoes.setItems(lista);
+            colcod.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
+                   String.valueOf(cellData.getValue().getEvento().getCodEvento())));
+            colNomeExpo.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
+                   cellData.getValue().getExpositor().getNomeFant()));
+            colDescExpo.setCellValueFactory(new PropertyValueFactory("descricao"));
+            
+        }
+        catch(SQLException ex)
+        {
+            App.mensagem("ERRO", "Erro ao preencher tabela."+ ex.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 }

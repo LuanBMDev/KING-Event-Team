@@ -147,7 +147,7 @@ public class ExposicaoDAO implements DAO<Exposicao>{
         }
         Banco.conectar();
         
-        pst = Banco.obterConexao().prepareCall(sql);
+        pst = Banco.obterConexao().prepareStatement(sql);
         
         rs = pst.executeQuery();
         
