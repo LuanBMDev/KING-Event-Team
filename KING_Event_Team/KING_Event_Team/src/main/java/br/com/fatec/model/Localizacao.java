@@ -16,6 +16,7 @@ public class Localizacao
     private String enderecoLocal;
     private int numeroLocal;
     private String cidade;
+    private String estado;
     private String tipoLocal;
     
     public Localizacao() {
@@ -77,6 +78,14 @@ public class Localizacao
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getTipoLocal() {

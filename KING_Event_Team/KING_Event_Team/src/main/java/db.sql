@@ -10,6 +10,7 @@ CREATE TABLE Localizacao
     endereco VARCHAR(255) NOT NULL,
     numeroLocal INT,
     cidade VARCHAR(100),
+    estado VARCHAR(25),
     tipoLocal VARCHAR(10) NOT NULL
 );
 
