@@ -6,7 +6,9 @@ package br.com.fatec.controller;
 
 import br.com.fatec.App;
 import br.com.fatec.DAO.EventoDAO;
+import br.com.fatec.model.Categoria;
 import br.com.fatec.model.Evento;
+import br.com.fatec.model.Localizacao;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -52,9 +54,9 @@ public class GerenEventosController implements Initializable{
     @FXML
     private TableColumn<Evento, String> colStatus;
     @FXML
-    private TableColumn<Evento, Integer> colLocal;
+    private TableColumn<Evento, String> colLocal;
     @FXML
-    private TableColumn<Evento, Integer> colCategoria;
+    private TableColumn<Evento, String> colCategoria;
     @FXML
     private TableColumn<Evento, Double> colIngressoPadrao;
     @FXML
@@ -165,14 +167,16 @@ public class GerenEventosController implements Initializable{
             //lista.setAll(dao.listar(""));
             tbvEventos.setItems(lista);
             
-            colCodEvento.setCellValueFactory(new PropertyValueFactory<Evento, Integer>("codEvento"));
-            colNomeEvento.setCellValueFactory(new PropertyValueFactory<Evento, String>("nomeEvento"));
-            colDataInicio.setCellValueFactory(new PropertyValueFactory<Evento, String>("dataInicio"));
-            colDataFim.setCellValueFactory(new PropertyValueFactory<Evento, String>("dataFim"));
-            colStatus.setCellValueFactory(new PropertyValueFactory<Evento, String>("statusEvento"));
-            colLocal.setCellValueFactory(new PropertyValueFactory<Evento, Integer>("codLocal"));
-            colCategoria.setCellValueFactory(new PropertyValueFactory<Evento, Integer>("codCat"));
-            colIngressoPadrao.setCellValueFactory(new PropertyValueFactory<Evento, Double>("precoIngresso"));
+            colCodEvento.setCellValueFactory(new PropertyValueFactory("codEvento"));
+            colNomeEvento.setCellValueFactory(new PropertyValueFactory("nomeEvento"));
+            colDataInicio.setCellValueFactory(new PropertyValueFactory("dataInicio"));
+            colDataFim.setCellValueFactory(new PropertyValueFactory("dataFim"));
+            colStatus.setCellValueFactory(new PropertyValueFactory("statusEvento"));
+            colLocal.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
+                    cellData.getValue().getLocalizacao().getNomeLocal()));
+            colCategoria.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
+                    cellData.getValue().getCategoria().getNomeCat()));
+            colIngressoPadrao.setCellValueFactory(new PropertyValueFactory("precoPadrao"));
             colTotalVendido.setCellValueFactory(cellData -> new ReadOnlyStringWrapper("0"));
         }
         catch(SQLException ex)

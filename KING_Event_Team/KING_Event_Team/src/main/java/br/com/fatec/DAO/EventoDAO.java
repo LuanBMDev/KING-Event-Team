@@ -4,7 +4,9 @@
  */
 package br.com.fatec.DAO;
 
+import br.com.fatec.model.Categoria;
 import br.com.fatec.model.Evento;
+import br.com.fatec.model.Localizacao;
 import br.com.fatec.persistencia.Banco;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -138,16 +140,26 @@ public class EventoDAO implements DAO <Evento>{
         rs = pst.executeQuery();
         while(rs.next())
         {
-            evento = new Evento(null, null);
+            Categoria cat = new Categoria();
+            cat.setCodCat(rs.getInt("codCat"));
+            CategoriaDAO daoCat = new CategoriaDAO();
+            cat = daoCat.buscarID(cat);
+            
+            Localizacao local = new Localizacao();
+            local.setCodLocal(rs.getInt("codLocal"));
+            LocalizacaoDAO daoLocal = new LocalizacaoDAO();
+            local = daoLocal.buscarID(local);
+            
+            evento = new Evento(cat, local);
             
             evento.setCodEvento(rs.getInt("codEvento"));
             evento.setNomeEvento(rs.getString("nomeEvento"));
             evento.setDataInicio(rs.getString("dataInicio"));
             evento.setDataFim(rs.getString("dataFim"));
             evento.setStatusEvento(rs.getString("statusEvento"));
-            evento.getLocalizacao().setCodLocal(rs.getInt("codLocal"));
-            evento.getCategoria().setCodCat(rs.getInt("codCat"));
             evento.setPrecoPadrao(rs.getDouble("precoIngresso"));
+            
+            listagem.add(evento);
         }
         Banco.desconectar();
         rs.close();

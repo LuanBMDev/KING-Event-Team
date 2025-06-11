@@ -261,13 +261,13 @@ public class NovoEventoController implements Initializable{
         LocalDate  fim = LocalDate.parse(dataFimL,formatter); 
         if(inicio.isAfter(atual)){
             //set pendente no status
-            status = "PENDNETE";
+            status = "PENDENTE";
         }
         else if(fim.isBefore(atual)){
             //set encerrado status 
             status = "ENCERRADO";
         }
-        else //if(fim.isAfter(atual) && inicio.isBefore(atual))
+        else 
         {
             //set emandamento status
             status = "EM ANDAMENTO";
