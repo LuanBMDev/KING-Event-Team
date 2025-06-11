@@ -88,4 +88,7 @@ public class Expositor
     {
         this.logoExpo = logoExpo;
     }
+   public String toString(){
+       return codExpo + " - "+ nomeFant;
+   }    
 }

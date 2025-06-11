@@ -34,11 +34,11 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <ComboBox layoutX="51.0" layoutY="137.0" prefWidth="150.0" stylesheets="@../css/estilogeral.css" />
+      <ComboBox fx:id="cmbExpositor" layoutX="51.0" layoutY="137.0" prefWidth="150.0" stylesheets="@../css/estilogeral.css" />
       <Label layoutX="51.0" layoutY="105.0" text="Expositor" textFill="WHITE" />
       <Label layoutX="222.0" layoutY="105.0" text="Descrição" textFill="WHITE" />
       <TextArea fx:id="txtDescricao" layoutX="222.0" layoutY="137.0" prefHeight="122.0" prefWidth="355.0" />
-      <Button fx:id="btnSalvar" layoutX="50.0" layoutY="200.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="150.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="SALVAR" textFill="WHITE">
+      <Button fx:id="btnSalvar" layoutX="50.0" layoutY="200.0" mnemonicParsing="false" onAction="#btnSalvar_Click" prefHeight="51.0" prefWidth="150.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="SALVAR" textFill="WHITE">
          <font>
             <Font size="22.0" />
          </font>

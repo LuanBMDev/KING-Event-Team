@@ -152,21 +152,11 @@ public class GerenEventosController implements Initializable{
     {
         App.carregarCena("NovoEvento");
     }
-
-
-    private void btnCadExpositor_Click(ActionEvent event) 
-    {
-        App.carregarCena("NovoExpositor");
-    }
-
-    private void btnGerenExpositores_Click(ActionEvent event) 
-    {
-        App.carregarCena("GerenExpositores");
-    }
-
+    
     @FXML
     private void btnCadIngresso_Click(ActionEvent event) 
     {
+        
         App.carregarCena("NovoIngresso");
     }
 
@@ -179,12 +169,28 @@ public class GerenEventosController implements Initializable{
     @FXML
     private void btnCadExposicao_Click(ActionEvent event) 
     {
+        Evento evento = tbvEventos.getSelectionModel().selectedItemProperty().get();
+        if(evento == null)
+        {
+            App.mensagem("AVISO", "Selecione um Evento!", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        NovaExposicaoController.evento = evento;
         App.carregarCena("NovaExposicao");
     }
 
     @FXML
     private void btnGerenExposicoes_Click(ActionEvent event) 
     {
+        Evento evento = tbvEventos.getSelectionModel().selectedItemProperty().get();
+        if(evento == null)
+        {
+            App.mensagem("AVISO", "Selecione um Evento!", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        NovaExposicaoController.evento = evento;
         App.carregarCena("GerenExposicoes");
     }
     private void preencherTabela()

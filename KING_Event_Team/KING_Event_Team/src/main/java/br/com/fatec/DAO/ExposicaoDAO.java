@@ -126,9 +126,10 @@ public class ExposicaoDAO implements DAO<Exposicao>{
             Exposicao exposicao = new Exposicao(evento, expositor);
             exposicao.setDescricao(rs.getString("descricao"));
 
-            Banco.desconectar();
-            rs.close();
+
         }
+        Banco.desconectar();
+        rs.close();        
         return exposicao;
     }
 
@@ -164,9 +165,8 @@ public class ExposicaoDAO implements DAO<Exposicao>{
 
             Exposicao exposicao = new Exposicao(evento, expositor);
             exposicao.setDescricao(rs.getString("descricao"));
-
-            Banco.desconectar();
-            rs.close();
+            
+            listagem.add(exposicao);
         }
         Banco.desconectar();
         rs.close();
