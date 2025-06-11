@@ -99,7 +99,7 @@ public class NovaExposicaoController implements Initializable
         }
         else{
             try{
-            Exposicao e = new Exposicao(null, null, null);
+            Exposicao e = new Exposicao(null, null);
             e = carregarModel();
 
             ExposicaoDAO dao = new ExposicaoDAO();
