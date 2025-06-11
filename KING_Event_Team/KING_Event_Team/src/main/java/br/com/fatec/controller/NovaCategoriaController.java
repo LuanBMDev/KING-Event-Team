@@ -49,6 +49,9 @@ public class NovaCategoriaController implements Initializable
     private CategoriaDAO categoriaDAO = new CategoriaDAO();
     
     private Categoria categoria;
+    
+    public static boolean isModoEdicao = false;
+    public static Categoria catAEdirar;
 
     
     // Métodos de Controller
@@ -58,26 +61,54 @@ public class NovaCategoriaController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-        // TODO
+        carregarModoGravacao();
     }    
 
     @FXML
     private void btnCadCat_Click(ActionEvent event) throws SQLException 
     {
 
-       categoria = new Categoria();
-       if(txtNomeCat.getText().isEmpty()){
-            mensagem("Por favor preencha todo o campo!");
-            System.out.println("dado invalido");
-       }    
-       else{
-           categoria = carregarModel();
-           categoriaDAO.inserir(categoria);
-           mensagem("categoria criada com sucesso");
-           System.out.println("dado valido");
-           txtNomeCat.clear();
-       }
        
+       if(txtNomeCat.getText().isBlank())
+        {
+            App.mensagem("AVISO!", "PREENCHA O CAMPO OBRIGATÓRIO!", Alert.AlertType.WARNING);
+
+            return;
+        }
+
+        try
+        {
+            Categoria c = new Categoria();
+            c.setNomeCat(txtNomeCat.getText());
+
+            CategoriaDAO dao = new CategoriaDAO();
+            
+            if (isModoEdicao)
+            {
+                // script do modo edição
+                dao.alterar(c);
+                App.mensagem("SUCESSO", c.getNomeCat() + " Alterado com sucesso!");
+            }
+            else
+            {
+                // script do modo cadastro
+                dao.inserir(c);
+                App.mensagem("SUCESSO", c.getNomeCat()+ " Cadastrado com sucesso!");
+            }
+            
+            txtNomeCat.clear();
+        }
+        catch(SQLException ex)
+        {
+            if(isModoEdicao)
+            {
+                App.mensagem("ERRO", "Erro ao editar", Alert.AlertType.ERROR);
+            }
+            else
+            {
+                App.mensagem("ERRO", "Erro ao cadastrar", Alert.AlertType.ERROR);
+            }
+        }
        
 
     }
@@ -122,6 +153,30 @@ public class NovaCategoriaController implements Initializable
             model.setNomeCat(txtNomeCat.getText().trim());
             return model;
     }
-    
-
+    private void desativarEdicao()
+    {
+        isModoEdicao = false;
+        catAEdirar = null;
+        carregarModoGravacao();
+    }
+    private void carregarModoGravacao()
+    {
+        if(isModoEdicao)
+        {
+            // Muda a aparência para se encaixar no modo de Edição 
+            String nomeCategoria[] = catAEdirar.getNomeCat().split(" ");
+            lblTitulo.setText("EDITAR " + nomeCategoria[0].toUpperCase());
+            btnCadCat.setText("GRAVAR ALTERAÇÕES");
+            btnLimpar.setText("SAIR DA EDIÇÃO");
+            txtNomeCat.setText(catAEdirar.getNomeCat());
+           
+        }
+        else
+        {
+            // Muda a aparência para se encaixar no modo de Cadastro
+            lblTitulo.setText("NOVA PESSOA");
+            btnCadCat.setText("CADASTRAR PESSOA");
+            btnLimpar.setText("LIMPAR");
+        }
+    }
 }

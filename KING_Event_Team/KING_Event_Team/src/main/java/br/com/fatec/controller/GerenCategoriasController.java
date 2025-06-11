@@ -81,12 +81,40 @@ public class GerenCategoriasController implements Initializable{
 
     @FXML
     private void btnEditar_Click(ActionEvent event) {
-    
+        Categoria categoria = tbvCategorias.getSelectionModel().selectedItemProperty().get();
+        if(categoria == null)
+        {
+            App.mensagem("AVISO", "Selecione uma Pessoa!", Alert.AlertType.WARNING);
+            return;
+        }
+        NovaCategoriaController.catAEdirar = categoria;
+        NovaCategoriaController.isModoEdicao = true;
+        App.carregarCena("NovaCategoria");
     }
 
     @FXML
-    private void btnDeletar_Click(ActionEvent event) {
-   
+    private void btnDeletar_Click(ActionEvent event) 
+    {
+        Categoria categoria = tbvCategorias.getSelectionModel().selectedItemProperty().get();
+        if(categoria == null)
+        {
+            App.mensagem("AVISO", "Selecione uma Pessoa!", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        try
+        {
+            CategoriaDAO dao = new CategoriaDAO();
+            dao.remover(categoria);
+            App.mensagem("SUCESSO", categoria.getNomeCat() + " foi removido(a) com sucesso!");   
+        }
+        catch(SQLException ex)
+        {
+            App.mensagem("ERRO", "Erro ao Deletar", Alert.AlertType.ERROR);
+        }
+        
+        preencherTabela();
+        
     }
 
     @FXML
