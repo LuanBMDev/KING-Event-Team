@@ -28,8 +28,8 @@ import javafx.stage.Stage;
  *
  * @author luann
  */
-public class GerenLocaisController implements Initializable{
-
+public class GerenLocaisController implements Initializable
+{
     @FXML
     private Button btnFechar;
     @FXML
@@ -41,6 +41,8 @@ public class GerenLocaisController implements Initializable{
     @FXML
     private TableView<Localizacao> tbvLocais;
     @FXML
+    private TableColumn<Localizacao, Integer> colCodigo;
+    @FXML
     private TableColumn<Localizacao, String> colNomeLocal;
     @FXML
     private TableColumn<Localizacao, String> colEndereco;
@@ -48,6 +50,8 @@ public class GerenLocaisController implements Initializable{
     private TableColumn<Localizacao, Integer> colNumero;
     @FXML
     private TableColumn<Localizacao, String> colCidade;
+    @FXML
+    private TableColumn<Localizacao, String> colEstado;
     @FXML
     private TableColumn<Localizacao, String> colCEP;
     @FXML
@@ -60,10 +64,6 @@ public class GerenLocaisController implements Initializable{
     private Button btnDeletar;
     @FXML
     private Button btnNovoLocal;
-    @FXML
-    private Button btnAtualizar;
-    @FXML
-    private TableColumn<Localizacao, Integer> colCodigo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -100,12 +100,10 @@ public class GerenLocaisController implements Initializable{
             App.mensagem("AVISO", "Selecione uma Localização!", Alert.AlertType.WARNING);
             return;
         }
-        Localizacao cod = tbvLocais.getSelectionModel().getSelectedItem();
+        
         NovaLocalizacaoController.localAEditar = localizacao;
         NovaLocalizacaoController.isModoEdicao = true;
-        NovaLocalizacaoController.codLocal = cod.getCodLocal();
         App.carregarCena("NovaLocalizacao");
-        System.out.println(NovaLocalizacaoController.isModoEdicao);
     }
 
     @FXML
@@ -152,6 +150,7 @@ public class GerenLocaisController implements Initializable{
             colEndereco.setCellValueFactory(new PropertyValueFactory("enderecoLocal"));
             colNumero.setCellValueFactory(new PropertyValueFactory("numeroLocal"));
             colCidade.setCellValueFactory(new PropertyValueFactory("cidade"));
+            colEstado.setCellValueFactory(new PropertyValueFactory("estado"));
             colCEP.setCellValueFactory(new PropertyValueFactory("CEP"));
             colTipo.setCellValueFactory(new PropertyValueFactory("tipoLocal"));
             
@@ -162,7 +161,6 @@ public class GerenLocaisController implements Initializable{
         }
     }
     
-    @FXML
     private void btnAtualizar_Click(ActionEvent event)
     {
         preencherTabela();

@@ -36,7 +36,7 @@ public class LocalizacaoDAO implements DAO<Localizacao>
         pst.setString(1, model.getNomeLocal());
         pst.setString(2, model.getCEP());
         pst.setString(3, model.getEnderecoLocal());
-        pst.setInt(4, model.getNumeroLocal());
+        pst.setString(4, model.getNumeroLocal());
         pst.setString(5, model.getCidade());
         pst.setString(6, model.getEstado());
         pst.setString(7, model.getTipoLocal());
@@ -89,7 +89,7 @@ public class LocalizacaoDAO implements DAO<Localizacao>
         pst.setString(1, model.getNomeLocal());
         pst.setString(2, model.getCEP());
         pst.setString(3, model.getEnderecoLocal());
-        pst.setInt(4, model.getNumeroLocal());
+        pst.setString(4, model.getNumeroLocal());
         pst.setString(5, model.getCidade());
         pst.setString(6, model.getEstado());
         pst.setString(7, model.getTipoLocal());
@@ -129,7 +129,7 @@ public class LocalizacaoDAO implements DAO<Localizacao>
             localizacao.setNomeLocal(rs.getString("nomeLocal"));
             localizacao.setCEP(rs.getString("CEP"));
             localizacao.setEnderecoLocal(rs.getString("endereco"));
-            localizacao.setNumeroLocal(rs.getInt("numeroLocal"));
+            localizacao.setNumeroLocal(rs.getString("numeroLocal"));
             localizacao.setCidade(rs.getString("cidade"));
             localizacao.setEstado(rs.getString("estado"));
             localizacao.setTipoLocal(rs.getString("tipoLocal"));
@@ -168,7 +168,7 @@ public class LocalizacaoDAO implements DAO<Localizacao>
             localizacao.setNomeLocal(rs.getString("nomeLocal"));
             localizacao.setCEP(rs.getString("CEP"));
             localizacao.setEnderecoLocal(rs.getString("endereco"));
-            localizacao.setNumeroLocal(rs.getInt("numeroLocal"));
+            localizacao.setNumeroLocal(rs.getString("numeroLocal"));
             localizacao.setCidade(rs.getString("cidade"));
             localizacao.setEstado(rs.getString("estado"));
             localizacao.setTipoLocal(rs.getString("tipoLocal"));
