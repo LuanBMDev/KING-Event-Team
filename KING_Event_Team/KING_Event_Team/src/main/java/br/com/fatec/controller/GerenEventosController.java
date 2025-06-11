@@ -5,15 +5,23 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import br.com.fatec.DAO.EventoDAO;
+import br.com.fatec.model.Evento;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -32,27 +40,25 @@ public class GerenEventosController implements Initializable{
     @FXML
     private Label lblTitulo;
     @FXML
-    private TableView<?> tbvEventos;
+    private TableView<Evento> tbvEventos;
     @FXML
-    private TableColumn<?, ?> colCodEvento;
+    private TableColumn<Evento, Integer> colCodEvento;
     @FXML
-    private TableColumn<?, ?> colNomeEvento;
+    private TableColumn<Evento, String> colNomeEvento;
     @FXML
-    private TableColumn<?, ?> colDescEvento;
+    private TableColumn<Evento, String> colDataInicio;
     @FXML
-    private TableColumn<?, ?> colDataInicio;
+    private TableColumn<Evento, String> colDataFim;
     @FXML
-    private TableColumn<?, ?> colDataFim;
+    private TableColumn<Evento, String> colStatus;
     @FXML
-    private TableColumn<?, ?> colStatus;
+    private TableColumn<Evento, Integer> colLocal;
     @FXML
-    private TableColumn<?, ?> colLocal;
+    private TableColumn<Evento, Integer> colCategoria;
     @FXML
-    private TableColumn<?, ?> colCategoria;
+    private TableColumn<Evento, Double> colIngressoPadrao;
     @FXML
-    private TableColumn<?, ?> colIngressoPadrao;
-    @FXML
-    private TableColumn<?, ?> colTotalVendido;
+    private TableColumn<Evento, String> colTotalVendido;
     @FXML
     private Pane panBusca;
     @FXML
@@ -70,9 +76,14 @@ public class GerenEventosController implements Initializable{
     @FXML
     private Button btnGerenExposicoes;
 
+    /**
+     *
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+       preencherTabela();
     }
     
     @FXML
@@ -142,5 +153,32 @@ public class GerenEventosController implements Initializable{
     private void btnGerenExposicoes_Click(ActionEvent event) 
     {
         App.carregarCena("GerenExposicoes");
+    }
+    private void preencherTabela()
+    {
+        tbvEventos.getItems().clear();
+        
+        try
+        {
+            EventoDAO dao = new EventoDAO();
+            ObservableList<Evento> lista = FXCollections.observableArrayList(dao.listar(""));
+            //lista.setAll(dao.listar(""));
+            tbvEventos.setItems(lista);
+            
+            colCodEvento.setCellValueFactory(new PropertyValueFactory<Evento, Integer>("codEvento"));
+            colNomeEvento.setCellValueFactory(new PropertyValueFactory<Evento, String>("nomeEvento"));
+            colDataInicio.setCellValueFactory(new PropertyValueFactory<Evento, String>("dataInicio"));
+            colDataFim.setCellValueFactory(new PropertyValueFactory<Evento, String>("dataFim"));
+            colStatus.setCellValueFactory(new PropertyValueFactory<Evento, String>("statusEvento"));
+            colLocal.setCellValueFactory(new PropertyValueFactory<Evento, Integer>("codLocal"));
+            colCategoria.setCellValueFactory(new PropertyValueFactory<Evento, Integer>("codCat"));
+            colIngressoPadrao.setCellValueFactory(new PropertyValueFactory<Evento, Double>("precoIngresso"));
+            colTotalVendido.setCellValueFactory(cellData -> new ReadOnlyStringWrapper("0"));
+        }
+        catch(SQLException ex)
+        {
+            App.mensagem("ERRO", "Erro ao preencher tabela.", Alert.AlertType.ERROR);
+        }
+        
     }
 }
