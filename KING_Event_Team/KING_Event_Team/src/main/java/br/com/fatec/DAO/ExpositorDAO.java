@@ -119,6 +119,7 @@ public class ExpositorDAO implements DAO<Expositor>
         {
             expositor = new Expositor();
             
+            expositor.setCodExpo(rs.getInt("codExpo"));
             expositor.setNomeFant(rs.getString("nomeFant"));
             expositor.setCPFCNPJ(rs.getString("CPFCNPJ"));
             expositor.setLogoExpo(rs.getString("logoExpo"));

@@ -6,11 +6,15 @@ package br.com.fatec.controller;
 
 import br.com.fatec.App;
 import br.com.fatec.DAO.ExposicaoDAO;
+import br.com.fatec.DAO.ExpositorDAO;
 import br.com.fatec.model.Evento;
 import br.com.fatec.model.Exposicao;
+import br.com.fatec.model.Expositor;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,6 +61,7 @@ public class GerenExposicoesController implements Initializable
     private Button btnDeletar;
    
     public static Evento evento;
+    private ExposicaoDAO dao = new ExposicaoDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -98,6 +103,9 @@ public class GerenExposicoesController implements Initializable
             App.mensagem("AVISO", "Selecione uma Exposição!", Alert.AlertType.WARNING);
             return;
         }
+
+        //ExpositorDAO expoDAO = new ExpositorDAO();
+
         exposicao.setEvento(evento);
         NovaExposicaoController.expoAEditar = exposicao;
         NovaExposicaoController.isModoEdicao = true;
@@ -105,7 +113,27 @@ public class GerenExposicoesController implements Initializable
     }
 
     @FXML
-    private void btnDeletar_Click(ActionEvent event) {
+    private void btnDeletar_Click(ActionEvent event)
+    {
+        Exposicao exposicao = tbvExposicoes.getSelectionModel().selectedItemProperty().get();
+        if(exposicao == null)
+        {
+            App.mensagem("AVISO", "Selecione uma Exposição!", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        exposicao.setEvento(evento);
+        try
+        {
+            dao.remover(exposicao);
+            App.mensagem("SUCESSO", "Deletado com sucesso!");
+        }
+        catch(SQLException ex)
+        {
+            App.mensagem("ERRO", "Falha ao deletar: " + ex.getMessage());
+        }
+        
+        preencherTabela();
     }
     
     private void preencherTabela(){

@@ -6,6 +6,7 @@ package br.com.fatec.controller;
 
 import br.com.fatec.App;
 import br.com.fatec.DAO.ExposicaoDAO;
+import br.com.fatec.DAO.ExpositorDAO;
 import br.com.fatec.model.Evento;
 import br.com.fatec.model.Exposicao;
 import br.com.fatec.model.Expositor;
@@ -98,11 +99,26 @@ public class NovaExposicaoController implements Initializable
     
     private Exposicao carregarModel(){
             Exposicao model = new Exposicao(null, null);
-            model.setDescricao(txtDescricao.getText());
+            
             model.setExpositor(cmbExpositor.getValue());
             model.setEvento(evento);
+            
+            model.setDescricao(txtDescricao.getText());
+            
+            debugModel(model);
             return model;
     }
+    
+    private void debugModel(Exposicao model)
+    {
+        App.mensagem(model.getExpositor().getCodExpo()+ "\n"
+                + model.getExpositor().getNomeFant()+ "\n"
+                + model.getExpositor().getEmailExpo()+ "\n"
+                + model.getExpositor().getCPFCNPJ()+ "\n"
+                + model.getExpositor().getTelefoneExpo() + "\n"
+                + model.getExpositor().getLogoExpo(), Alert.AlertType.INFORMATION);
+    }
+    
     @FXML
     private void btnSalvar_Click(ActionEvent event) {
         exposicao = new Exposicao(null, null);
@@ -117,6 +133,7 @@ public class NovaExposicaoController implements Initializable
             if (isModoEdicao)
             {
                 // script do modo edição
+                debugModel(e);
                 dao.alterar(e);
                 App.mensagem("SUCESSO", "Alterado com sucesso!");
                 voltar();
@@ -178,25 +195,20 @@ public class NovaExposicaoController implements Initializable
         }
     }
     
-    private void carregarExpositor(){
-        try {
-            Banco.conectar();
-            String sql = "SELECT codExpo, nomeFant FROM Expositor";
-            pst = Banco.obterConexao().prepareStatement(sql);
-            rs = pst.executeQuery();
-            
-            ObservableList<Expositor> listData = FXCollections.observableArrayList();
-            
-            while (rs.next()){
-                var exp = new Expositor();
-                exp.setCodExpo(rs.getInt("codExpo"));
-                exp.setNomeFant(rs.getString("nomeFant"));
-                listData.add(exp);
-            }
-            cmbExpositor.setItems(listData);
-        } catch (SQLException ex) {
-            Logger.getLogger(NovoEventoController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void carregarExpositor()
+    {
+       ExpositorDAO expositorDAO = new ExpositorDAO();
+       
+       try
+       {
+           ObservableList<Expositor> listData = FXCollections.observableArrayList(
+                   expositorDAO.listar(""));
+           cmbExpositor.setItems(listData);
+       }
+       catch(SQLException ex)
+       {
+           App.mensagem("ERRO", "Erro ao popular Expositores: " + ex.getMessage(), Alert.AlertType.ERROR);
+       }
     }
 
 }
