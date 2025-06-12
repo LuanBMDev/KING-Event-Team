@@ -165,7 +165,7 @@ public class IngressoDAO implements DAO<Ingresso>
             evento = dao.buscarID(evento);
             
             Pessoa pessoa = new Pessoa();
-            pessoa.setCPF(rs.getString("CPF"));
+            pessoa.setCPF(rs.getString("codVisitante"));
             PessoaDAO daoPes = new PessoaDAO();
             pessoa = daoPes.buscarID(pessoa);
             

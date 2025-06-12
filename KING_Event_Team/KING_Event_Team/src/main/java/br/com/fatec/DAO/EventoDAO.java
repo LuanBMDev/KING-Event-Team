@@ -107,17 +107,22 @@ public class EventoDAO implements DAO <Evento>{
         
         if (rs.next())
         {   
+            Localizacao local = new Localizacao();
+            local.setCodLocal(rs.getInt("codLocal"));
+            LocalizacaoDAO localDAO = new LocalizacaoDAO();
+            local = localDAO.buscarID(local);
             
-            Evento evento = new Evento(null, null);
+            Categoria cat = new Categoria();
+            cat.setCodCat(rs.getInt("codCat"));
+            CategoriaDAO catDAO = new CategoriaDAO();
+            cat = catDAO.buscarID(cat);
             
-            
+            Evento evento = new Evento(cat, local);
             evento.setCodEvento(rs.getInt("codEvento"));
             evento.setNomeEvento(rs.getString("nomeEvento"));
             evento.setDataInicio(rs.getString("dataInicio"));
             evento.setDataFim(rs.getString("dataFim"));
             evento.setStatusEvento(rs.getString("statusEvento"));
-            evento.getLocalizacao().setCodLocal(rs.getInt("codLocal"));
-            evento.getCategoria().setCodCat(rs.getInt("codCat"));
             evento.setPrecoPadrao(rs.getDouble("precoIngresso"));
         }
         Banco.desconectar();

@@ -62,7 +62,10 @@ public class Evento
 
     @Override
     public String toString() {
-        return getNomeEvento();
+        return String.valueOf(getCodEvento()) + "\n" + 
+                getNomeEvento() + "\n\n" + 
+                getLocalizacao().getNomeLocal()+ ": " + getLocalizacao().getCodLocal() + "\n" + 
+                getCategoria().getNomeCat();
     }
 
     public int getCodEvento() 

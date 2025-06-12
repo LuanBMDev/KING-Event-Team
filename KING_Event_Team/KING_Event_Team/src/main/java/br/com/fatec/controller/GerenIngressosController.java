@@ -139,7 +139,8 @@ public class GerenIngressosController implements Initializable
         try
         {
             IngressoDAO dao = new IngressoDAO();
-            ObservableList<Ingresso> lista = FXCollections.observableArrayList(dao.listar(""));
+            ObservableList<Ingresso> lista = FXCollections.observableArrayList(
+                    dao.listar("codEvento = " + evento.getCodEvento()));
             //lista.setAll(dao.listar(""));
             tbvIngressos.setItems(lista);
             
@@ -150,7 +151,7 @@ public class GerenIngressosController implements Initializable
         }
         catch(SQLException ex)
         {
-            App.mensagem("ERRO", "Erro ao preencher tabela.", Alert.AlertType.ERROR);
+            App.mensagem("ERRO", "Erro ao preencher tabela: " + ex.getMessage(), Alert.AlertType.ERROR);
         }
     }
 }

@@ -179,6 +179,7 @@ public class GerenEventosController implements Initializable{
         }
         
         GerenIngressosController.evento = evento;
+        App.mensagem(GerenIngressosController.evento.toString(), Alert.AlertType.INFORMATION);
         App.carregarCena("GerenIngressos");
     }
 
