@@ -5,7 +5,9 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import br.com.fatec.DAO.CategoriaDAO;
 import br.com.fatec.DAO.EventoDAO;
+import br.com.fatec.DAO.LocalizacaoDAO;
 import br.com.fatec.model.Categoria;
 import br.com.fatec.model.Evento;
 import br.com.fatec.model.Localizacao;
@@ -300,7 +302,7 @@ public class GerenEventosController implements Initializable{
         tipoBusca = cmbTipo.getValue();
         
         try{
-        String sql = "SELECT * FROM evento ";
+        String sql = "SELECT * FROM Evento ";
             
         if(tipoBusca != null){
             sql += " WHERE " + tipoBusca;
@@ -308,19 +310,29 @@ public class GerenEventosController implements Initializable{
                 sql += " = " + buscar + ";";
             }
             else{
-                sql += " = '" + buscar + "';";
+                sql += " like '%"+ buscar + "%';";
             }
         }
         else{
             App.mensagem("AVISO, Selecione um tipo de pesquisa!", Alert.AlertType.INFORMATION);
         }
-            
+        
         Banco.conectar();
         pst = Banco.obterConexao().prepareStatement(sql);
         rs = pst.executeQuery();
         
         while(rs.next()){
-            evento = new Evento(null, null);
+            Categoria cat = new Categoria();
+            cat.setCodCat(rs.getInt("codCat"));
+            CategoriaDAO catDAO = new CategoriaDAO();
+            cat = catDAO.buscarID(cat);
+            
+            Localizacao local = new Localizacao();
+            local.setCodLocal(rs.getInt("codLocal"));
+            LocalizacaoDAO localDAO = new LocalizacaoDAO();
+            local = localDAO.buscarID(local);
+            
+            evento = new Evento(cat, local);
         
             evento.setCodEvento(rs.getInt("codEvento"));
             evento.setNomeEvento(rs.getString("nomeEvento"));
