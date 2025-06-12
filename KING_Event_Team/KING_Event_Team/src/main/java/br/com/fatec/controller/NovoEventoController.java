@@ -6,6 +6,7 @@ package br.com.fatec.controller;
 
 import br.com.fatec.App;
 import br.com.fatec.DAO.EventoDAO;
+import br.com.fatec.exceptions.PeriodoEventoInvalidoException;
 import br.com.fatec.model.Categoria;
 import br.com.fatec.model.Localizacao;
 import br.com.fatec.model.Evento;
@@ -105,7 +106,6 @@ public class NovoEventoController implements Initializable
 
         if (dataInicio != null) 
         {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             dataInicioL = dataInicio.format(formatter); // supondo que dataInicioL é um atributo da classe
             System.out.println(dataInicioL);
         } 
@@ -255,9 +255,17 @@ public class NovoEventoController implements Initializable
         model.setPrecoPadrao(Double.parseDouble(txtPrecoPadrao.getText().trim()));
         System.out.println("Preço: " + String.valueOf(model.getPrecoPadrao()));
         
-        model.setStatusEvento(carregarDatas());
-        System.out.println("Status: " + model.getStatusEvento());
-        
+        try
+        {
+            model.setStatusEvento(carregarDatas());
+            System.out.println("Status: " + model.getStatusEvento());
+        }
+        catch(PeriodoEventoInvalidoException ex)
+        {
+            App.mensagem("DATA IMPOSSÍVEL", ex.getMessage(), Alert.AlertType.ERROR);
+            limparDados();
+        }
+                
         return model;
     }
     
@@ -275,28 +283,31 @@ public class NovoEventoController implements Initializable
             return true;
         }
     }  
-   private String carregarDatas(){
+   private String carregarDatas() throws PeriodoEventoInvalidoException
+   {
         String status = null;
         LocalDate atual = LocalDate.now();
         LocalDate inicio = LocalDate.parse(String.valueOf(dateInicio.getValue()),formatter);
         LocalDate fim = LocalDate.parse(String.valueOf(dateFim.getValue()),formatter);
-            if(inicio.isAfter(atual) && inicio.isBefore(fim)){
-                //set pendente no status
-                status = "PENDENTE";
-            }
-            else if(fim.isBefore(atual) && fim.isAfter(inicio)){
-                //set encerrado status 
-                status = "ENCERRADO";
-            }
-            else if(inicio.isBefore(atual) && fim.isAfter(atual))       
-            {
-                //set emandamento status
-                status = "EM ANDAMENTO";
-            }
-            else
-            { 
-                App.mensagem("ERRO NA DATA", "DATA ESTA INCONSISTENTE");
-            }       
+            
+        if(inicio.isAfter(fim))       
+        {
+            throw new PeriodoEventoInvalidoException("O dia final foi configurado para uma data anterior ao dia inicial.");
+        }
+        else if(atual.isBefore(inicio))
+        {
+            //set pendente no status
+            status = "PENDENTE";
+        }
+        else if(atual.isAfter(fim)){
+            //set encerrado status 
+            status = "ENCERRADO";
+        }
+        else
+        { 
+            //set emandamento status
+            status = "EM ANDAMENTO";
+        }       
        return status;
             
     }
