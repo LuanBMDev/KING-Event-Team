@@ -206,10 +206,10 @@ public class GerenLocaisController implements Initializable
         if(tipoBusca != null){
             sql += " WHERE " + tipoBusca;
             if(buscar.matches("\\d+")){
-                sql += " like %" + buscar + "%;";
+                sql += " = " + buscar + ";";
             }
             else{
-                sql += " like '%" + buscar + "%';";
+                sql += " like '%"+ buscar + "%';";
             }
         }
         else{

@@ -206,7 +206,7 @@ public class GerenPessoasController implements Initializable
         if(tipoBusca != null){
             sql += " WHERE " + tipoBusca;
             if(buscar.matches("\\d+")){
-                sql += " like %" + buscar + "%;";
+                sql += " = " + buscar + ";";
             }
             else{
                 sql += " like '%" + buscar + "%';";
