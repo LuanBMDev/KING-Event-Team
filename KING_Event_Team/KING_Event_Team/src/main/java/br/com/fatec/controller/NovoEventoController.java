@@ -263,7 +263,9 @@ public class NovoEventoController implements Initializable
         catch(PeriodoEventoInvalidoException ex)
         {
             App.mensagem("DATA IMPOSSÍVEL", ex.getMessage(), Alert.AlertType.ERROR);
-            limparDados();
+            //limparDados();
+            dateInicio.setValue(null);
+            dateFim.setValue(null);
         }
                 
         return model;

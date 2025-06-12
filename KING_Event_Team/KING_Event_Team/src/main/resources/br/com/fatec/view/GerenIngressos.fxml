@@ -8,7 +8,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="fundo" stylesheets="@../css/estilogeral.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controller.GerenIngressosController">
@@ -58,19 +57,17 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Pane fx:id="panBusca" layoutX="370.0" layoutY="137.0" prefHeight="92.0" prefWidth="216.0" style="-fx-border-color: white;" />
-      <Label layoutX="370.0" layoutY="120.0" text="Busca:" textFill="WHITE" />
-      <Button fx:id="btnEditar" layoutX="402.0" layoutY="280.0" mnemonicParsing="false" onAction="#btnEditar_Click" prefHeight="34.0" prefWidth="72.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="EDITAR" textFill="WHITE">
+      <Button fx:id="btnEditar" layoutX="401.0" layoutY="205.0" mnemonicParsing="false" onAction="#btnEditar_Click" prefHeight="34.0" prefWidth="72.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="EDITAR" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnDeletar" layoutX="482.0" layoutY="280.0" mnemonicParsing="false" onAction="#btnDeletar_Click" prefHeight="34.0" prefWidth="72.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="DELETAR" textFill="WHITE">
+      <Button fx:id="btnDeletar" layoutX="481.0" layoutY="205.0" mnemonicParsing="false" onAction="#btnDeletar_Click" prefHeight="34.0" prefWidth="72.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="DELETAR" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnNovoIngresso" layoutX="401.0" layoutY="237.0" mnemonicParsing="false" onAction="#btnNovoIngresso_Click" prefHeight="34.0" prefWidth="154.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="NOVO INGRESSO" textFill="WHITE">
+      <Button fx:id="btnNovoIngresso" layoutX="400.0" layoutY="162.0" mnemonicParsing="false" onAction="#btnNovoIngresso_Click" prefHeight="34.0" prefWidth="154.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="NOVO INGRESSO" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

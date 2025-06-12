@@ -54,8 +54,6 @@ public class GerenIngressosController implements Initializable
     @FXML
     private Label txtNomeEvento;
     @FXML
-    private Pane panBusca;
-    @FXML
     private Button btnEditar;
     @FXML
     private Button btnDeletar;

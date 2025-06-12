@@ -105,7 +105,7 @@ public class NovaExposicaoController implements Initializable
             
             model.setDescricao(txtDescricao.getText());
             
-            debugModel(model);
+            //debugModel(model);
             return model;
     }
     
@@ -133,7 +133,7 @@ public class NovaExposicaoController implements Initializable
             if (isModoEdicao)
             {
                 // script do modo edição
-                debugModel(e);
+                //debugModel(e);
                 dao.alterar(e);
                 App.mensagem("SUCESSO", "Alterado com sucesso!");
                 voltar();

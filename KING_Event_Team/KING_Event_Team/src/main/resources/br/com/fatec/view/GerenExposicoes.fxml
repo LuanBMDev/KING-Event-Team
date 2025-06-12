@@ -8,7 +8,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="697.0" styleClass="fundo" stylesheets="@../css/estilogeral.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controller.GerenExposicoesController">
@@ -41,14 +40,12 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="tbvExposicoes" layoutX="10.0" layoutY="110.0" prefHeight="200.0" prefWidth="504.0">
+      <TableView fx:id="tbvExposicoes" layoutX="10.0" layoutY="110.0" prefHeight="200.0" prefWidth="676.0">
         <columns>
           <TableColumn fx:id="colNomeExpo" prefWidth="131.0" text="Nome Expositor" />
-          <TableColumn fx:id="colDescExpo" prefWidth="372.0" text="Descrição" />
+          <TableColumn fx:id="colDescExpo" prefWidth="544.0" text="Descrição" />
         </columns>
       </TableView>
-      <Pane fx:id="panBusca" layoutX="522.0" layoutY="132.0" prefHeight="178.0" prefWidth="164.0" style="-fx-border-color: white;" />
-      <Label layoutX="522.0" layoutY="115.0" text="Busca:" textFill="WHITE" />
       <Button fx:id="btnNovaExpo" layoutX="113.0" layoutY="333.0" mnemonicParsing="false" onAction="#btnNovaExpo_Click" prefHeight="35.0" prefWidth="131.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="NOVA EXPOSIÇÃO" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />

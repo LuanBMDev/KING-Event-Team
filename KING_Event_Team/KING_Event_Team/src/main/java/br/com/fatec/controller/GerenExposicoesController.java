@@ -54,8 +54,6 @@ public class GerenExposicoesController implements Initializable
     @FXML
     private TableColumn<Exposicao, String> colDescExpo;
     @FXML
-    private Pane panBusca;
-    @FXML
     private Button btnNovaExpo;
     @FXML
     private Button btnEditar;
