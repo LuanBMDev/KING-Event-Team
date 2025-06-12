@@ -209,13 +209,13 @@ public class GerenExpositoresController implements Initializable {
         try{
         String sql = "SELECT * FROM Expositor ";
             
-        if(tipoBusca != null){
+            if(tipoBusca != null){
             sql += " WHERE " + tipoBusca;
             if(buscar.matches("\\d+")){
-                sql += " = " + buscar + ";";
+                sql += " like %" + buscar + "%;";
             }
             else{
-                sql += " = '" + buscar + "';";
+                sql += " like '%" + buscar + "%';";
             }
         }
         else{
