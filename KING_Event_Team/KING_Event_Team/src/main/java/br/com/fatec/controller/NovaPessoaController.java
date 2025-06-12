@@ -90,7 +90,7 @@ public class NovaPessoaController implements Initializable
         }
         
         if(txtTelefone.getText().isBlank()) txtTelefone.setText("");
-        
+
         try
         {
             Pessoa p = new Pessoa();

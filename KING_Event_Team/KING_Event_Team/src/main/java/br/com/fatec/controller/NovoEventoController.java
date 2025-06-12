@@ -35,6 +35,7 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import javafx.scene.control.Alert;
 /**
  *
  * @author luann 
@@ -279,21 +280,26 @@ public class NovoEventoController implements Initializable
         LocalDate atual = LocalDate.now();
         LocalDate inicio = LocalDate.parse(String.valueOf(dateInicio.getValue()),formatter);
         LocalDate fim = LocalDate.parse(String.valueOf(dateFim.getValue()),formatter);
-        if(inicio.isAfter(atual)){
-            //set pendente no status
-            status = "PENDENTE";
-        }
-        else if(fim.isBefore(atual)){
-            //set encerrado status 
-            status = "ENCERRADO";
-        }
-        else 
-        {
-            //set emandamento status
-            status = "EM ANDAMENTO";
-        }
-        return status;
-   }
+            if(inicio.isAfter(atual) && inicio.isBefore(fim)){
+                //set pendente no status
+                status = "PENDENTE";
+            }
+            else if(fim.isBefore(atual) && fim.isAfter(inicio)){
+                //set encerrado status 
+                status = "ENCERRADO";
+            }
+            else if(inicio.isBefore(atual) && fim.isAfter(atual))       
+            {
+                //set emandamento status
+                status = "EM ANDAMENTO";
+            }
+            else
+            { 
+                App.mensagem("ERRO NA DATA", "DATA ESTA INCONSISTENTE");
+            }       
+       return status;
+            
+    }
    
    private void carregarModoGravacao()
    {
