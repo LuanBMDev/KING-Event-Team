@@ -9,10 +9,13 @@ import br.com.fatec.DAO.ExpositorDAO;
 import br.com.fatec.DAO.PessoaDAO;
 import br.com.fatec.model.Expositor;
 import br.com.fatec.model.Pessoa;
+import br.com.fatec.persistencia.Banco;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -24,9 +27,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -60,8 +65,6 @@ public class GerenExpositoresController implements Initializable {
     @FXML
     private TableColumn<Expositor, String> colEmail;
     @FXML
-    private Pane panBusca;
-    @FXML
     private Button btnNovoExpositor;
     @FXML
     private Button btnEditar;
@@ -69,10 +72,24 @@ public class GerenExpositoresController implements Initializable {
     private Button btnDeletar;
     @FXML
     private Button btnVerLogo;
-
+    @FXML
+    private ComboBox<String> combuscartipo;
+    @FXML
+    private TextField txtbuscar;
+    @FXML
+    private Button btnPesquisar;
+    
+    private String tipoBusca;
+    public String buscar;
+    private PreparedStatement pst;
+    private ResultSet rs;
+    private Expositor expositor;
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
+        combuscartipo.getItems().addAll("codExpo","logoExpo","nomeFant","CPFCNPJ","telefoneExpo","emailExpo");
         preencherTabela();
     }
     
@@ -183,5 +200,61 @@ public class GerenExpositoresController implements Initializable {
         {
             Logger.getLogger(GerenExpositoresController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void bntPesquisar_click(ActionEvent event) {
+        buscar = txtbuscar.getText();
+        tipoBusca = combuscartipo.getValue();
+        try{
+        String sql = "SELECT * FROM Expositor ";
+            
+        if(tipoBusca != null){
+            sql += " WHERE " + tipoBusca;
+            if(buscar.matches("\\d+")){
+                sql += " = " + buscar + ";";
+            }
+            else{
+                sql += " = '" + buscar + "';";
+            }
+        }
+        else{
+            App.mensagem("AVISO, Selecione um tipo de pesquisa!", Alert.AlertType.INFORMATION);
+        }
+            
+        Banco.conectar();
+        pst = Banco.obterConexao().prepareStatement(sql);
+        rs = pst.executeQuery();
+            
+        while(rs.next())
+        {
+            expositor = new Expositor();
+            
+            expositor.setCodExpo(rs.getInt("codExpo"));
+            expositor.setNomeFant(rs.getString("nomeFant"));
+            expositor.setCPFCNPJ(rs.getString("CPFCNPJ"));
+            expositor.setLogoExpo(rs.getString("logoExpo"));
+            expositor.setEmailExpo(rs.getString("emailExpo"));
+            expositor.setTelefoneExpo(rs.getString("telefoneExpo"));
+        }
+        Banco.desconectar();
+        rs.close();
+        
+        }
+        catch(SQLException ex){
+            
+        }
+
+        tbvExpositores.getItems().clear();
+        
+        ObservableList<Expositor> listar = FXCollections.observableArrayList(expositor);
+        tbvExpositores.setItems(listar);
+        colCodigo.setCellValueFactory(new PropertyValueFactory("codExpo"));
+        colLogo.setCellValueFactory(new PropertyValueFactory("logoExpo"));
+        colNome.setCellValueFactory(new PropertyValueFactory("nomeFant"));
+        colCPFCNPJ.setCellValueFactory(new PropertyValueFactory("CPFCNPJ"));
+        colEmail.setCellValueFactory(new PropertyValueFactory("emailExpo"));
+        colTelefone.setCellValueFactory(new PropertyValueFactory("telefoneExpo"));
+        
     }
 }
