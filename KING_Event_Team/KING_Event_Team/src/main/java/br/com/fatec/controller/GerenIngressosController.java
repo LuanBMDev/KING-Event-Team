@@ -101,6 +101,7 @@ public class GerenIngressosController implements Initializable
         }
         
         NovoIngressoController.isModoEdicao = true;
+        ingresso.setEvento(evento);
         NovoIngressoController.ingressoAEditar = ingresso;
         App.carregarCena("NovoIngresso");
     }
@@ -115,10 +116,12 @@ public class GerenIngressosController implements Initializable
             return;
         }
         
+        ingresso.setEvento(evento);
         try
         {
             dao.remover(ingresso);
             App.mensagem("SUCESSO", "Ingresso removido com sucesso!");
+            preencherTabela();
         }
         catch(SQLException ex)
         {
@@ -129,6 +132,7 @@ public class GerenIngressosController implements Initializable
     @FXML
     private void btnNovoIngresso_Click(ActionEvent event) 
     {
+        NovoIngressoController.evento = evento;
         App.carregarCena("NovoIngresso");
     }
     
