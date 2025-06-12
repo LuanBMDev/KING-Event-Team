@@ -7,10 +7,17 @@ package br.com.fatec.controller;
 import br.com.fatec.App;
 import br.com.fatec.DAO.PessoaDAO;
 import br.com.fatec.model.Pessoa;
+import br.com.fatec.persistencia.Banco;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -61,11 +69,25 @@ public class GerenPessoasController implements Initializable
     private Button btnPesquisar;
     @FXML
     private TextField txtBuscar;
+    
+    public String buscar;
+    @FXML
+    private ComboBox<String> cmbTipo;
+    
+    private String tipoBusca;
+    
+    private PreparedStatement pst;
+    
+    private ResultSet rs;
+    
+    private Pessoa pessoa;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
         preencherTabela();
+        cmbTipo.getItems().addAll("CPF", "Nome", "Email", "Telefone");
     }
     
     @FXML
@@ -163,5 +185,54 @@ public class GerenPessoasController implements Initializable
 
     @FXML
     private void btnPesquisar_click(ActionEvent event) {
+        buscar = txtBuscar.getText();
+        tipoBusca = cmbTipo.getValue();
+        
+        try{
+        String sql = "SELECT * FROM Pessoa ";
+            
+        if(tipoBusca != null){
+            sql += " WHERE " + tipoBusca;
+            if(buscar.matches("\\d+")){
+                sql += " = " + buscar + ";";
+            }
+            else{
+                sql += " = '" + buscar + "';";
+            }
+        }
+        else{
+            App.mensagem("AVISO, Selecione um tipo de pesquisa!", Alert.AlertType.INFORMATION);
+        }
+            
+        Banco.conectar();
+        pst = Banco.obterConexao().prepareStatement(sql);
+        rs = pst.executeQuery();
+            
+        if(rs.next())
+        {
+        pessoa = new Pessoa();
+            
+        pessoa.setCPF(rs.getString("CPF"));
+        pessoa.setNome(rs.getString("nome"));
+        pessoa.setEmail(rs.getString("email"));
+        pessoa.setTelefone(rs.getString("telefone"));
+              
+        }
+        Banco.desconectar();
+        rs.close();
+        }
+        catch(SQLException ex){
+            
+        }
+
+        tbvPessoas.getItems().clear();
+        
+        ObservableList<Pessoa> listar = FXCollections.observableArrayList(pessoa);
+        tbvPessoas.setItems(listar);
+        colNome.setCellValueFactory(new PropertyValueFactory("nome"));
+        colCPF.setCellValueFactory(new PropertyValueFactory("CPF"));
+        colEmail.setCellValueFactory(new PropertyValueFactory("email"));
+        colTelefone.setCellValueFactory(new PropertyValueFactory("telefone"));
+        
     }
 }

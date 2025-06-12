@@ -4,6 +4,8 @@
  */
 package br.com.fatec.DAO;
 
+import br.com.fatec.App;
+import br.com.fatec.controller.GerenPessoasController;
 import br.com.fatec.model.Pessoa;
 import br.com.fatec.persistencia.Banco;
 import java.sql.PreparedStatement;
@@ -11,6 +13,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 
 /**
  *

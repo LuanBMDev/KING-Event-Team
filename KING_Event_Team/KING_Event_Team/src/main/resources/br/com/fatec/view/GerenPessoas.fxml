@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -49,7 +50,7 @@
             <TableColumn fx:id="colTelefone" prefWidth="76.0" text="Telefone" />
         </columns>
       </TableView>
-      <Label layoutX="16.0" layoutY="75.0" text="Busca:" textFill="WHITE" />
+      <Label layoutX="16.0" layoutY="96.0" text="Buscar por:" textFill="WHITE" />
       <Button fx:id="btnEditar" layoutX="445.0" layoutY="215.0" mnemonicParsing="false" onAction="#btnEditar_Click" prefHeight="39.0" prefWidth="85.0" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="EDITAR" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -65,11 +66,12 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnPesquisar" layoutX="333.0" layoutY="92.0" mnemonicParsing="false" onAction="#btnPesquisar_click" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="Pesquisar" textFill="WHITE">
+      <Button fx:id="btnPesquisar" layoutX="507.0" layoutY="92.0" mnemonicParsing="false" onAction="#btnPesquisar_click" styleClass="botaoNormal" stylesheets="@../css/estilogeral.css" text="Pesquisar" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <TextField fx:id="txtBuscar" layoutX="16.0" layoutY="92.0" prefHeight="25.0" prefWidth="308.0" />
+      <TextField fx:id="txtBuscar" layoutX="180.0" layoutY="92.0" prefHeight="25.0" prefWidth="308.0" />
+      <ComboBox fx:id="cmbTipo" layoutX="81.0" layoutY="92.0" prefHeight="25.0" prefWidth="94.0" />
    </children>
 </AnchorPane>
