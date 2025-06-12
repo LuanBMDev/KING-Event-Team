@@ -111,6 +111,8 @@ public class ExpositorDAO implements DAO<Expositor>
         
         pst = Banco.obterConexao().prepareStatement(sql);
         
+        pst.setInt(1, model.getCodExpo());
+        
         rs = pst.executeQuery();
         
         if(rs.next())
