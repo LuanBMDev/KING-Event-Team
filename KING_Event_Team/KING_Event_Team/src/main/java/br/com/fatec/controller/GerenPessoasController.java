@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -51,15 +52,15 @@ public class GerenPessoasController implements Initializable
     @FXML
     private TableColumn<Pessoa, String> colTelefone;
     @FXML
-    private Pane panBusca;
-    @FXML
     private Button btnEditar;
     @FXML
     private Button btnDeletar;
     @FXML
     private Button btnNovaPessoa;
     @FXML
-    private Button btnAtualizar;
+    private Button btnPesquisar;
+    @FXML
+    private TextField txtBuscar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -155,9 +156,12 @@ public class GerenPessoasController implements Initializable
         }
     }
 
-    @FXML
     private void btnAtualizar_Click(ActionEvent event) 
     {
         preencherTabela();
+    }
+
+    @FXML
+    private void btnPesquisar_click(ActionEvent event) {
     }
 }
