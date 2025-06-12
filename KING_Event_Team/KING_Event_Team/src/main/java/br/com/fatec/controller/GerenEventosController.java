@@ -14,6 +14,8 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -229,36 +231,60 @@ public class GerenEventosController implements Initializable{
         GerenExposicoesController.evento = evento;
         App.carregarCena("GerenExposicoes");
     }
-    private void preencherTabela()
-    {
-        tbvEventos.getItems().clear();
-        
-        try
-        {
-            EventoDAO dao = new EventoDAO();
-            ObservableList<Evento> lista = FXCollections.observableArrayList(dao.listar(""));
-            //lista.setAll(dao.listar(""));
-            tbvEventos.setItems(lista);
-            
-            colCodEvento.setCellValueFactory(new PropertyValueFactory("codEvento"));
-            colNomeEvento.setCellValueFactory(new PropertyValueFactory("nomeEvento"));
-            colDataInicio.setCellValueFactory(new PropertyValueFactory("dataInicio"));
-            colDataFim.setCellValueFactory(new PropertyValueFactory("dataFim"));
-            colStatus.setCellValueFactory(new PropertyValueFactory("statusEvento"));
-            colLocal.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
-                    cellData.getValue().getLocalizacao().getNomeLocal()));
-            colCategoria.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
-                    cellData.getValue().getCategoria().getNomeCat()));
-            colIngressoPadrao.setCellValueFactory(new PropertyValueFactory("precoPadrao"));
+    private void preencherTabela() {
+    tbvEventos.getItems().clear();
 
-            colTotalVendido.setCellValueFactory(cellData -> new ReadOnlyStringWrapper("0"));
+    // 1. Mapa para guardar total vendido por evento
+    Map<Integer, Double> totalPorEvento = new HashMap<>();
+
+    // 2. Buscar totalPago por evento
+    try {
+        String sql = "SELECT codEvento, SUM(totalPago) as total FROM Ingresso GROUP BY codEvento";
+        Banco.conectar();
+        PreparedStatement pst = Banco.obterConexao().prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            int codEvento = rs.getInt("codEvento");
+            double total = rs.getDouble("total");
+            totalPorEvento.put(codEvento, total);
         }
-        catch(SQLException ex)
-        {
-            App.mensagem("ERRO", "Erro ao preencher tabela.", Alert.AlertType.ERROR);
-        }
-        
+
+        rs.close();
+        pst.close();
+        Banco.desconectar();
+    } catch (SQLException ex) {
+        App.mensagem("ERRO", "Erro ao buscar totais vendidos: " + ex.getMessage(), Alert.AlertType.ERROR);
     }
+
+    // 3. Preencher tabela
+    try {
+        EventoDAO dao = new EventoDAO();
+        ObservableList<Evento> lista = FXCollections.observableArrayList(dao.listar(""));
+        tbvEventos.setItems(lista);
+
+        colCodEvento.setCellValueFactory(new PropertyValueFactory<>("codEvento"));
+        colNomeEvento.setCellValueFactory(new PropertyValueFactory<>("nomeEvento"));
+        colDataInicio.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
+        colDataFim.setCellValueFactory(new PropertyValueFactory<>("dataFim"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("statusEvento"));
+        colLocal.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
+                cellData.getValue().getLocalizacao().getNomeLocal()));
+        colCategoria.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
+                cellData.getValue().getCategoria().getNomeCat()));
+        colIngressoPadrao.setCellValueFactory(new PropertyValueFactory<>("precoPadrao"));
+
+        // 4. Coluna com total vendido para cada evento
+        colTotalVendido.setCellValueFactory(cellData -> {
+            int codEvento = cellData.getValue().getCodEvento();
+            double total = totalPorEvento.getOrDefault(codEvento, 0.0);
+            return new ReadOnlyStringWrapper(String.format("%.2f", total));
+        });
+
+    } catch (SQLException ex) {
+        App.mensagem("ERRO", "Erro ao preencher tabela: " + ex.getMessage(), Alert.AlertType.ERROR);
+    }
+}
 
     @FXML
     private void btnPesquisar_Click(ActionEvent event) {
