@@ -9,7 +9,10 @@ import br.com.fatec.DAO.EventoDAO;
 import br.com.fatec.model.Categoria;
 import br.com.fatec.model.Evento;
 import br.com.fatec.model.Localizacao;
+import br.com.fatec.persistencia.Banco;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -20,9 +23,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -62,8 +67,6 @@ public class GerenEventosController implements Initializable{
     @FXML
     private TableColumn<Evento, String> colTotalVendido;
     @FXML
-    private Pane panBusca;
-    @FXML
     private Button btnDeletar;
     @FXML
     private Button btnEditar;
@@ -77,6 +80,22 @@ public class GerenEventosController implements Initializable{
     private Button btnCadExposicao;
     @FXML
     private Button btnGerenExposicoes;
+    @FXML
+    private ComboBox<String> cmbTipo;
+    @FXML
+    private TextField txtPesquisar;
+    @FXML
+    private Button btnPesquisar;
+    
+    private String buscar;
+    
+    private String tipoBusca;
+    
+    private PreparedStatement pst;
+    
+    private ResultSet rs;
+    
+    private Evento evento;
 
     /**
      *
@@ -86,6 +105,7 @@ public class GerenEventosController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        preencherTabela();
+       cmbTipo.getItems().addAll("CodEvento", "NomeEvento", "DataInicio", "DataFim", "StatusEvento", "CodLocal", "CodCat", "PrecoIngresso");
     }
     
     @FXML
@@ -237,6 +257,70 @@ public class GerenEventosController implements Initializable{
         {
             App.mensagem("ERRO", "Erro ao preencher tabela.", Alert.AlertType.ERROR);
         }
+        
+    }
+
+    @FXML
+    private void btnPesquisar_Click(ActionEvent event) {
+        buscar = txtPesquisar.getText();
+        tipoBusca = cmbTipo.getValue();
+        
+        try{
+        String sql = "SELECT * FROM evento ";
+            
+        if(tipoBusca != null){
+            sql += " WHERE " + tipoBusca;
+            if(buscar.matches("\\d+")){
+                sql += " = " + buscar + ";";
+            }
+            else{
+                sql += " = '" + buscar + "';";
+            }
+        }
+        else{
+            App.mensagem("AVISO, Selecione um tipo de pesquisa!", Alert.AlertType.INFORMATION);
+        }
+            
+        Banco.conectar();
+        pst = Banco.obterConexao().prepareStatement(sql);
+        rs = pst.executeQuery();
+        
+        while(rs.next()){
+            evento = new Evento(null, null);
+        
+            evento.setCodEvento(rs.getInt("codEvento"));
+            evento.setNomeEvento(rs.getString("nomeEvento"));
+            evento.setDataInicio(rs.getString("dataInicio"));
+            evento.setDataFim(rs.getString("dataFim"));
+            evento.setStatusEvento(rs.getString("statusEvento"));
+            evento.setPrecoPadrao(rs.getDouble("precoIngresso"));
+        
+        }
+        Banco.desconectar();
+        rs.close();
+        }
+        catch(SQLException ex){
+            
+        }
+        
+        tbvEventos.getItems().clear();
+        
+        ObservableList<Evento> listar = FXCollections.observableArrayList(evento);
+        
+        tbvEventos.setItems(listar);
+            
+            colCodEvento.setCellValueFactory(new PropertyValueFactory("codEvento"));
+            colNomeEvento.setCellValueFactory(new PropertyValueFactory("nomeEvento"));
+            colDataInicio.setCellValueFactory(new PropertyValueFactory("dataInicio"));
+            colDataFim.setCellValueFactory(new PropertyValueFactory("dataFim"));
+            colStatus.setCellValueFactory(new PropertyValueFactory("statusEvento"));
+            colLocal.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
+                    cellData.getValue().getLocalizacao().getNomeLocal()));
+            colCategoria.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
+                    cellData.getValue().getCategoria().getNomeCat()));
+            colIngressoPadrao.setCellValueFactory(new PropertyValueFactory("precoPadrao"));
+
+            colTotalVendido.setCellValueFactory(cellData -> new ReadOnlyStringWrapper("0"));
         
     }
 }
