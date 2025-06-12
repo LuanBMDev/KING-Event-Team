@@ -27,6 +27,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
@@ -53,16 +55,19 @@ public class NovaExposicaoController implements Initializable
     private Button btnVoltar;
     
     private Exposicao exposicao;
-    public static boolean isModoEdicao = false;
+    public static boolean isModoEdicao;
+    private ExposicaoDAO dao = new ExposicaoDAO();;
     public static Exposicao expoAEditar;
     public static Evento evento;
     private PreparedStatement pst;
     private ResultSet rs;
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    
+    public void initialize(URL url, ResourceBundle rb) 
+    {
+        if (isModoEdicao) evento = expoAEditar.getEvento();
         carregarExpositor();
+        carregarModoGravacao();
     }
     
     @FXML
@@ -82,8 +87,15 @@ public class NovaExposicaoController implements Initializable
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
+        voltar();
+    }
+    
+    private void voltar()
+    {
+        desativarEdicao();
         App.voltarHierarquia("GerenEventos", "GerenExposicoes");
     }
+    
     private Exposicao carregarModel(){
             Exposicao model = new Exposicao(null, null);
             model.setDescricao(txtDescricao.getText());
@@ -101,13 +113,13 @@ public class NovaExposicaoController implements Initializable
             try{
             Exposicao e = new Exposicao(null, null);
             e = carregarModel();
-
-            ExposicaoDAO dao = new ExposicaoDAO();
+            
             if (isModoEdicao)
             {
                 // script do modo edição
                 dao.alterar(e);
                 App.mensagem("SUCESSO", "Alterado com sucesso!");
+                voltar();
             }
             else
             {
@@ -135,17 +147,37 @@ public class NovaExposicaoController implements Initializable
     
     private void limpar()
     {
-    txtDescricao.clear();
-    cmbExpositor.setValue(null);
-    desativarEdicao();
+        txtDescricao.clear();
+        cmbExpositor.setValue(null);
+        desativarEdicao();
     }
     
     private void desativarEdicao()
     {
         isModoEdicao = false;
         expoAEditar = null;
-        //carregarModoGravacao();
+        carregarModoGravacao();
     }
+    
+    private void carregarModoGravacao()
+    {
+        if(isModoEdicao)
+        {
+            lblTitulo.setText("EDITAR EXPOSIÇÃO");
+            lblTitulo.setFont(Font.font("System", FontWeight.BOLD, 32));
+            
+            txtDescricao.setText(expoAEditar.getDescricao());
+            cmbExpositor.setValue(expoAEditar.getExpositor());
+            cmbExpositor.setDisable(true);
+        }
+        else
+        {
+            lblTitulo.setText("NOVA EXPOSIÇÃO");
+            lblTitulo.setFont(Font.font("System", FontWeight.BOLD, 36));
+            cmbExpositor.setDisable(false);
+        }
+    }
+    
     private void carregarExpositor(){
         try {
             Banco.conectar();

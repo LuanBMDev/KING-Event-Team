@@ -43,9 +43,8 @@
       </Label>
       <TableView fx:id="tbvExposicoes" layoutX="10.0" layoutY="110.0" prefHeight="200.0" prefWidth="504.0">
         <columns>
-            <TableColumn fx:id="colcod" prefWidth="75.0" text="colCod" />
-          <TableColumn fx:id="colNomeExpo" prefWidth="111.99994373321533" text="Nome Expositor" />
-          <TableColumn fx:id="colDescExpo" prefWidth="253.33336639404297" text="Descrição" />
+          <TableColumn fx:id="colNomeExpo" prefWidth="131.0" text="Nome Expositor" />
+          <TableColumn fx:id="colDescExpo" prefWidth="372.0" text="Descrição" />
         </columns>
       </TableView>
       <Pane fx:id="panBusca" layoutX="522.0" layoutY="132.0" prefHeight="178.0" prefWidth="164.0" style="-fx-border-color: white;" />

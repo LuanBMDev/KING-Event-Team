@@ -72,7 +72,7 @@ public class ExposicaoDAO implements DAO<Exposicao>{
 
     @Override
     public boolean alterar(Exposicao model) throws SQLException {
-        String sql = "UPDATE Exposicao SET descricao = ?"
+        String sql = "UPDATE Exposicao SET descricao = ? "
                 + "WHERE codEvento = ? AND codExpo = ?;";
         
         Banco.conectar();

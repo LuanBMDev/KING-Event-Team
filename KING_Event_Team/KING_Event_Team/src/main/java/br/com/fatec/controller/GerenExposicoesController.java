@@ -6,6 +6,7 @@ package br.com.fatec.controller;
 
 import br.com.fatec.App;
 import br.com.fatec.DAO.ExposicaoDAO;
+import br.com.fatec.model.Evento;
 import br.com.fatec.model.Exposicao;
 import java.net.URL;
 import java.sql.SQLException;
@@ -47,8 +48,6 @@ public class GerenExposicoesController implements Initializable
     @FXML
     private TableColumn<Exposicao, String> colDescExpo;
     @FXML
-    private TableColumn<Exposicao, String> colcod;
-    @FXML
     private Pane panBusca;
     @FXML
     private Button btnNovaExpo;
@@ -57,6 +56,7 @@ public class GerenExposicoesController implements Initializable
     @FXML
     private Button btnDeletar;
    
+    public static Evento evento;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -90,7 +90,18 @@ public class GerenExposicoesController implements Initializable
     }
 
     @FXML
-    private void btnEditar_Click(ActionEvent event) {
+    private void btnEditar_Click(ActionEvent event) 
+    {
+        Exposicao exposicao = tbvExposicoes.getSelectionModel().selectedItemProperty().get();
+        if(exposicao == null)
+        {
+            App.mensagem("AVISO", "Selecione uma Exposição!", Alert.AlertType.WARNING);
+            return;
+        }
+        exposicao.setEvento(evento);
+        NovaExposicaoController.expoAEditar = exposicao;
+        NovaExposicaoController.isModoEdicao = true;
+        App.carregarCena("NovaExposicao");
     }
 
     @FXML
@@ -103,10 +114,10 @@ public class GerenExposicoesController implements Initializable
         try
         {
             ExposicaoDAO dao = new ExposicaoDAO();
-            ObservableList<Exposicao> lista = FXCollections.observableArrayList(dao.listar(""));
+            ObservableList<Exposicao> lista = FXCollections.observableArrayList(
+                    dao.listar("codEvento = " + evento.getCodEvento()));
             tbvExposicoes.setItems(lista);
-            colcod.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
-                   String.valueOf(cellData.getValue().getEvento().getCodEvento())));
+            
             colNomeExpo.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
                    cellData.getValue().getExpositor().getNomeFant()));
             colDescExpo.setCellValueFactory(new PropertyValueFactory("descricao"));

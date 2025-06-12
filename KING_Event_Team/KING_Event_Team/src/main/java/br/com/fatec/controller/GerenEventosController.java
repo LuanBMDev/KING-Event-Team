@@ -206,7 +206,7 @@ public class GerenEventosController implements Initializable{
             return;
         }
         
-        NovaExposicaoController.evento = evento;
+        GerenExposicoesController.evento = evento;
         App.carregarCena("GerenExposicoes");
     }
     private void preencherTabela()
