@@ -17,6 +17,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -143,7 +145,13 @@ public class GerenExpositoresController implements Initializable {
             App.mensagem("AVISO", "Selecione um Expositor!", Alert.AlertType.WARNING);
             return;
         }
-        
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("CONFIRMAÇÃO");
+        alerta.setHeaderText("Deseja excluir este item?");
+        Optional<ButtonType> resultado = alerta.showAndWait();
+        if(resultado.isPresent() && resultado.get() == ButtonType.OK){
+            
+        }
         try
         {
             ExpositorDAO dao = new ExpositorDAO();

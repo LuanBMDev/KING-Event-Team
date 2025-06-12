@@ -12,6 +12,7 @@ import br.com.fatec.model.Exposicao;
 import br.com.fatec.model.Expositor;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -121,6 +123,11 @@ public class GerenExposicoesController implements Initializable
             App.mensagem("AVISO", "Selecione uma Exposição!", Alert.AlertType.WARNING);
             return;
         }
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("CONFIRMAÇÃO");
+        alerta.setHeaderText("Deseja excluir este item?");
+        Optional<ButtonType> resultado = alerta.showAndWait();
+        if(resultado.isPresent() && resultado.get() == ButtonType.OK){
         
         exposicao.setEvento(evento);
         try
@@ -134,6 +141,7 @@ public class GerenExposicoesController implements Initializable
         }
         
         preencherTabela();
+        }
     }
     
     private void preencherTabela(){
