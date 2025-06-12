@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -135,19 +137,29 @@ public class GerenPessoasController implements Initializable
             App.mensagem("AVISO", "Selecione uma Pessoa!", Alert.AlertType.WARNING);
             return;
         }
-        
-        try
-        {
-            PessoaDAO dao = new PessoaDAO();
-            dao.remover(pessoa);
-            App.mensagem("SUCESSO", pessoa.getNome() + " foi removido(a) com sucesso!");   
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("CONFIRMAÇÃO");
+        alerta.setHeaderText("Deseja excluir este item?");
+        Optional<ButtonType> resultado = alerta.showAndWait();
+        if(resultado.isPresent() && resultado.get() == ButtonType.OK){
+          
+            try
+            {
+                PessoaDAO dao = new PessoaDAO();
+                dao.remover(pessoa);
+                App.mensagem("SUCESSO", pessoa.getNome() + " foi removido(a) com sucesso!");   
+            }
+            catch(SQLException ex)
+            {
+                App.mensagem("ERRO", "Erro ao Deletar", Alert.AlertType.ERROR);
+            }
+
+            preencherTabela();
         }
-        catch(SQLException ex)
-        {
-            App.mensagem("ERRO", "Erro ao Deletar", Alert.AlertType.ERROR);
+        else{
+            App.mensagem("VOLTAR", pessoa.getNome() + " não foi removido(a)!"); 
+            preencherTabela();
         }
-        
-        preencherTabela();
     }
 
     @FXML

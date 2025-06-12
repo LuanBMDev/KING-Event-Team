@@ -12,6 +12,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -135,17 +137,24 @@ public class GerenLocaisController implements Initializable
             App.mensagem("AVISO", "Selecione uma Localização!", Alert.AlertType.WARNING);
             return;
         }
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("CONFIRMAÇÃO");
+        alerta.setHeaderText("Deseja excluir este item?");
+        Optional<ButtonType> resultado = alerta.showAndWait();
+        if(resultado.isPresent() && resultado.get() == ButtonType.OK){
+
         
-        try
-        {
-            LocalizacaoDAO dao = new LocalizacaoDAO();
-            dao.remover(localizacao);
-            App.mensagem("SUCESSO", localizacao.getNomeLocal() + " foi removido com sucesso!");
-            preencherTabela();
-        }
-        catch(SQLException ex)
-        {
-             App.mensagem("ERRO", "Erro ao Deletar: É possível que essa localização esteja sendo usada em um evento.", Alert.AlertType.ERROR);
+            try
+            {
+                LocalizacaoDAO dao = new LocalizacaoDAO();
+                dao.remover(localizacao);
+                App.mensagem("SUCESSO", localizacao.getNomeLocal() + " foi removido com sucesso!");
+                preencherTabela();
+            }
+            catch(SQLException ex)
+            {
+                 App.mensagem("ERRO", "Erro ao Deletar: É possível que essa localização esteja sendo usada em um evento.", Alert.AlertType.ERROR);
+            }
         }
     }
 

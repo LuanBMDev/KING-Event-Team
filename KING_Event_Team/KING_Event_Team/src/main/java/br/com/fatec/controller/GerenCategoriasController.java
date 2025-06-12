@@ -12,6 +12,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -117,20 +119,25 @@ public class GerenCategoriasController implements Initializable{
             App.mensagem("AVISO", "Selecione uma Pessoa!", Alert.AlertType.WARNING);
             return;
         }
-        
-        try
-        {
-            CategoriaDAO dao = new CategoriaDAO();
-            dao.remover(categoria);
-            App.mensagem("SUCESSO", categoria.getNomeCat() + " foi removido(a) com sucesso!");   
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("CONFIRMAÇÃO");
+        alerta.setHeaderText("Deseja excluir este item?");
+        Optional<ButtonType> resultado = alerta.showAndWait();
+            if(resultado.isPresent() && resultado.get() == ButtonType.OK){
+
+            try
+            {
+                CategoriaDAO dao = new CategoriaDAO();
+                dao.remover(categoria);
+                App.mensagem("SUCESSO", categoria.getNomeCat() + " foi removido(a) com sucesso!");   
+            }
+            catch(SQLException ex)
+            {
+                App.mensagem("ERRO", "Erro ao Deletar", Alert.AlertType.ERROR);
+            }
+
+            preencherTabela();
         }
-        catch(SQLException ex)
-        {
-            App.mensagem("ERRO", "Erro ao Deletar", Alert.AlertType.ERROR);
-        }
-        
-        preencherTabela();
-        
     }
 
     @FXML
