@@ -73,9 +73,16 @@ public class NovoIngressoController implements Initializable
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        iniciar();
+    }
+    
+    private void iniciar()
+    {
+        if (isModoEdicao) evento = ingressoAEditar.getEvento();
         carregarPessoa();
+        carregarModoEdicao();
         txtNomeEvento.setText(evento.getNomeEvento());
-        txtValorFinal.setText(String.format("%.2f", evento.getPrecoPadrao()));
+        mudarPreco();
     }
     
     @FXML
@@ -87,7 +94,7 @@ public class NovoIngressoController implements Initializable
 
     @FXML
     private void btnMin_Click(ActionEvent event) 
-    {
+    {   
         Stage stage = (Stage) btnMin.getScene().getWindow();
         stage.setIconified(true);
     }
@@ -95,6 +102,12 @@ public class NovoIngressoController implements Initializable
     @FXML
     private void btnVoltar_Click(ActionEvent event) 
     {
+        voltar();
+    }
+    
+    private void voltar()
+    {
+        desativarEdicao();
         App.voltarHierarquia("GerenEventos", "GerenIngressos");
     }
 
@@ -107,6 +120,7 @@ public class NovoIngressoController implements Initializable
                 if(isModoEdicao){
                     ingressoDAO.alterar(ingresso);
                     App.mensagem("SUCESSO!", "Ingresso alterado com sucesso!");
+                    voltar();
                 }
                 else{
                     ingressoDAO.inserir(ingresso);
@@ -115,7 +129,14 @@ public class NovoIngressoController implements Initializable
                 limparDados();
             }
             catch(SQLException ex){
-                
+                if(isModoEdicao)
+                {
+                    App.mensagem("ERRO", "Falha ao editar: " + ex.getMessage(), Alert.AlertType.ERROR);
+                }
+                else
+                {
+                    App.mensagem("ERRO", "Falha ao cadastrar: " + ex.getMessage(), Alert.AlertType.ERROR);
+                }
             }
         }
         else{
@@ -155,19 +176,64 @@ public class NovoIngressoController implements Initializable
         
         model.setPessoa(cmbPessoa.getValue());
         model.setEvento(evento);
+        
         model.setTotalPago(Double.parseDouble(txtValorFinal.getText().replace(",", ".")));
+        
+        
         model.setMeiaEntrada(chk);
         
         return model;
     }
     
+    private void carregarModoEdicao()
+    {
+        if(isModoEdicao)
+        {
+            lblTitulo.setText("EDITAR INGRESSO");
+            btnCadIngresso.setText("ALTERAR");
+            
+            cmbPessoa.setValue(ingressoAEditar.getPessoa());
+            cmbPessoa.setDisable(true);
+            
+            if(ingressoAEditar.getMeiaEntrada() == 1)
+            {
+                chkMeiaEntrada.setSelected(true);
+                mudarPreco();
+            }
+            else
+            {
+                chkMeiaEntrada.setSelected(false);
+                mudarPreco();
+            }
+        }
+        else
+        {
+            lblTitulo.setText("NOVO INGRESSO");
+            btnCadIngresso.setText("CADASTRAR");
+            cmbPessoa.setDisable(false);
+        }
+    }
+    
+    private void desativarEdicao()
+    {
+        isModoEdicao = false;
+        ingressoAEditar = null;
+        carregarModoEdicao();
+    }
+    
     private void limparDados(){
         cmbPessoa.setValue(null);
         chkMeiaEntrada.setSelected(false);
+        desativarEdicao();
     }
 
     @FXML
     private void chkMeiaEntrada_Click(ActionEvent event) {
+        mudarPreco();
+    }
+    
+    private void mudarPreco()
+    {
         if(chkMeiaEntrada.isSelected()){
             txtValorFinal.setText(String.format("%.2f", evento.getPrecoPadrao() / 2));
             chk = 1;
