@@ -7,7 +7,10 @@ package br.com.fatec.controller;
 import br.com.fatec.App;
 import br.com.fatec.DAO.LocalizacaoDAO;
 import br.com.fatec.model.Localizacao;
+import br.com.fatec.persistencia.Banco;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -17,9 +20,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -57,18 +62,33 @@ public class GerenLocaisController implements Initializable
     @FXML
     private TableColumn<Localizacao, String> colTipo;
     @FXML
-    private Pane panBusca;
-    @FXML
     private Button btnEditar;
     @FXML
     private Button btnDeletar;
     @FXML
     private Button btnNovoLocal;
+    @FXML
+    private ComboBox<String> cmbTipo;
+    @FXML
+    private TextField txtBuscar;
+    @FXML
+    private Button btnPesquisar;
+    
+    private String buscar;
+    
+    private String tipoBusca;
+    
+    private PreparedStatement pst;
+    
+    private ResultSet rs;
+    
+    private Localizacao localizacao;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
         preencherTabela();
+        cmbTipo.getItems().addAll("CodLocal", "NomeLocal", "CEP", "Endereco", "NumeroLocal", "Cidade", "Estado", "TipoLocal");
     }
     
     @FXML
@@ -164,5 +184,64 @@ public class GerenLocaisController implements Initializable
     private void btnAtualizar_Click(ActionEvent event)
     {
         preencherTabela();
+    }
+
+    @FXML
+    private void btnPesquisar_Click(ActionEvent event) {
+        buscar = txtBuscar.getText();
+        tipoBusca = cmbTipo.getValue();
+        
+        try{
+        String sql = "SELECT * FROM localizacao ";
+            
+        if(tipoBusca != null){
+            sql += " WHERE " + tipoBusca;
+            if(buscar.matches("\\d+")){
+                sql += " = " + buscar + ";";
+            }
+            else{
+                sql += " = '" + buscar + "';";
+            }
+        }
+        else{
+            App.mensagem("AVISO, Selecione um tipo de pesquisa!", Alert.AlertType.INFORMATION);
+        }
+            
+        Banco.conectar();
+        pst = Banco.obterConexao().prepareStatement(sql);
+        rs = pst.executeQuery();
+        
+        while(rs.next()){
+        localizacao = new Localizacao();
+        
+        localizacao.setCodLocal(rs.getInt("codLocal"));
+        localizacao.setNomeLocal(rs.getString("nomeLocal"));
+        localizacao.setCEP(rs.getString("CEP"));
+        localizacao.setEnderecoLocal(rs.getString("endereco"));
+        localizacao.setNumeroLocal(rs.getString("numeroLocal"));
+        localizacao.setCidade(rs.getString("cidade"));
+        localizacao.setEstado(rs.getString("estado"));
+        localizacao.setTipoLocal(rs.getString("tipoLocal"));
+        
+        }
+        Banco.desconectar();
+        rs.close();
+        }
+        catch(SQLException ex){
+            
+        }
+        
+        tbvLocais.getItems().clear();
+        
+        ObservableList<Localizacao> listar = FXCollections.observableArrayList(localizacao);
+        tbvLocais.setItems(listar);
+        colCodigo.setCellValueFactory(new PropertyValueFactory("codLocal"));
+        colNomeLocal.setCellValueFactory(new PropertyValueFactory("nomeLocal"));
+        colEndereco.setCellValueFactory(new PropertyValueFactory("enderecoLocal"));
+        colNumero.setCellValueFactory(new PropertyValueFactory("numeroLocal"));
+        colCidade.setCellValueFactory(new PropertyValueFactory("cidade"));
+        colEstado.setCellValueFactory(new PropertyValueFactory("estado"));
+        colCEP.setCellValueFactory(new PropertyValueFactory("CEP"));
+        colTipo.setCellValueFactory(new PropertyValueFactory("tipoLocal"));
     }
 }

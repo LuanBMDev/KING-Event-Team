@@ -70,7 +70,7 @@ public class GerenPessoasController implements Initializable
     @FXML
     private TextField txtBuscar;
     
-    public String buscar;
+    private String buscar;
     @FXML
     private ComboBox<String> cmbTipo;
     
