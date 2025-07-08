@@ -6,6 +6,7 @@ package br.com.fatec.controller;
 
 import br.com.fatec.App;
 import br.com.fatec.DAO.CategoriaDAO;
+import br.com.fatec.DAO.DAO;
 import br.com.fatec.model.Categoria;
 import java.net.URL;
 import java.sql.SQLException;
@@ -67,8 +68,6 @@ public class NovaCategoriaController implements Initializable
     @FXML
     private void btnCadCat_Click(ActionEvent event) throws SQLException 
     {
-
-       
        if(txtNomeCat.getText().isBlank())
         {
             App.mensagem("AVISO!", "PREENCHA O CAMPO OBRIGATÓRIO!", Alert.AlertType.WARNING);
@@ -140,11 +139,12 @@ public class NovaCategoriaController implements Initializable
         App.voltarHierarquia("MenuPrincipal", "GerenCategorias", "NovoEvento");
     }
 
-    private Categoria carregarModel(){
-            Categoria model = new Categoria();
-            if(isModoEdicao) model.setCodCat(catAEditar.getCodCat());
-            model.setNomeCat(txtNomeCat.getText().trim());
-            return model;
+    private Categoria carregarModel()
+    {
+        Categoria model = new Categoria();
+        if(isModoEdicao) model.setCodCat(catAEditar.getCodCat());
+        model.setNomeCat(txtNomeCat.getText().trim());
+        return model;
     }
     private void desativarEdicao()
     {
